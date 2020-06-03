@@ -1,0 +1,15 @@
+
+.c-referencetoc.root {
+	padding: 16px 0;
+}
+
+ul.c-referencetoc {
+	margin: 0;
+	padding-left: 20px;
+}
+li.c-referencetoc {
+	margin: 0;
+}
+li.c-referencetoc + li.c-referencetoc {
+	margin: 0;
+}
