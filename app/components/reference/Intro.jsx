@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import './Tutorial.css';
 import './Reference.css';
 import ReferenceTOC from './ReferenceTOC.jsx';
+import Snippet from '../Snippet.jsx';
 
 const cssns = (classes) => "c-ref-intro m-reference m-tutorial " + (classes || "");
 
@@ -66,11 +67,14 @@ class RefIntro extends React.Component {
                     <p className={cssns("cozy")}>Put the code to the right into a file named {incode("hello.vale")}, and then run {incode("vale run hello.vale")} to see it produce the output in the gray box. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="running"/></p>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
-{`fn main() {
+                    <Snippet>
+{/*
+fn main() {
   println("Hello world!");
-}`}
-                    </div>
+}
+*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> &#123;<br />  <span class="Block"><span class="Call"><span class="CallLookup">println</span>(<span class="Str">"Hello world!"</span>)</span>;<span class="W"></span></span><br />&#125;</span><br /></span>
+                    </Snippet>
                     <div className={cssns("output")}>
 {`Hello world!`}
                     </div>
@@ -91,12 +95,13 @@ class RefIntro extends React.Component {
 
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
-{`fn main() {
+                    <Snippet>
+{/*fn main() {
   x = "world!";
   println("Hello " + x);
-}`}
-                    </div>
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let">x = <span class="Str">"world!"</span>;</span><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Call"><span class="Str">"Hello "</span> <span class="CallLookup">+</span> <span class="Lookup">x</span></span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
+                    </Snippet>
                     <div className={cssns("output")}>
 {`Hello world!`}
                     </div>
@@ -112,13 +117,13 @@ class RefIntro extends React.Component {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn main() {
   x! = "world!";
   mut x = "Antarctica!";
   println("Hello " + x);
 }`}
-                    </div>
+                    </Snippet>
                     <div className={cssns("output")}>
 {`Hello Antarctica!`}
                     </div>
@@ -142,12 +147,12 @@ class RefIntro extends React.Component {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn main() {
   x Str = "world!";
   println("Hello " + x);
 }`}
-                    </div>
+                    </Snippet>
                     <div className={cssns("output")}>
 {`Hello world!`}
                     </div>
@@ -165,14 +170,14 @@ class RefIntro extends React.Component {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn add2(x Int) Int {
   ret x + 2;
 }
 fn main() {
   println("Half-Life " + add2(1));
 }`}
-                    </div>
+                    </Snippet>
                     <div className={cssns("output")}>
 {`Half-Life 3`}
                     </div>
@@ -186,11 +191,11 @@ fn main() {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn add2(x Int) {
   ret x + 2;
 }`}
-                    </div>
+                    </Snippet>
                   </div>
                 </div>
 
@@ -201,9 +206,9 @@ fn main() {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn add2(x Int) { x + 2 }`}
-                    </div>
+                    </Snippet>
                   </div>
                 </div>
 
@@ -214,12 +219,12 @@ fn main() {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn main() {
   add2 = (x Int){ x + 2 };
   println("Half-Life " + add2(1));
 }`}
-                    </div>
+                    </Snippet>
                   </div>
                 </div>
 
@@ -230,12 +235,12 @@ fn main() {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn main() {
   add2 = (x){ x + 2 };
   println("Half-Life " + add2(1));
 }`}
-                    </div>
+                    </Snippet>
                   </div>
                 </div>
 
@@ -246,12 +251,12 @@ fn main() {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn main() {
   add2 = { _ + 2 };
   println("Half-Life " + add2(1));
 }`}
-                    </div>
+                    </Snippet>
                   </div>
                 </div>
 
@@ -262,10 +267,10 @@ fn main() {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`s = "Hail Hydra!".split(" ");
 s = split("Hail Hydra!", "");`}
-                    </div>
+                    </Snippet>
                   </div>
                 </div>
 
@@ -283,13 +288,13 @@ s = split("Hail Hydra!", "");`}
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn main() {
   arr = [5, true, "V"];
   println("Babylon " + arr.0);
   println("Saturn " + arr[1 + 1]);`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="variantindexing"/>{`
 }`}
-                    </div>
+                    </Snippet>
                     <div className={cssns("output")}>
 {`Babylon 5
 Saturn V`}
@@ -307,13 +312,13 @@ Saturn V`}
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn add2(x Int) { x + 2 }
 fn main() {
   arr = 3 * add2;`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="ntupletype"/>{`
   println(arr);
 }`}
-                    </div>
+                    </Snippet>
                     <div className={cssns("output")}>
 {`[2, 3, 4]`}
                     </div>
@@ -327,12 +332,12 @@ fn main() {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn main() {
   arr = 3 * {_ + 2};
   println(arr);
 }`}
-                    </div>
+                    </Snippet>
                     <div className={cssns("output")}>
 {`[2, 3, 4]`}
                     </div>
@@ -355,13 +360,13 @@ fn main() {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn main() {
   n = inputInt();`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="inputInt"/>{`
   arr = Array(n, {_ * 5});`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="arraytype"/>{`
   println(arr);
 }`}
-                    </div>
+                    </Snippet>
                     <div className={cssns("input")}>
 {`4`}
                     </div>
@@ -384,7 +389,7 @@ fn main() {
                     </div>
                   </div>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn main() {
   l = List<Int>();
   l.add(1);
@@ -392,7 +397,7 @@ fn main() {
   l.add(7);
   println(l);
 }`}
-                    </div>
+                    </Snippet>
                     <div className={cssns("output")}>
 {`List(1, 3, 7)`}
                     </div>
@@ -408,14 +413,14 @@ fn main() {
 
                 <div className={cssns("content splitter")}>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn main() {
   arr = ["Storm", "Earth", "Fire"];
   each arr (x){
     println(x);
   }
 }`}
-                    </div>
+                    </Snippet>
                   </div>
                   <div className={cssns("half")}>
                     <div className={cssns("output")}>
@@ -436,14 +441,14 @@ Fire
 
                 <div className={cssns("content splitter")}>
                   <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                    <Snippet>
 {`fn main() {
   arr = ["Storm", "Earth", "Fire"];
   eachI arr (i, x){
     println(i + ": " + x);
   }
 }`}
-                    </div>
+                    </Snippet>
                   </div>
                   <div className={cssns("half")}>
                     <div className={cssns("output")}>

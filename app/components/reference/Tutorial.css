@@ -29,19 +29,6 @@
   margin-bottom: 16px;
 }
 
-.m-tutorial .code {
-  width: 100%;
-  box-sizing: border-box;
-  color: #f8f8f2;
-  background-color: #282923;
-  padding: 0.5em;
-  white-space: pre;
-  font-size: 9.5pt;
-  font-family: Roboto Mono, Courier New, Courier;
-  line-height: 12pt;
-  overflow: auto;
-}
-
 .m-tutorial .input {
   width: 100%;
   box-sizing: border-box;
