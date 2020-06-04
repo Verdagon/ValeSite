@@ -42,6 +42,19 @@
   overflow: auto;
 }
 
+.m-tutorial .input {
+  width: 100%;
+  box-sizing: border-box;
+  color: #f8f8f2;
+  background-color: #506090;
+  padding: 0.5em;
+  white-space: pre;
+  font-size: 9.5pt;
+  font-family: Roboto Mono, Courier New, Courier;
+  line-height: 12pt;
+  overflow: auto;
+}
+
 .m-tutorial .output {
   width: 100%;
   box-sizing: border-box;

@@ -39,9 +39,9 @@ class Home extends React.Component {
                   <li><Link to="/ref/memory" className={ns("feature-title")}>Memory Safe</Link>, using constraint references, with multiple simultaneous mutable references.</li>
                   <li><Link to="/ref/generics" className={ns("feature-title")}>Generics</Link>, including virtual generics.</li>
                   <li><Link to="/ref/interfaces" className={ns("feature-title")}>Interface Constructors</Link></li>
-                  <li><Link to="/ref/calls#ufcs" className={ns("feature-title")}>UFCS</Link></li>
+                  <li><Link to="/ref/intro#ufcs" className={ns("feature-title")}>UFCS</Link></li>
                   <li><Link to="/ref/lambdas" className={ns("feature-title")}>Polymorphic Lambdas</Link></li>
-                  <li><Link to="/ref/calls#infix" className={ns("feature-title")}>Infix calling</Link></li>
+                  <li><Link to="/ref/operators#infix" className={ns("feature-title")}>Infix calling</Link></li>
                   <li><Link to="/ref/structs#mutability" className={ns("feature-title")}>Mutable and Immutable Objects</Link></li>
                   <li><Link to="/ref/patterns" className={ns("feature-title")}>Pattern Matching, Destructuring, Parameter Patterns, Pattern Calling</Link></li>
                 </ul>
@@ -54,7 +54,7 @@ class Home extends React.Component {
               <div className={ns("upcoming-title")}>Upcoming Features:</div>
               <ul>
                 <li><Link to="/ref/interfaces#structural" className={ns("feature-title")}>Structural Interfaces</Link>, using interface constructors.</li>
-                <li><Link to="/ref/calls#shortcalling" className={ns("feature-title")}>Shortcalling Syntax</Link></li>
+                <li><Link to="/ref/structs#shortcalling" className={ns("feature-title")}>Shortcalling Syntax</Link></li>
                 <li><Link to="/ref/ownership#weak" className={ns("feature-title")}>Weak References</Link></li>
                 <li><Link to="/ref/memory#inline" className={ns("feature-title")}>Inline References</Link> for optimization.</li>
                 <li><Link to="/ref/ownership#borrow" className={ns("feature-title")}>Borrow References</Link> for optimization.</li>

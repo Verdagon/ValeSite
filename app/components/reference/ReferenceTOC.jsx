@@ -9,7 +9,6 @@ class ReferenceTOC extends React.Component {
 
     let sectionsByPage = {
       "intro": <Link to="/ref/intro">Intro</Link>,
-      "functions": <Link to="/ref/functions">Functions</Link>,
       "structs": <Link to="/ref/structs">Structs</Link>,
       "ownership": <Link to="/ref/ownership">Ownership</Link>,
       "references": <Link to="/ref/references">References</Link>,
@@ -31,20 +30,11 @@ class ReferenceTOC extends React.Component {
             <li className={cssns()}>Hello world!</li>
             <li className={cssns()}>Locals</li>
             <li className={cssns()}>Static Typing & Inference</li>
-            <li className={cssns()}>Arrays & Lists</li>
+            <li className={cssns()}>Functions</li>
+            <li className={cssns()}>Tuples</li>
+            <li className={cssns()}>Arrays</li>
+            <li className={cssns()}>Lists</li>
             <li className={cssns()}>Loops</li>
-          </ul>
-        </div>
-      );
-    }
-    if (page == "functions") {
-      sectionsByPage["functions"] = (
-        <div>
-          <strong>Functions *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Calling</li>
-            <li className={cssns()}>Infix Calling</li>
-            <li className={cssns()}>Shortcalling</li>
           </ul>
         </div>
       );
@@ -90,7 +80,7 @@ class ReferenceTOC extends React.Component {
     if (page == "interfaces") {
       sectionsByPage["interfaces"] = (
         <div>
-          <strong>Functions *</strong>
+          <strong>Interfaces *</strong>
           <ul className={cssns()}>
             <li className={cssns()}>Interfaces</li>
             <li className={cssns()}>Interface Constructors</li>
@@ -165,7 +155,6 @@ class ReferenceTOC extends React.Component {
         Reference
         <ul className={cssns()}>
           <li className={cssns()}>{sectionsByPage["intro"]}</li>
-          <li className={cssns()}>{sectionsByPage["functions"]}</li>
           <li className={cssns()}>{sectionsByPage["structs"]}</li>
           <li className={cssns()}>{sectionsByPage["ownership"]}</li>
           <li className={cssns()}>{sectionsByPage["references"]}</li>
