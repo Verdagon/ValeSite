@@ -167,3 +167,8 @@ li.m-tutorial + li.m-tutorial {
 .m-tutorial.comment {
   color: #A0A0A0;
 }
+
+.m-tutorial ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}

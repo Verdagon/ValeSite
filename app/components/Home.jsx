@@ -35,7 +35,7 @@ class Home extends React.Component {
                 <div className={ns("featuring-title")}>Featuring:</div>
                 <ul>
                   <li><Link to="/ref/intro" className={ns("feature-title")}>Statically Typed</Link> with type inference.</li>
-                  <li><Link to="/ref/ownership" className={ns("feature-title")}>Ownership</Link>: Move semantics, and deterministic destruction.</li>
+                  <li><Link to="/ref/references" className={ns("feature-title")}>References</Link>: Move semantics, and deterministic destruction.</li>
                   <li><Link to="/ref/memory" className={ns("feature-title")}>Memory Safe</Link>, using constraint references, with multiple simultaneous mutable references.</li>
                   <li><Link to="/ref/generics" className={ns("feature-title")}>Generics</Link>, including virtual generics.</li>
                   <li><Link to="/ref/interfaces" className={ns("feature-title")}>Interface Constructors</Link></li>
@@ -55,9 +55,9 @@ class Home extends React.Component {
               <ul>
                 <li><Link to="/ref/interfaces#structural" className={ns("feature-title")}>Structural Interfaces</Link>, using interface constructors.</li>
                 <li><Link to="/ref/structs#shortcalling" className={ns("feature-title")}>Shortcalling Syntax</Link></li>
-                <li><Link to="/ref/ownership#weak" className={ns("feature-title")}>Weak References</Link></li>
+                <li><Link to="/ref/references#weak" className={ns("feature-title")}>Weak References</Link></li>
                 <li><Link to="/ref/memory#inline" className={ns("feature-title")}>Inline References</Link> for optimization.</li>
-                <li><Link to="/ref/ownership#borrow" className={ns("feature-title")}>Borrow References</Link> for optimization.</li>
+                <li><Link to="/ref/references#borrow" className={ns("feature-title")}>Borrow References</Link> for optimization.</li>
                 <li><Link to="/ref/regions" className={ns("feature-title")}>Regions</Link> for optimization.</li>
                 <li><Link to="/ref/cross-compilation" className={ns("feature-title")}>Cross Compilation</Link> to JVM and JS.</li>
                 <li><Link to="/ref/operators#map" className={ns("feature-title")}>Map & FlatMap Operators</Link></li>

@@ -10,7 +10,6 @@ class ReferenceTOC extends React.Component {
     let sectionsByPage = {
       "intro": <Link to="/ref/intro">Intro</Link>,
       "structs": <Link to="/ref/structs">Structs</Link>,
-      "ownership": <Link to="/ref/ownership">Ownership</Link>,
       "references": <Link to="/ref/references">References</Link>,
       "interfaces": <Link to="/ref/interfaces">Interfaces</Link>,
       "generics": <Link to="/ref/generics">Generics</Link>,
@@ -45,20 +44,10 @@ class ReferenceTOC extends React.Component {
           <strong>Structs *</strong>
           <ul className={cssns()}>
             <li className={cssns()}>Structs</li>
+            <li className={cssns()}>Constructors</li>
+            <li className={cssns()}>Ownership</li>
+            <li className={cssns()}>Destructors</li>
             <li className={cssns()}>Mutability</li>
-            <li className={cssns()}>Lambdas</li>
-          </ul>
-        </div>
-      );
-    }
-    if (page == "ownership") {
-      sectionsByPage["ownership"] = (
-        <div>
-          <strong>Ownership *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Stuff</li>
-            <li className={cssns()}>Things</li>
-            <li className={cssns()}>Words</li>
           </ul>
         </div>
       );
@@ -156,7 +145,6 @@ class ReferenceTOC extends React.Component {
         <ul className={cssns()}>
           <li className={cssns()}>{sectionsByPage["intro"]}</li>
           <li className={cssns()}>{sectionsByPage["structs"]}</li>
-          <li className={cssns()}>{sectionsByPage["ownership"]}</li>
           <li className={cssns()}>{sectionsByPage["references"]}</li>
           <li className={cssns()}>{sectionsByPage["interfaces"]}</li>
           <li className={cssns()}>{sectionsByPage["generics"]}</li>

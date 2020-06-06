@@ -118,11 +118,12 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn main() {
+{/*fn main() {
   x! = "world!";
   mut x = "Antarctica!";
   println("Hello " + x);
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let">x! = <span class="Str">"world!"</span>;</span><br />  <span class="Mut">mut <span class="Lookup">x</span> = <span class="Str">"Antarctica!"</span></span>;<br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Call"><span class="Str">"Hello "</span> <span class="CallLookup">+</span> <span class="Lookup">x</span></span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
                     </Snippet>
                     <div className={cssns("output")}>
 {`Hello Antarctica!`}
@@ -148,10 +149,12 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn main() {
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">x</span></span> <span class="Typ">Str</span></span> = <span class="Str">"world!"</span>;</span><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Call"><span class="Str">"Hello "</span> <span class="CallLookup">+</span> <span class="Lookup">x</span></span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
+
+{/*fn main() {
   x Str = "world!";
   println("Hello " + x);
-}`}
+}*/}
                     </Snippet>
                     <div className={cssns("output")}>
 {`Hello world!`}
@@ -171,12 +174,13 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn add2(x Int) Int {
+{/*fn add2(x Int) Int {
   ret x + 2;
 }
 fn main() {
   println("Half-Life " + add2(1));
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">add2</span><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">x</span></span> <span class="Typ">Int</span></span>)</span> <span class="Typ">Int</span> <span class="Block">&#123;<br />  <span class="Ret">ret <span class="Call"><span class="Lookup">x</span> <span class="CallLookup">+</span> <span class="Num">2</span></span>;</span><br />&#125;</span></span><br /><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Call"><span class="Str">"Half-Life "</span> <span class="CallLookup">+</span> <span class="Call"><span class="CallLookup">add2</span>(<span class="Num">1</span>)</span></span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
                     </Snippet>
                     <div className={cssns("output")}>
 {`Half-Life 3`}
@@ -192,9 +196,11 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn add2(x Int) {
+{/*fn add2(x Int) {
   ret x + 2;
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">add2</span><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">x</span></span> <span class="Typ">Int</span></span>)</span> <span class="Block">&#123;<br />  <span class="Ret">ret <span class="Call"><span class="Lookup">x</span> <span class="CallLookup">+</span> <span class="Num">2</span></span>;</span><br />&#125;</span></span><br /></span>
+
                     </Snippet>
                   </div>
                 </div>
@@ -207,7 +213,8 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn add2(x Int) { x + 2 }`}
+{/*fn add2(x Int) { x + 2 }*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">add2</span><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">x</span></span> <span class="Typ">Int</span></span>)</span> <span class="Block">&#123; <span class="Call"><span class="Lookup">x</span> <span class="CallLookup">+</span> <span class="Num">2</span></span> &#125;</span></span><br /></span>
                     </Snippet>
                   </div>
                 </div>
@@ -220,10 +227,11 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn main() {
+{/*fn main() {
   add2 = (x Int){ x + 2 };
   println("Half-Life " + add2(1));
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">add2</span></span></span> = <span class="Lambda"><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">x</span></span> <span class="Typ">Int</span></span>)</span><span class="Block">&#123; <span class="Call"><span class="Lookup">x</span> <span class="CallLookup">+</span> <span class="Num">2</span></span> &#125;</span></span>;</span><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Call"><span class="Str">"Half-Life "</span> <span class="CallLookup">+</span> <span class="Call"><span class="CallLookup">add2</span>(<span class="Num">1</span>)</span></span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
                     </Snippet>
                   </div>
                 </div>
@@ -236,10 +244,12 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn main() {
+{/*fn main() {
   add2 = (x){ x + 2 };
   println("Half-Life " + add2(1));
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">add2</span></span></span> = <span class="Lambda"><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">x</span></span></span>)</span><span class="Block">&#123; <span class="Call"><span class="Lookup">x</span> <span class="CallLookup">+</span> <span class="Num">2</span></span> &#125;</span></span>;</span><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Call"><span class="Str">"Half-Life "</span> <span class="CallLookup">+</span> <span class="Call"><span class="CallLookup">add2</span>(<span class="Num">1</span>)</span></span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
+
                     </Snippet>
                   </div>
                 </div>
@@ -252,10 +262,12 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn main() {
+{/*fn main() {
   add2 = { _ + 2 };
   println("Half-Life " + add2(1));
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">add2</span></span></span> = <span class="Lambda"><span class="Block">&#123; <span class="Call"><span class="MagicParam">_</span> <span class="CallLookup">+</span> <span class="Num">2</span></span> &#125;</span></span>;</span><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Call"><span class="Str">"Half-Life "</span> <span class="CallLookup">+</span> <span class="Call"><span class="CallLookup">add2</span>(<span class="Num">1</span>)</span></span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
+
                     </Snippet>
                   </div>
                 </div>
@@ -268,8 +280,12 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`s = "Hail Hydra!".split(" ");
-s = split("Hail Hydra!", "");`}
+{/*
+s = "Hail Hydra!".split(" ");
+s = split("Hail Hydra!", " ");
+*/}
+<span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">s</span></span></span> = <span class="Call"><span class="MemberAccess"><span class="Str">"Hail Hydra!"</span>.<span class="Lookup">split</span>(" ")</span><span class="Str"></span></span>;</span><br /><span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">s</span></span></span> = <span class="Call"><span class="CallLookup">split</span>(<span class="Str">"Hail Hydra!"</span>, <span class="Str">" "</span>)</span>;</span><span class="W"></span>
+
                     </Snippet>
                   </div>
                 </div>
@@ -289,11 +305,13 @@ s = split("Hail Hydra!", "");`}
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn main() {
+{/*fn main() {
   arr = [5, true, "V"];
   println("Babylon " + arr.0);
-  println("Saturn " + arr[1 + 1]);`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="variantindexing"/>{`
-}`}
+  println("Saturn " + arr[1 + 1]); `}<NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="variantindexing"/>{`
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">arr</span></span></span> = <span class="Seq">[<span class="Num">5</span>, <span class="Bool">true</span>, <span class="Str">"V"</span>]</span>;</span><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Call"><span class="Str">"Babylon "</span> <span class="CallLookup">+</span> <span class="MemberAccess"><span class="Lookup">arr</span>.<span class="Lookup">0</span></span></span>)</span>;<br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Call"><span class="Str">"Saturn "</span> <span class="CallLookup">+</span> <span class="Call"><span class="Lookup">arr</span>[<span class="Call"><span class="Num">1</span> <span class="CallLookup">+</span> <span class="Num">1</span></span>]</span></span>)</span>;<span class="W"></span> <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="variantindexing"/><br />&#125;</span></span><br /></span>
+
                     </Snippet>
                     <div className={cssns("output")}>
 {`Babylon 5
@@ -313,11 +331,13 @@ Saturn V`}
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn add2(x Int) { x + 2 }
+{/*fn add2(x Int) { x + 2 }
 fn main() {
   arr = 3 * add2;`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="ntupletype"/>{`
   println(arr);
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">add2</span><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">x</span></span> <span class="Typ">Int</span></span>)</span> <span class="Block">&#123; <span class="Call"><span class="Lookup">x</span> <span class="CallLookup">+</span> <span class="Num">2</span></span> &#125;</span></span><br /><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">arr</span></span></span> = <span class="Call"><span class="Num">3</span> <span class="CallLookup">*</span> <span class="Lookup">add2</span></span>;</span> <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="ntupletype"/><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Lookup">arr</span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
+
                     </Snippet>
                     <div className={cssns("output")}>
 {`[2, 3, 4]`}
@@ -333,10 +353,11 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn main() {
+{/*fn main() {
   arr = 3 * {_ + 2};
   println(arr);
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">arr</span></span></span> = <span class="Call"><span class="Num">3</span> <span class="CallLookup">*</span> <span class="Lambda"><span class="Block">&#123;<span class="Call"><span class="MagicParam">_</span> <span class="CallLookup">+</span> <span class="Num">2</span></span>&#125;</span></span></span>;</span><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Lookup">arr</span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
                     </Snippet>
                     <div className={cssns("output")}>
 {`[2, 3, 4]`}
@@ -361,11 +382,13 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn main() {
+{/*fn main() {
   n = inputInt();`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="inputInt"/>{`
   arr = Array(n, {_ * 5});`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="arraytype"/>{`
   println(arr);
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">n</span></span></span> = <span class="Call"><span class="CallLookup">inputInt</span>()</span>;</span> <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="inputInt"/><br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">arr</span></span></span> = <span class="Call"><span class="CallLookup">Array</span>(<span class="Lookup">n</span>, <span class="Lambda"><span class="Block">&#123;<span class="Call"><span class="MagicParam">_</span> <span class="CallLookup">*</span> <span class="Num">5</span></span>&#125;</span></span>)</span>;</span> <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="arraytype"/><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Lookup">arr</span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
+
                     </Snippet>
                     <div className={cssns("input")}>
 {`4`}
@@ -390,13 +413,15 @@ fn main() {
                   </div>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn main() {
+{/*fn main() {
   l = List<Int>();
   l.add(1);
   l.add(3);
   l.add(7);
   println(l);
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">l</span></span></span> = <span class="Call"><span class="CallLookup">List</span><span class="TplArgs">&lt;<span class="Typ">Int</span>&gt;</span>()</span>;</span><br />  <span class="Call"><span class="Lookup">l</span>.<span class="CallLookup">add</span>(<span class="Num">1</span>)</span>;<br />  <span class="Call"><span class="Lookup">l</span>.<span class="CallLookup">add</span>(<span class="Num">3</span>)</span>;<br />  <span class="Call"><span class="Lookup">l</span>.<span class="CallLookup">add</span>(<span class="Num">7</span>)</span>;<br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Lookup">l</span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
+
                     </Snippet>
                     <div className={cssns("output")}>
 {`List(1, 3, 7)`}
@@ -414,12 +439,14 @@ fn main() {
                 <div className={cssns("content splitter")}>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn main() {
+{/*fn main() {
   arr = ["Storm", "Earth", "Fire"];
   each arr (x){
     println(x);
   }
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">arr</span></span></span> = <span class="Seq">[<span class="Str">"Storm"</span>, <span class="Str">"Earth"</span>, <span class="Str">"Fire"</span>]</span>;</span><br />  <span class="Call"><span class="CallLookup">each</span> <span class="Lookup">arr</span> <span class="Lambda"><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">x</span></span></span>)</span><span class="Block">&#123;<br />    <span class="Call"><span class="CallLookup">println</span>(<span class="Lookup">x</span>)</span>;<span class="W"></span><br />  &#125;</span></span></span><span class="W"></span><br />&#125;</span></span><br /></span>
+
                     </Snippet>
                   </div>
                   <div className={cssns("half")}>
@@ -442,12 +469,14 @@ Fire
                 <div className={cssns("content splitter")}>
                   <div className={cssns("half")}>
                     <Snippet>
-{`fn main() {
+{/*fn main() {
   arr = ["Storm", "Earth", "Fire"];
   eachI arr (i, x){
     println(i + ": " + x);
   }
-}`}
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">arr</span></span></span> = <span class="Seq">[<span class="Str">"Storm"</span>, <span class="Str">"Earth"</span>, <span class="Str">"Fire"</span>]</span>;</span><br />  <span class="Call"><span class="CallLookup">eachI</span> <span class="Lookup">arr</span> <span class="Lambda"><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">i</span></span></span>, <span class="Pat"><span class="Capture"><span class="CaptureName">x</span></span></span>)</span><span class="Block">&#123;<br />    <span class="Call"><span class="CallLookup">println</span>(i + ": "<span class="Call"><span class="Call"><span class="Lookup"></span><span class="CallLookup"></span><span class="Str"></span></span> <span class="CallLookup">+</span> <span class="Lookup">x</span></span>)</span>;<span class="W"></span><br />  &#125;</span></span></span><span class="W"></span><br />&#125;</span></span><br /></span>
+
                     </Snippet>
                   </div>
                   <div className={cssns("half")}>
@@ -464,7 +493,7 @@ Fire
                 </div>
 
                 <div className={cssns("content")} style={{textAlign: "right"}}>
-                  <strong>Next:</strong> <a href="/ref/functions">Functions</a>
+                  <strong>Next:</strong> <a href="/ref/structs">Structs</a>
                 </div>
 
               </div>

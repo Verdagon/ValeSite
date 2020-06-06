@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './Home.jsx';
 import RefIntro from './reference/Intro.jsx';
+import RefStructs from './reference/Structs.jsx';
 import RefOwnership from './reference/Ownership.jsx';
 import SuperstructuresIntro from './superstructures/Intro.jsx';
 import SuperstructuresReferences from './superstructures/References.jsx';
@@ -26,6 +27,7 @@ class App extends React.Component {
 			    	<Route exact={true} path="/" component={Home}/>
 					<Redirect exact={true} from="/ref" to="/ref/intro" />
 			    	<Route path="/ref/intro" component={RefIntro}/>
+			    	<Route path="/ref/structs" component={RefStructs}/>
 			    	<Route path="/ref/ownership" component={RefOwnership}/>
 
 					<Redirect exact={true} from="/superstructures" to="/superstructures/intro" />
