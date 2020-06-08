@@ -29,7 +29,7 @@
 .c-snippet .FnName,
 .c-snippet .StructName {
   font-weight: bold;
-  color: #FFC000;
+  color: #FFD000;
 }
 .c-snippet .Params,
 .c-snippet .Block,
@@ -47,7 +47,7 @@
 }
 .c-snippet .CallLookup {
   font-weight: normal;
-  color: #FFC000;
+  color: #FFD000;
 }
 .c-snippet .Str {
   font-weight: normal;
@@ -80,4 +80,16 @@
 .c-snippet .Comment {
   font-weight: normal;
   color: #C0C0C0;
+}
+.c-snippet .Inl {
+  font-weight: normal;
+  color: #FFA040;
+}
+.c-snippet .Lend {
+  font-weight: normal;
+  color: #80FF00;
+}
+.c-snippet .Ownership {
+  font-weight: normal;
+  color: #80FF00;
 }

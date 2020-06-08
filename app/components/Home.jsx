@@ -54,7 +54,7 @@ class Home extends React.Component {
               <div className={ns("upcoming-title")}>Upcoming Features:</div>
               <ul>
                 <li><Link to="/ref/interfaces#structural" className={ns("feature-title")}>Structural Interfaces</Link>, using interface constructors.</li>
-                <li><Link to="/ref/structs#shortcalling" className={ns("feature-title")}>Shortcalling Syntax</Link></li>
+                <li><Link to="/ref/operators#shortcalling" className={ns("feature-title")}>Shortcalling Syntax</Link></li>
                 <li><Link to="/ref/references#weak" className={ns("feature-title")}>Weak References</Link></li>
                 <li><Link to="/ref/memory#inline" className={ns("feature-title")}>Inline References</Link> for optimization.</li>
                 <li><Link to="/ref/references#borrow" className={ns("feature-title")}>Borrow References</Link> for optimization.</li>

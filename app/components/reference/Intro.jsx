@@ -50,7 +50,7 @@ class RefIntro extends React.Component {
                   Welcome to Vale! Vale is a fast, safe, and easy programming language. This introduction will show how to write a program in Vale.
                 </div>
                 <div className={cssns("content cozy")}>
-                  This tutorial assumes that you are familiar with basic programming concepts, and at least one of C, Python, or Java.
+                  This tutorial assumes that you are familiar with basic programming concepts, and at least one other imperative language (like C, Java, Python, etc).
                 </div>
                 <div className={cssns("content cozy")}>
                   Vale is still "in alpha", which means it's a preview; you can write programs in it, but some of the features that make it easy aren't yet available.
@@ -113,7 +113,7 @@ fn main() {
                 <div className={cssns("content splitter")}>
                   <div className={cssns("half")}>
                     <div className={cssns("content cozy")}>
-                      We can make a <b>varying</b> local with the {incode("!")} symbol, and change it with the {incode("mut")} keyword.
+                      We can make a <b>varying</b> local with the {incode("!")} symbol, <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="changeable"/> and change it with the {incode("mut")} keyword.
                     </div>
                   </div>
                   <div className={cssns("half")}>
@@ -510,7 +510,7 @@ Fire
               </div>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="running">
-                You can also make an executable with {incode("vale build hello.vale")}, which will produce an executable named {incode("hello")} (or {incode("hello.exe")} on windows). You can specify the executable's name with the {incode("-o")} flag.
+                We can also make an executable with {incode("vale build hello.vale")}, which produces an executable {incode("hello")} (or {incode("hello.exe")} on windows). We can also specify the name with the {incode("-o")} flag.
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="each">
@@ -530,6 +530,22 @@ Fire
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="ntupletype">
                 The type of {incode("arr")} is {incode("[3 * Int]")}.
+              </Note>
+
+              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="changeable">
+                Vale's {incode("x")} and {incode("x!")} are like
+                <div>
+                  Java's {incode("final int x")} and {incode("int x")},
+                </div>
+                <div>
+                  Kotlin's {incode("let x")} and {incode("var x")}, and
+                </div>
+                <div>
+                  Rust's {incode("let x")} and {incode("let mut x")}.
+                </div>
+                <div style={{marginTop: "8px"}}>
+                  See <Link to="/blog/bangsyntax">Syntax Design for Varying</Link> for why Vale chose {incode("!")} and {incode("mut")}.
+                </div>
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="seetuplelambda">

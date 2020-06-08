@@ -2,7 +2,7 @@ import React from 'react';
 import Home from './Home.jsx';
 import RefIntro from './reference/Intro.jsx';
 import RefStructs from './reference/Structs.jsx';
-import RefOwnership from './reference/Ownership.jsx';
+import RefReferences from './reference/References.jsx';
 import SuperstructuresIntro from './superstructures/Intro.jsx';
 import SuperstructuresReferences from './superstructures/References.jsx';
 import SuperstructuresReverting from './superstructures/Reverting.jsx';
@@ -15,9 +15,9 @@ import Roadmap from './Roadmap.jsx';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-	}
+  constructor(props) {
+    super(props);
+  }
 
   render() {
   	return (
@@ -25,12 +25,12 @@ class App extends React.Component {
 	    	<Router>
 			    <Switch>
 			    	<Route exact={true} path="/" component={Home}/>
-					<Redirect exact={true} from="/ref" to="/ref/intro" />
+					  <Redirect exact={true} from="/ref" to="/ref/intro" />
 			    	<Route path="/ref/intro" component={RefIntro}/>
 			    	<Route path="/ref/structs" component={RefStructs}/>
-			    	<Route path="/ref/ownership" component={RefOwnership}/>
+			    	<Route path="/ref/references" component={RefReferences}/>
 
-					<Redirect exact={true} from="/superstructures" to="/superstructures/intro" />
+					  <Redirect exact={true} from="/superstructures" to="/superstructures/intro" />
 			    	<Route path="/superstructures/intro" component={SuperstructuresIntro}/>
 			    	<Route path="/superstructures/reverting" component={SuperstructuresReverting}/>
 			    	<Route path="/superstructures/references" component={SuperstructuresReferences}/>

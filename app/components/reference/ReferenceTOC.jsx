@@ -58,10 +58,23 @@ class ReferenceTOC extends React.Component {
           <strong>References *</strong>
           <ul className={cssns()}>
             <li className={cssns()}>Owning References</li>
-            <li className={cssns()}>Constraint References</li>
-            <li className={cssns()}>Weak References</li>
-            <li className={cssns()}>Inline References</li>
-            <li className={cssns()}>Borrow References</li>
+            <ul className={cssns()}>
+              <li className={cssns()}>Moving</li>
+              <li className={cssns()}>Inlining</li>
+              <li className={cssns()}>For Immutables</li>
+            </ul>
+            <li className={cssns()}>Non-owning References</li>
+            <ul className={cssns()}>
+              <li className={cssns()}>Borrow References</li>
+              <ul className={cssns()}>
+                <li className={cssns()}>Limitations</li>
+              </ul>
+              <li className={cssns()}>Constraint References</li>
+              <ul className={cssns()}>
+                <li className={cssns()}>Modes</li>
+              </ul>
+              <li className={cssns()}>Weak References</li>
+            </ul>
           </ul>
         </div>
       );

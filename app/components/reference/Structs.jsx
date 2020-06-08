@@ -8,7 +8,7 @@ import './Reference.css';
 import ReferenceTOC from './ReferenceTOC.jsx';
 import Snippet from '../Snippet.jsx';
 
-const cssns = (classes) => "c-ref-intro m-reference m-tutorial " + (classes || "");
+const cssns = (classes) => "c-ref-structs m-reference m-tutorial " + (classes || "");
 
 function incode(code, suffix) {
   if (suffix) {
@@ -50,7 +50,7 @@ class RefStructs extends React.Component {
                 <div className={cssns("content splitter")}>
                   <div className={cssns("half")}>
                     <p className={cssns("cozy")}>
-                      A basic {incode("Spaceship")} struct, with a couple members.
+                      Here is a basic {incode("Spaceship")} struct, with a couple members.
                     </p>
                     <p className={cssns("cozy")}>
                       We can construct it using its <b>constructor</b> function, which has the same name and was automatically generated.
@@ -80,7 +80,7 @@ fn main() {
                   </div>
                 </div>
 
-                <h1 className={cssns("noline")}>Constructors</h1>
+                <h3 className={cssns()}>Constructors</h3>
 
                 <div className={cssns("content splitter")}>
                   <div className={cssns("half")}>
@@ -113,16 +113,16 @@ fn main() {
                   </div>
                 </div>
 
-                <h1 className={cssns("noline")}>Ownership</h1>
+                <h3 className={cssns()}>Ownership</h3>
 
                 <div className={cssns("content cozy")}>
-                  Every mutable struct has one <b>owning</b> reference.
+                  Every mutable struct has one <b>owning</b> reference. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="otherrefs"/>
                 </div>
 
                 <div className={cssns("content splitter")}>
                   <div className={cssns("half")}>
                     <div className={cssns("content cozy")}>
-                      When we create a struct, we get the owning reference to it. When we let go of the owning reference, we automatically call its <b>destructor</b> function, which frees the object. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="ownership"/>
+                      When we create a mutable struct, we get the owning reference to it. When we let go of the owning reference, we automatically call its <b>drop</b> function, which deallocates the object. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="ownership"/>
                     </div>
 
                     <div className={cssns("content cozy")}>
@@ -139,27 +139,78 @@ fn main() {
 
   println(ship.name);
 
-  // destructor implicitly called here
+  // implicit drop(ship)
 }*/}
-<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">ship</span></span></span> = <span class="Call"><span class="CallLookup">Spaceship</span>(<span class="Str">"Serenity"</span>, <span class="Num">2</span>)</span>;</span><br />  <span class="Comment">// ship is an owning reference</span><br /><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="MemberAccess"><span class="Lookup">ship</span>.<span class="Lookup">name</span></span>)</span>;<span class="W"></span><br /><br />  <span class="Comment">// destructor implicitly called here</span><br />&#125;</span></span><br /></span>
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">ship</span></span></span> = <span class="Call"><span class="CallLookup">Spaceship</span>(<span class="Str">"Serenity"</span>, <span class="Num">2</span>)</span>;</span><br />  <span class="Comment">// ship is an owning reference</span><br /><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="MemberAccess"><span class="Lookup">ship</span>.<span class="Lookup">name</span></span>)</span>;<span class="W"></span><br /><br />  <span class="Comment">// implicit drop(ship)</span><br />&#125;</span></span><br /></span>
                     </Snippet>
                   </div>
                 </div>
 
-                <h1 className={cssns("noline")}>Destructors</h1>
+                <h4 className={cssns()}>Moving</h4>
+
 
                 <div className={cssns("content splitter cozy")}>
                   <div className={cssns("half")}>
                     <div className={cssns("content cozy")}>
-                      Every mutable struct has a <b>destructor</b>, which deallocates the object. Vale automatically defines one for each struct, but we can instead specify our own destructor.
+                      Every mutable struct has exactly one owning reference pointing to it. If we make another owning reference to it, Vale prevents us from using the first owning reference.
+                    </div>
+                  </div>
+                  <div className={cssns("half")}>
+                    <Snippet>
+{/*
+fn main() {
+  firstRef = Spaceship();
+  otherRef = firstRef;
+  // Can't use firstRef now.
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">firstRef</span></span></span> = <span class="Call"><span class="CallLookup">Spaceship</span>()</span>;</span><br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">otherRef</span></span></span> = <span class="Lookup">firstRef</span>;</span><span class="W"></span><br />  <span class="Comment">// Can't use firstRef now.</span><br />&#125;</span></span><br /></span>
+
+                    </Snippet>
+                  </div>
+                </div>
+
+                <div className={cssns("content splitter cozy")}>
+                  <div className={cssns("half")}>
+                    <div className={cssns("content cozy")}>
+                      In a way, it's like we're <b>moving</b> ownership from one reference to another.
                     </div>
 
                     <div className={cssns("content cozy")}>
-                      Two rules: it must be called {incode("destructor")}, and the owning reference must be <b>destructured</b> inside the destructor. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="destructure"/>
+                      This is also true when passing an owning reference to a function.
+                    </div>
+                  </div>
+                  <div className={cssns("half")}>
+                    <Snippet>
+{/*
+fn foo(otherRef Spaceship) {
+  println(otherRef.name);
+}
+fn main() {
+  firstRef = Spaceship();
+  foo(firstRef);
+  // Can't use firstRef now.
+}*/}
+<span class="Prog"><span class="Fn">fn <span class="FnName">foo</span><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">otherRef</span></span> <span class="Typ">Spaceship</span></span>)</span> <span class="Block">&#123;<br />  <span class="Call"><span class="CallLookup">println</span>(<span class="MemberAccess"><span class="Lookup">otherRef</span>.<span class="Lookup">name</span></span>)</span>;<span class="W"></span><br />&#125;</span></span><br /><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">firstRef</span></span></span> = <span class="Call"><span class="CallLookup">Spaceship</span>()</span>;</span><br />  <span class="Call"><span class="CallLookup">foo</span>(<span class="Lookup">firstRef</span>)</span>;<span class="W"></span><br />  <span class="Comment">// Can't use firstRef now.</span><br />&#125;</span></span><br /></span>
+
+                    </Snippet>
+                  </div>
+                </div>
+
+
+                <h3 className={cssns()}>Drop</h3>
+
+                <div className={cssns("content splitter cozy")}>
+                  <div className={cssns("half")}>
+                    <div className={cssns("content cozy")}>
+                      Every mutable struct has a <b>drop</b> function  <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="valedestructorsarecooler"/>, which deallocates the object. Vale automatically defines one for each struct, but we can instead specify our own drop function.
                     </div>
 
                     <div className={cssns("content cozy")}>
-                      A custom destructor could:
+                      Two rules: it must be called {incode("drop")}, and it must <b>move</b> the owning reference into a <b>destructure</b> pattern. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="destructure"/>
+                    </div>
+
+                    <div className={cssns("content cozy")}>
+                      A custom drop could be used to:
                     </div>
                     <div className={cssns("content cozy")}>
                       <ul style={{marginBottom: 0}}>
@@ -176,10 +227,10 @@ struct Spaceship {
   name Str;
   numWings Int;
 }
-fn destructor(ship Spaceship) {
+fn drop(ship Spaceship) {
   println("Destroying!");
 
-  // destructure to deallocate
+  // destructure `}<NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="destructure"/>{`
   (name, numWings) = ship;
 }
 
@@ -187,7 +238,7 @@ fn main() {
   ship = Spaceship();
   println(ship.name);
 }*/}
-<span class="Prog"><span class="Struct">struct <span class="StructName">Spaceship</span> <span class="Membs">&#123;<br />  <span class="Memb"><span class="MembName">name</span> <span class="Typ">Str</span>;</span><br />  <span class="Memb"><span class="MembName">numWings</span> <span class="Typ">Int</span>;</span><br />&#125;</span></span><br /><span class="Fn">fn <span class="FnName">destructor</span><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">ship</span></span> <span class="Typ">Spaceship</span></span>)</span> <span class="Block">&#123;<br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Str">"Destroying!"</span>)</span>;<br />  <br />  <span class="Comment">// destructure to deallocate</span><br />  <span class="Let"><span class="Pat"><span class="Destructure">(<span class="Pat"><span class="Capture"><span class="CaptureName">name</span></span></span>, <span class="Pat"><span class="Capture"><span class="CaptureName">numWings</span></span></span>)</span></span> = <span class="Lookup">ship</span>;</span><span class="W"></span><br />&#125;</span></span><br /><br /><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">ship</span></span></span> = <span class="Call"><span class="CallLookup">Spaceship</span>()</span>;</span><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="MemberAccess"><span class="Lookup">ship</span>.<span class="Lookup">name</span></span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
+<span class="Prog"><span class="Struct">struct <span class="StructName">Spaceship</span> <span class="Membs">&#123;<br />  <span class="Memb"><span class="MembName">name</span> <span class="Typ">Str</span>;</span><br />  <span class="Memb"><span class="MembName">numWings</span> <span class="Typ">Int</span>;</span><br />&#125;</span></span><br /><span class="Fn">fn <span class="FnName">drop</span><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">ship</span></span> <span class="Typ">Spaceship</span></span>)</span> <span class="Block">&#123;<br />  <span class="Call"><span class="CallLookup">println</span>(<span class="Str">"Destroying!"</span>)</span>;<br /><br />  <span class="Comment">// destructure <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="destructure"/></span><br />  <span class="Let"><span class="Pat"><span class="Destructure">(<span class="Pat"><span class="Capture"><span class="CaptureName">name</span></span></span>, <span class="Pat"><span class="Capture"><span class="CaptureName">numWings</span></span></span>)</span></span> = <span class="Lookup">ship</span>;</span><span class="W"></span><br />&#125;</span></span><br /><br /><span class="Fn">fn <span class="FnName">main</span><span class="Params">()</span> <span class="Block">&#123;<br />  <span class="Let"><span class="Pat"><span class="Capture"><span class="CaptureName">ship</span></span></span> = <span class="Call"><span class="CallLookup">Spaceship</span>()</span>;</span><br />  <span class="Call"><span class="CallLookup">println</span>(<span class="MemberAccess"><span class="Lookup">ship</span>.<span class="Lookup">name</span></span>)</span>;<span class="W"></span><br />&#125;</span></span><br /></span>
 
                     </Snippet>
                     <div className={cssns("output")}>
@@ -198,10 +249,10 @@ Destroying!`}
                 </div>
 
                 <div className={cssns("content")}>
-                  Rule of thumb: if something <i>must</i> happen at some point in the future, put it in a destructor. Vale will make sure that it's not forgotten.
+                  Rule of thumb: if something <i>must</i> happen at some point in the future, put it in a drop function. Vale will make sure that it's not forgotten.
                 </div>
 
-                <h1 className={cssns("noline")}>Mutability</h1>
+                <h3 className={cssns()}>Mutability</h3>
 
                 <div className={cssns("content cozy")}>
                   By default, structs are <b>mutable</b>. We can make <b>immutable</b> structs with the {incode("imm")} keyword.
@@ -215,7 +266,7 @@ Destroying!`}
                     </div>
 
                     <div className={cssns("content cozy")}>
-                      Because of that, we don't need the normal ownership rules; every reference shares the object, like Java or Python. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="refcounting"/>
+                      Because of that, we can have multiple owning references to it, like Java or Python. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="refcounting"/>
                     </div>
 
                     <div className={cssns("content cozy")}>
@@ -223,7 +274,7 @@ Destroying!`}
                     </div>
 
                     <div className={cssns("content cozy")}>
-                      Immutable structs cannot have destructors. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="shareddestructor"/>
+                      Immutable structs cannot have drop functions. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="shareddestructor"/>
                     </div>
                   </div>
                   <div className={cssns("half")}>
@@ -270,16 +321,20 @@ fn main() {
                   C also has "conceptual" ownership, in that we must track ownership without the language's help, to know when to {incode("free")} an object.
                 </div>
                 <div style={{marginTop: "8px"}}>
-                  Even garbage collected languages like Java and Python often have conceptual ownership, which when violated, cause memory leaks and other interesting bugs.
+                  Vale's ownership has the flexibility of C++'s {incode("unique_ptr")} without the mutability and aliasing restrictions of Rust and Cyclone, see <Link to="/ref/references">References</Link> to learn how.
                 </div>
               </Note>
 
+              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="otherrefs">
+                There are other kinds of references (constraint, borrow, weak), <Link to="/ref/references">References</Link> explains more.
+              </Note>
+              
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="destructure">
                 When we "destructure", we deallocate the object and move all of its previous members into locals, at the same time. See <Link to="/ref/patterns">Pattern Matching</Link> for how destructuring ensures memory safety and fits into the rest of the language.
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="construct">
-                Inside the constructor, we must call either another constructor or {incode("_construct<T>")}.
+                Inside the constructor, we must call either another constructor or {incode("constructor<T>")}.
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="refcounting">
@@ -289,6 +344,11 @@ fn main() {
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="shareddestructor">
                 See <Link to="/blog/shareddestructors">Shared Destructibles</Link> for the reasoning behind this.
               </Note>
+
+              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="valedestructorsarecooler">
+                Drop functions also appear in C++ ("destructors") and Rust. Vale's drop functions are like those but more flexible: they can return values and even take extra parameters. In those cases, they must be called manually.
+              </Note>
+
             </div>
           </div>
 
