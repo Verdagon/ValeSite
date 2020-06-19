@@ -1,20 +1,35 @@
 
-.c-snippet {
+.c-snippet.root {
   width: 100%;
+  position: relative;
+}
+
+.c-snippet.code {
   box-sizing: border-box;
   color: #f8f8f2;
   background-color: #282923;
   padding: 0.5em;
   white-space: pre;
-  font-size: 9.5pt;
+  font-size: 12px;
   font-family: Roboto Mono, Courier New, Courier;
   line-height: 12pt;
   overflow: auto;
 }
 
+.c-snippet.header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  opacity: .7;
+  padding-right: 4px;
+}
+
 
 .c-snippet .Fn,
-.c-snippet .Struct {
+.c-snippet .Struct,
+.c-snippet .Interface,
+.c-snippet .Impl {
   font-weight: bold;
   color: #FF9000;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import './SuperstructuresTOC.css';
 import {Link} from 'react-router-dom';
 
-const cssns = (classes) => "c-superstructurestoc " + (classes || "");
+const ns = (classes) => "c-superstructurestoc " + (classes || "");
 
 class SuperstructuresTOC extends React.Component {
   render() {
@@ -25,10 +25,10 @@ class SuperstructuresTOC extends React.Component {
       sectionsByPage["intro"] = (
         <div>
           <strong>Introduction *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>What's a superstructure?</li>
-            <li className={cssns()}>Reading a Superstructure</li>
-            <li className={cssns()}>Requesting a Superstructure</li>
+          <ul className={ns()}>
+            <li className={ns()}>What's a superstructure?</li>
+            <li className={ns()}>Reading a Superstructure</li>
+            <li className={ns()}>Requesting a Superstructure</li>
           </ul>
         </div>
       );
@@ -37,12 +37,12 @@ class SuperstructuresTOC extends React.Component {
       sectionsByPage["references"] = (
         <div>
           <strong>References *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Owning References</li>
-            <li className={cssns()}>Strong References</li>
-            <li className={cssns()}>Weak References</li>
-            <li className={cssns()}>Strong References Are Constraints</li>
-            <li className={cssns()}>Lazy References</li>
+          <ul className={ns()}>
+            <li className={ns()}>Owning References</li>
+            <li className={ns()}>Strong References</li>
+            <li className={ns()}>Weak References</li>
+            <li className={ns()}>Strong References Are Constraints</li>
+            <li className={ns()}>Lazy References</li>
           </ul>
         </div>
       );
@@ -51,11 +51,11 @@ class SuperstructuresTOC extends React.Component {
       sectionsByPage["reverting"] = (
         <div>
           <strong>Reverting *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Enabling Reverting</li>
-            <li className={cssns()}>Using It</li>
-            <li className={cssns()}>What can we use reverting for?</li>
-            <li className={cssns()}>Keep in mind...</li>
+          <ul className={ns()}>
+            <li className={ns()}>Enabling Reverting</li>
+            <li className={ns()}>Using It</li>
+            <li className={ns()}>What can we use reverting for?</li>
+            <li className={ns()}>Keep in mind...</li>
           </ul>
         </div>
       );
@@ -64,10 +64,10 @@ class SuperstructuresTOC extends React.Component {
       sectionsByPage["snapshots"] = (
         <div>
           <strong>Snapshots *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>What can we use snapshots for?</li>
-            <li className={cssns()}>Snapshotting in Action</li>
-            <li className={cssns()}>Keep in mind...</li>
+          <ul className={ns()}>
+            <li className={ns()}>What can we use snapshots for?</li>
+            <li className={ns()}>Snapshotting in Action</li>
+            <li className={ns()}>Keep in mind...</li>
           </ul>
         </div>
       );
@@ -76,11 +76,11 @@ class SuperstructuresTOC extends React.Component {
       sectionsByPage["effects"] = (
         <div>
           <strong>Effects *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Listening for Effects</li>
-            <li className={cssns()}>Anatomy of an Effect</li>
-            <li className={cssns()}>What can we use effects for?</li>
-            <li className={cssns()}>Keep in mind...</li>
+          <ul className={ns()}>
+            <li className={ns()}>Listening for Effects</li>
+            <li className={ns()}>Anatomy of an Effect</li>
+            <li className={ns()}>What can we use effects for?</li>
+            <li className={ns()}>Keep in mind...</li>
           </ul>
         </div>
       );
@@ -89,11 +89,11 @@ class SuperstructuresTOC extends React.Component {
       sectionsByPage["comparing"] = (
         <div>
           <strong>Comparing *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>What can comparing be used for?</li>
-            <li className={cssns()}>Comparing in Action</li>
-            <li className={cssns()}>The Diff Struct</li>
-            <li className={cssns()}>Diff Options</li>
+          <ul className={ns()}>
+            <li className={ns()}>What can comparing be used for?</li>
+            <li className={ns()}>Comparing in Action</li>
+            <li className={ns()}>The Diff Struct</li>
+            <li className={ns()}>Diff Options</li>
           </ul>
         </div>
       );
@@ -102,10 +102,10 @@ class SuperstructuresTOC extends React.Component {
       sectionsByPage["constraints"] = (
         <div>
           <strong>Constraints *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Adding a Constraint</li>
-            <li className={cssns()}>Violating Constraints</li>
-            <li className={cssns()}>Trying</li>
+          <ul className={ns()}>
+            <li className={ns()}>Adding a Constraint</li>
+            <li className={ns()}>Violating Constraints</li>
+            <li className={ns()}>Trying</li>
           </ul>
         </div>
       );
@@ -114,12 +114,12 @@ class SuperstructuresTOC extends React.Component {
       sectionsByPage["functions"] = (
         <div>
           <strong>Functions *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Show me a Function!</li>
-            <li className={cssns()}>Constraints</li>
-            <li className={cssns()}>References in Functions</li>
-            <li className={cssns()}>Observing Calls</li>
-            <li className={cssns()}>Sending Requests</li>
+          <ul className={ns()}>
+            <li className={ns()}>Show me a Function!</li>
+            <li className={ns()}>Constraints</li>
+            <li className={ns()}>References in Functions</li>
+            <li className={ns()}>Observing Calls</li>
+            <li className={ns()}>Sending Requests</li>
           </ul>
         </div>
       );
@@ -129,22 +129,22 @@ class SuperstructuresTOC extends React.Component {
 
 
     return (
-      <div className={cssns("root")}>
+      <div className={ns("root")}>
         Superstructures
-        <ul className={cssns()}>
-          <li className={cssns()}>{sectionsByPage["intro"]}</li>
-          <li className={cssns()}>{sectionsByPage["effects"]}</li>
-          <li className={cssns()}>{sectionsByPage["constraints"]}</li>
-          <li className={cssns()}>{sectionsByPage["references"]}</li>
-          <li className={cssns()}>{sectionsByPage["functions"]}</li>
-          <li className={cssns()}>{sectionsByPage["reverting"]}</li>
-          <li className={cssns()}>{sectionsByPage["snapshots"]}</li>
-          <li className={cssns()}>{sectionsByPage["comparing"]}</li>
+        <ul className={ns()}>
+          <li className={ns()}>{sectionsByPage["intro"]}</li>
+          <li className={ns()}>{sectionsByPage["effects"]}</li>
+          <li className={ns()}>{sectionsByPage["constraints"]}</li>
+          <li className={ns()}>{sectionsByPage["references"]}</li>
+          <li className={ns()}>{sectionsByPage["functions"]}</li>
+          <li className={ns()}>{sectionsByPage["reverting"]}</li>
+          <li className={ns()}>{sectionsByPage["snapshots"]}</li>
+          <li className={ns()}>{sectionsByPage["comparing"]}</li>
         </ul>
       </div>
 
     );
-    // <li className={cssns()}>{sectionsByPage["forking"]}</li>
+    // <li className={ns()}>{sectionsByPage["forking"]}</li>
   }
 }
 

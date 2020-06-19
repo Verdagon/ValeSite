@@ -3,13 +3,13 @@ import Header from '../Header.jsx';
 import Footer from '../Footer.jsx';
 import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
 import {Link} from 'react-router-dom';
-import './Tutorial.css';
-import './Superstructures.css';
+import '../Tripage.css';
+import '../Tripage.css';
 import SuperstructuresTOC from './SuperstructuresTOC.jsx';
 
-const cssns = (classes) => "c-ssmodifying m-tutorial m-superstructures " + (classes || "");
+const ns = (classes) => "c-ssmodifying m-tripage m-superstructures " + (classes || "");
 
-const incode = (code) => <span className={cssns("inline-code")}>{code}</span>
+const incode = (code) => <span className={ns("inline-code")}>{code}</span>
 
 class SuperstructuresModifying extends React.Component {
   constructor(props) {
@@ -26,27 +26,31 @@ class SuperstructuresModifying extends React.Component {
     this.noteManager.componentDidUpdate();
   }
 
+  noteAnchor(anchorName) {
+    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+  }
+
   render() {
     return (
-      <div className={cssns("root")}>
+      <div className={ns("root")}>
         <Header/>
 
-        <div className={cssns("page")}>
-          <div className={cssns("columns")}>
+        <div className={ns("page")}>
+          <div className={ns("columns")}>
 
-            <div className={cssns("left")}>
+            <div className={ns("left")}>
 
-              <div className={cssns("main")}>
+              <div className={ns("main")}>
 
-                <h1 className={cssns("noline")}>Superstructures Guide: Modifying</h1>
+                <h1 className={ns("noline")}>Superstructures Guide: Modifying</h1>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   In the <Link to="/superstructures/intro">intro</Link>, we made a superstructure that contained some planets and some moons, shown below. This page will explain how to modify the superstructure.
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`superstructure MySuperstructure {
   root struct SolarSystem {
     planets: List:Planet;
@@ -62,8 +66,8 @@ class SuperstructuresModifying extends React.Component {
 }`}
                     </div>
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`let mySS =
   MySuperstructure(
     SolarSystem(
@@ -82,18 +86,18 @@ class SuperstructuresModifying extends React.Component {
                   </div>
                 </div>
 
-                <h3 className={cssns()}>Setting Fields</h3>
+                <h3 className={ns()}>Setting Fields</h3>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
                     Just as with regular Valence variables, fields' names must end in {incode("!")} to be modified. If we change {incode("Planet")}'s {incode("name")} field to {incode("name!")} then we can modify it.
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`struct Planet {
   name!: Str;
   moons: List:Moon;
@@ -102,12 +106,12 @@ class SuperstructuresModifying extends React.Component {
                   </div>
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
                     Now, we can get a reference to it and modify its name.
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`let mySS = ...;
 let saturn = &mySS.root.planets.1;
 mut saturn.name! = "Flamscrankle";`}
@@ -116,53 +120,53 @@ mut saturn.name! = "Flamscrankle";`}
                 </div>
 
 
-                <h3 className={cssns()}>Adding and Removing</h3>
+                <h3 className={ns()}>Adding and Removing</h3>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="noteCollections"/>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    {this.noteAnchor("noteCollections")}
                     {incode("List")} has a method called {incode("append")} which we can call to add new elements to the list.
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`mySS.root.planets.append(
   Planet("Bogglewog", List()));`}
                     </div>
                   </div>
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
                     We can also use {incode("List")}'s {incode("remove")} method to remove things.
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`mySS.root.planets.remove(
   &mySS.root.planets.2);`}
                     </div>
                   </div>
                 </div>
 
-                <div className={cssns("line")}/>
+                <div className={ns("line")}/>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   As we can see, there's nothing special here. We modify things inside superstructures the same way we modify things outside superstructures.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Valence can take these simple modifications and do amazing things:
-                  <ul className={cssns()}>
-                    <li className={cssns()}>Notify observers of these modifications (see <Link to="/superstructures/effects">Effects</Link>).</li>
-                    <li className={cssns()}>Remember these modifications for later reverting (see <Link to="/superstructures/reverting">Reverting</Link>).</li>
-                    <li className={cssns()}>Send these modifications over the network (see below).</li>
+                  <ul className={ns()}>
+                    <li className={ns()}>Notify observers of these modifications (see <Link to="/superstructures/effects">Effects</Link>).</li>
+                    <li className={ns()}>Remember these modifications for later reverting (see <Link to="/superstructures/reverting">Reverting</Link>).</li>
+                    <li className={ns()}>Send these modifications over the network (see below).</li>
                   </ul>
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   The next page explains how we can revert to past versions. Or, keep reading to see how we send modifications over the network!
                 </div>
 
-                <div className={cssns("content")} style={{textAlign: "right"}}>
+                <div className={ns("content")} style={{textAlign: "right"}}>
                   <strong>Next:</strong> <a href="/superstructures/reverting">Reverting</a>
                 </div>
 
@@ -170,11 +174,11 @@ mut saturn.name! = "Flamscrankle";`}
 
             </div>
 
-            <div className={cssns("margin")}>
+            <div className={ns("margin")}>
 
-              <div className={cssns("toc-container")}>
+              <div className={ns("toc-container")}>
                 <SuperstructuresTOC page="modifying"/>
-                <div className={cssns("notes-header")}>
+                <div className={ns("notes-header")}>
                   <NotesHeader update={this.updateNotesHeaderRect}/>
                 </div>
               </div>

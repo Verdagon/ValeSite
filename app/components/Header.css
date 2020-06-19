@@ -7,6 +7,10 @@
   right: 3px;
   color: #D0D0D0;
 }
+.header.small .header.title {
+	font-size: 16pt;
+  top: 0px;
+}
 a.header:hover {
 	text-decoration: none;
 }
@@ -23,6 +27,9 @@ a.header:hover {
 	min-width: 896px;
 	overflow: hidden;
 	height: 68px;
+}
+.header.small.root {
+	height: 38px;
 }
 .header .contents {
 	margin: auto;
@@ -41,9 +48,9 @@ a.header:hover {
 	margin-left: 8px;
 }
 .header.small .text {
-	line-height: 32px;
+	line-height: 36px;
 	font-weight: bold;
-	font-size: 14pt;
+	margin-left: 4px;
 }
 .header .links {
 	position: absolute;
@@ -88,7 +95,10 @@ a.header:hover {
 	height: 38px;
 	width: 38px;
 	position: absolute;
-	top: -7px;
-	right: -7px;
+	top: -6px;
+	right: 0px;
 	background-size: 38px 38px;
+}
+.header .explorations {
+	color: white;
 }

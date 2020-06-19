@@ -5,13 +5,13 @@ import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
 import {Link} from 'react-router-dom';
 import ss1svg from './superstructures1.svg';
 import ss2svg from './superstructures2.svg';
-import './Tutorial.css';
-import './Superstructures.css';
+import '../Tripage.css';
+import '../Tripage.css';
 import SuperstructuresTOC from './SuperstructuresTOC.jsx';
 
-const cssns = (classes) => "c-ssreferences m-tutorial m-superstructures " + (classes || "");
+const ns = (classes) => "c-ssreferences m-tripage m-superstructures " + (classes || "");
 
-const incode = (code) => <span className={cssns("inline-code")}>{code}</span>
+const incode = (code) => <span className={ns("inline-code")}>{code}</span>
 
 class SuperstructuresReferences extends React.Component {
   constructor(props) {
@@ -28,27 +28,31 @@ class SuperstructuresReferences extends React.Component {
     this.noteManager.componentDidUpdate();
   }
 
+  noteAnchor(anchorName) {
+    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+  }
+
   render() {
     return (
-      <div className={cssns("root")}>
+      <div className={ns("root")}>
         <Header/>
 
-        <div className={cssns("page")}>
-          <div className={cssns("columns")}>
+        <div className={ns("page")}>
+          <div className={ns("columns")}>
 
-            <div className={cssns("left")}>
+            <div className={ns("left")}>
 
-              <div className={cssns("main")}>
+              <div className={ns("main")}>
 
-                <h1 className={cssns("noline")}>Superstructures Guide: References</h1>
+                <h1 className={ns("noline")}>Superstructures Guide: References</h1>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   In the <Link to="/superstructures/intro">intro</Link>, we made a superstructure that contained some planets and some moons, shown below. It contained only <strong>owning</strong> references. This page will show how we can add <strong>strong</strong> and <strong>weak</strong> references.
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`superstructure MySuperstructure {
   root struct SolarSystem {
     planets: List:Planet;
@@ -64,8 +68,8 @@ class SuperstructuresReferences extends React.Component {
 }`}
                     </div>
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`let mySS =
   MySuperstructure(
     SolarSystem(
@@ -85,54 +89,54 @@ class SuperstructuresReferences extends React.Component {
                   </div>
                 </div>
 
-                <h3 className={cssns()}>Owning References</h3>
+                <h3 className={ns()}>Owning References</h3>
 
                 <img style={{float: "right", width: "342px", height: "208px"}} src={ss1svg}/>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Our superstructure so far only contains <strong>owning references</strong>.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Superstructures' owning references follow the same rules as the rest of Valence: when the owning reference goes out of scope, the object is destroyed.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Note that there <strong>cannot be ownership cycles</strong>. If X owns Y, Y can't own X.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Keep in mind that anything indirectly owned by the root is part of the superstructure. Therefore, anything <strong>not</strong> indirectly owned by the root is <strong>not</strong> part of the superstructure.
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   For example, if we made a Moon, and didn't attach it to a superstructure...
                 </div>
 
-                <div className={cssns("content cozy code")}>
+                <div className={ns("content cozy code")}>
 {`let m = Moon("Deimos", 6);`}
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   ...it is not yet part of the superstructure. We would have to attach it to an existing member of the superstructure:
                 </div>
 
-                <div className={cssns("content cozy code")}>
+                <div className={ns("content cozy code")}>
 {`mySS.root.planets.0.moons.append(m);`}
                 </div>
 
                 <div style={{clear: "both"}}/>
 
-                <h3 className={cssns()}>Strong References</h3>
+                <h3 className={ns()}>Strong References</h3>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Lets introduce some <strong>strong references</strong>. The below example adds an {incode("Astronaut")} class, with a strong reference to a planet.
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
 
-                    <div className={cssns("code")}>
+                    <div className={ns("code")}>
 {`superstructure MySuperstructure {
   root struct SolarSystem {
     planets: List:Planet;
@@ -153,9 +157,9 @@ class SuperstructuresReferences extends React.Component {
 }`}
                     </div>
                   </div>
-                  <div className={cssns("half")}>
+                  <div className={ns("half")}>
 
-                    <div className={cssns("code")}>
+                    <div className={ns("code")}>
 {`let mySS =
   MySuperstructure(
     SolarSystem(
@@ -179,114 +183,114 @@ mySS.root.astronauts.add(
                   </div>
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   <img style={{float: "right", width: "251px", height: "317px", marginLeft: "8px"}} src={ss2svg}/>
 
                   The dashed line in the picture represents a strong reference.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Remember that if we delete something that a strong reference is pointing to, the program will halt, similar to foreign key constraints in SQL.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Strong references are slightly more strict inside superstructures than in the rest of Valence:
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   <strong>A superstructure's strong references must only point only to things inside that superstructure.</strong>
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   We couldn't make our Astronaut point to any arbitrary planet, it has to be a planet from {incode("mySS")}.
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   For example, moving Saturn out of the superstructure would cause the program to halt:
                 </div>
 
-                <div className={cssns("content code cozy")}>
-{`let saturn = mySS.root.planets.1;`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="noteMove"/>
+                <div className={ns("content code cozy")}>
+{`let saturn = mySS.root.planets.1;`} {this.noteAnchor("noteMove")}
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Note the lack of an {incode("&")} (if we had an {incode("&")} then {incode("saturn")} would be a strong reference, not an owning one). Without the {incode("&")}, we just moved that planet out of the superstructure. Since the Astronaut was pointing at it, the program halted.
                 </div>
 
                 <div style={{clear: "both"}}/>
 
-                <h3 className={cssns()}>Weak References</h3>
+                <h3 className={ns()}>Weak References</h3>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   We can also have <strong>weak references</strong>. When something a weak reference is pointing at is destroyed, or moved out of the superstructure, the weak reference sets itself to null.
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   To change the {incode("planet")} field to a weak reference, we would use an {incode("&&")} instead of {incode("&")} for the {incode("planet")} field:
                 </div>
 
-                <div className={cssns("content cozy code")}>
+                <div className={ns("content cozy code")}>
 {`struct Astronaut {
   name: Str;
   planet: &&Planet;
 }`}
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   And we would use an {incode("&&")} instead of {incode("&")} to get a weak reference to Saturn:
                 </div>
 
-                <div className={cssns("content code")}>
+                <div className={ns("content code")}>
 {`mySS.root.astronauts.add(
   Astronaut(
     "Raynor",
     &&mySS.root.planets.1));`}
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   Similar to strong references, we must be careful when moving things out of a superstructure. This would set our Astronaut's {incode("planet")} reference to null:
                 </div>
 
-                <div className={cssns("content code cozy")}>
+                <div className={ns("content code cozy")}>
 {`let saturn = mySS.root.planets.1;`}
                 </div>
 
-                <div className={cssns("content cozy")}>
-                  Since we just moved saturn out of the superstructure, our Astronaut's {incode("planet")} field is now null. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="noteMove2"/>
+                <div className={ns("content cozy")}>
+                  Since we just moved saturn out of the superstructure, our Astronaut's {incode("planet")} field is now null. {this.noteAnchor("noteMove2")}
                 </div>
 
-                <h3 className={cssns()}>Strong References Are Constraints</h3>
+                <h3 className={ns()}>Strong References Are Constraints</h3>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   It's very important to recognize that every strong reference represents a constraint.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   One can think of a strong reference as a "weak reference with a constraint enforcing that it points somewhere".
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   See <Link to="/superstructures/constraints">Constraints</Link> for more.
                 </div>
 
                 <div style={{clear: "both"}}/>
 
-                <div className={cssns("line")}/>
+                <div className={ns("line")}/>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   In the next page, we learn about superstructure functions. Or, keep reading below to see how we can make references lazy.
                 </div>
 
-                <div className={cssns("content")} style={{textAlign: "right"}}>
+                <div className={ns("content")} style={{textAlign: "right"}}>
                   <strong>Next:</strong> <a href="/superstructures/functions">Functions</a>
                 </div>
 
               </div>
 
-              <div className={cssns("networking")}>
-                <h2 className={cssns("noline")}>Lazy References</h2>
+              <div className={ns("networking")}>
+                <h2 className={ns("noline")}>Lazy References</h2>
 {/*
-                <div className={cssns("content code half")} style={{float: "right", marginLeft: "8px"}}>
+                <div className={ns("content code half")} style={{float: "right", marginLeft: "8px"}}>
 {`superstructure MySuperstructure {
   root struct SolarSystem {
     planets: List:Planet;
@@ -307,47 +311,47 @@ mySS.root.astronauts.add(
 }`}
                 </div>
 */}
-                <div className={cssns("content")}>
-                  We often have superstructures that are too big to hold in one machine's memory. Or, we just don't want to waste valuable bandwidth downloading an entire superstructure when we only need part. For this reason, Valence gives us the {incode("LazySuperstructureClient")}. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="noteYouCanDoIt"/>
+                <div className={ns("content")}>
+                  We often have superstructures that are too big to hold in one machine's memory. Or, we just don't want to waste valuable bandwidth downloading an entire superstructure when we only need part. For this reason, Valence gives us the {incode("LazySuperstructureClient")}. {this.noteAnchor("noteYouCanDoIt")}
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   The {incode("LazySuperstructureClient")} is a slightly different version of {incode("SimpleSuperstructureClient")}, where every reference becomes <strong>lazy</strong>.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   This means that something is requested from the server only once you try to use it.
                 </div>
 
-                {/*<div className={cssns("content")}>
-                  <ul className={cssns()}>
-                    <li className={cssns()}>{incode("planet: &Planet")} behaves like a {incode("planet: Lazy:&Planet")},</li>
-                    <li className={cssns()}>{incode("moons: List:Moon")} behaves like a {incode("moons: Lazy:List:Lazy:Moon")},</li>
-                    <li className={cssns()}>...and so on.</li>
+                {/*<div className={ns("content")}>
+                  <ul className={ns()}>
+                    <li className={ns()}>{incode("planet: &Planet")} behaves like a {incode("planet: Lazy:&Planet")},</li>
+                    <li className={ns()}>{incode("moons: List:Moon")} behaves like a {incode("moons: Lazy:List:Lazy:Moon")},</li>
+                    <li className={ns()}>...and so on.</li>
                   </ul>
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Code inside superstructure functions look the same, thanks to <Link to="/blog/superlining">Superlining</Link>, which automatically interleaves instructions to do as many parallel fetches as possible for uncached data.
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   However, code outside superstructure functions have the normal {incode("Lazy")} usage. For example:
                 </div>
 
-                <div className={cssns("content code cozy")}>
+                <div className={ns("content code cozy")}>
                   {`let saturn = mySS.root.planets.1;`}
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   becomes:
                 </div>
 
-                <div className={cssns("content code")}>
+                <div className={ns("content code")}>
                   {`let saturn = mySS.root.get.planets.get.1.get;`}
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   See <Link to="/blog/superlining">Superlining</Link> and <Link to="/superstructures/functions">Functions</Link> for more.
                 </div>
 
@@ -356,11 +360,11 @@ mySS.root.astronauts.add(
               </div>
             </div>
 
-            <div className={cssns("margin")}>
+            <div className={ns("margin")}>
 
-              <div className={cssns("toc-container")}>
+              <div className={ns("toc-container")}>
                 <SuperstructuresTOC page="references"/>
-                <div className={cssns("notes-header")}>
+                <div className={ns("notes-header")}>
                   <NotesHeader update={this.updateNotesHeaderRect}/>
                 </div>
               </div>

@@ -5,13 +5,13 @@ import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
 import {Link} from 'react-router-dom';
 import ss1svg from './superstructures1.svg';
 import ss2svg from './superstructures2.svg';
-import './Tutorial.css';
-import './Superstructures.css';
+import '../Tripage.css';
+import '../Tripage.css';
 import SuperstructuresTOC from './SuperstructuresTOC.jsx';
 
-const cssns = (classes) => "c-ssintro m-tutorial m-superstructures " + (classes || "");
+const ns = (classes) => "c-ssintro m-tripage m-superstructures " + (classes || "");
 
-const incode = (code) => <span className={cssns("inline-code")}>{code}</span>
+const incode = (code) => <span className={ns("inline-code")}>{code}</span>
 
 class SuperstructuresIntro extends React.Component {
   constructor(props) {
@@ -28,43 +28,47 @@ class SuperstructuresIntro extends React.Component {
     this.noteManager.componentDidUpdate();
   }
 
+  noteAnchor(anchorName) {
+    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+  }
+
   render() {
     return (
-      <div className={cssns("root")}>
+      <div className={ns("root")}>
         <Header/>
 
-        <div className={cssns("page")}>
-          <div className={cssns("columns")}>
+        <div className={ns("page")}>
+          <div className={ns("columns")}>
 
-            <div className={cssns("left")}>
+            <div className={ns("left")}>
 
-              <div className={cssns("main")}>
+              <div className={ns("main")}>
 
-                <h1 className={cssns("noline")}>Superstructures Guide: Introduction</h1>
-                <div className={cssns("content cozy")}>
+                <h1 className={ns("noline")}>Superstructures Guide: Introduction</h1>
+                <div className={ns("content cozy")}>
                   A <strong>"superstructure"</strong> is a set of structs, interfaces, and functions, which follow certain patterns.
                 </div>
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   Valence can take a superstructure and give it wonderful capabilities such as time-travel and synchronizing over the network.
                 </div>
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   The Superstructures Guide will walk you through the various capabilities of superstructures (modifying, snapshots, constraints, etc) and, at the end of every page, show how it can be used with networking.
                 </div>
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   If you haven't seen <Link to="/basics">Valence Basics</Link>, go take a look! Everything in this page builds on the basics.
                 </div>
 
                 <a name="whatisasuperstructure"></a>
-                <h3 className={cssns()}>What's a Superstructure?</h3>
+                <h3 className={ns()}>What's a Superstructure?</h3>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <p className={cssns("cozy")}>Here's an example superstructure:</p>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    <p className={ns("cozy")}>Here's an example superstructure:</p>
 
-                    <div className={cssns("code")}>
+                    <div className={ns("code")}>
 {`superstructure MySuperstructure {
   root struct SolarSystem {
-    planets: List:Planet;`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note1"/>{`
+    planets: List:Planet;`} {this.noteAnchor("note1")}{`
   }
   struct Planet {
     name: Str;
@@ -77,10 +81,10 @@ class SuperstructuresIntro extends React.Component {
 }`}
                     </div>
                   </div>
-                  <div className={cssns("half")}>
-                    <p className={cssns("cozy")}>And here's some data:</p>
+                  <div className={ns("half")}>
+                    <p className={ns("cozy")}>And here's some data:</p>
 
-                    <div className={cssns("code")}>
+                    <div className={ns("code")}>
 {`let mySS =
   MySuperstructure(
     SolarSystem(
@@ -99,41 +103,41 @@ class SuperstructuresIntro extends React.Component {
                   </div>
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   <img style={{float: "right", width: "324px", height: "208px"}} src={ss1svg}/>
 
-                  The first thing to note is that, like everything in Valence, a superstructure is <strong>hierarchical</strong>; every struct is owned <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note2"/> by another struct.
+                  The first thing to note is that, like everything in Valence, a superstructure is <strong>hierarchical</strong>; every struct is owned {this.noteAnchor("note2")} by another struct.
                 </div>
                 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Everything indirectly owned by the root is part of the superstructure.
                 </div>
 
                 <div style={{clear: "both"}}></div>
 
-                <h3 className={cssns("cozy")}>Reading a Superstructure</h3>
+                <h3 className={ns("cozy")}>Reading a Superstructure</h3>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <div className={cssns("content")}>
-                      To quickly and conveniently see a superstructure's contents, use {incode("doutln")}. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="noteDoutln"/>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    <div className={ns("content")}>
+                      To quickly and conveniently see a superstructure's contents, use {incode("doutln")}. {this.noteAnchor("noteDoutln")}
                     </div>
 
-                    <div className={cssns("content code")}>
+                    <div className={ns("content code")}>
 {`doutln mySS;`}
                     </div>
 
-                    <div className={cssns("content")}>
+                    <div className={ns("content")}>
                       When we {incode("doutln")} a superstructure, it prints in the {incode(".sss")} format. See right for an example.
                     </div>
 
-                    <div className={cssns("content end")}>
-                      The number after the # is the ID. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="noteID"/> Every struct in a superstructure has an ID, including any {incode("List")}, {incode("Map")}, {incode("Set")}, etc.
+                    <div className={ns("content end")}>
+                      The number after the # is the ID. {this.noteAnchor("noteID")} Every struct in a superstructure has an ID, including any {incode("List")}, {incode("Map")}, {incode("Set")}, etc.
                     </div>
 
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`MySuperstructure(
   SolarSystem#9(
     List#8(
@@ -150,34 +154,34 @@ class SuperstructuresIntro extends React.Component {
                   </div>
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   One can access parts of a superstructure through the root, like so:
                 </div>
 
-                <div className={cssns("content cozy code")}>
-{`doutln mySS.root.planets.1.name;`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note4"/>
+                <div className={ns("content cozy code")}>
+{`doutln mySS.root.planets.1.name;`} {this.noteAnchor("note4")}
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   The above would print out "Saturn".
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   On the left we loop over every moon, printing out its radius. On the right is the output.
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
-{`foreach mySS.root.planets {(planet) `}<NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="noteForeach"/>{`
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
+{`foreach mySS.root.planets {(planet) `}{this.noteAnchor("noteForeach")}{`
   foreach planet.moons {(moon)
     doutln moon.radius;
   }
 }`}
                     </div>
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`1737
 2576
 562`}
@@ -185,49 +189,49 @@ class SuperstructuresIntro extends React.Component {
                   </div>
                 </div>
 
-                <div className={cssns("line")}/>
+                <div className={ns("line")}/>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   In the next page, we see how to observe changes to the data.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   At the bottom of every page of the Superstructures Guide is a pagelet explaining the networking aspect. Keep reading below to learn how to harness superstructures for networking!
                 </div>
 
-                <div className={cssns("content")} style={{textAlign: "right"}}>
+                <div className={ns("content")} style={{textAlign: "right"}}>
                   <strong>Next:</strong> <a href="/superstructures/effects">Effects</a>
                 </div>
 
               </div>
 
-              <div className={cssns("networking")}>
-                <h3 className={cssns("noline")}>Sending Superstructures</h3>
+              <div className={ns("networking")}>
+                <h3 className={ns("noline")}>Sending Superstructures</h3>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Superstructures make networking ridiculously easy.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Here, we'll see how one machine can request a superstructure from another, and continuously listen for updates.
                 </div>
 
-                <div className={cssns("content")}>
-                  Below are examples of using the {incode("SimpleSuperstructureServer")} and {incode("SimpleSuperstructureClient")}. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="noteSSSS"/>
+                <div className={ns("content")}>
+                  Below are examples of using the {incode("SimpleSuperstructureServer")} and {incode("SimpleSuperstructureClient")}. {this.noteAnchor("noteSSSS")}
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   On the left is the server, which listens for clients. When a client connects, the server will send them the superstructure, and keep the connection open to send updates. The program then sets Saturn's name from what the user typed.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   On the right is a client, which connects to the server, receives the superstructure, prints it out, and then listens for updates.
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
-{``}<div className={cssns("comment")}>{`// Server
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
+{``}<div className={ns("comment")}>{`// Server
 `}</div>{`
 fn main() {
   let mySS =
@@ -244,18 +248,18 @@ fn main() {
           Moon("Titan", 2576),
           Moon("Mimas", 562))))));
 
-`}<div className={cssns("comment")}>{`  // Make the server.
+`}<div className={ns("comment")}>{`  // Make the server.
 `}</div>{`  let server =
     SimpleSuperstructureServer(
       &mySS, 8080);
 
-`}<div className={cssns("comment")}>{`  // Listen for new connections,
+`}<div className={ns("comment")}>{`  // Listen for new connections,
   // send updates in real-time.
 `}</div>{`  server.start();
 
   let saturn = &mySS.root.planets.1;
 
-`}<div className={cssns("comment")}>{`  // Change Saturn's name to
+`}<div className={ns("comment")}>{`  // Change Saturn's name to
   // whatever the user inputs.
   // Stops on ctrl+D.
 `}</div>{`  foreach LineReader(cin) {(line)
@@ -267,45 +271,45 @@ fn main() {
 }`}
                     </div>
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
-{``}<div className={cssns("comment")}>{`// Client
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
+{``}<div className={ns("comment")}>{`// Client
 `}</div>{`
 fn main() {
-`}<div className={cssns("comment")}>{`  // Make the client.
+`}<div className={ns("comment")}>{`  // Make the client.
 `}</div>{`  let sssc =
     SimpleSuperstructureClient(
       "localhost", 8080);
 
-`}<div className={cssns("comment")}>{`  // Receive superstructure,
+`}<div className={ns("comment")}>{`  // Receive superstructure,
   // listen for updates.
 `}</div>{`  let theSS = ssss.start();
 
-`}<div className={cssns("comment")}>{`  // Print the superstructure.
+`}<div className={ns("comment")}>{`  // Print the superstructure.
 `}
 </div>
 {`  doutln theSS;
 
-`}<div className={cssns("comment")}>
+`}<div className={ns("comment")}>
 {`  // This stream listens to both
   // the server and the keyboard.
 `}
 </div>
 {`  let eventsStream =
-    and(sssc.updates, cin);`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="noteAnd"/>{`
+    and(sssc.updates, cin);`} {this.noteAnchor("noteAnd")}{`
 
-`}<div className={cssns("comment")}>
+`}<div className={ns("comment")}>
 {`  // Receives updates from server
   // and keyboard. Stops on ctrl+D.
 `}
 </div>
-{`  foreach eventsStream { `}<NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="noteUpdates"/>{`
+{`  foreach eventsStream { `}{this.noteAnchor("noteUpdates")}{`
     {(update: Update)
       doutln "Got update!";
       doutln "New contents:";
       doutln theSS;
     }
-    {(char: Str) `}<span className={cssns("comment")}>{`/* ignore */`}</span>{`}
+    {(char: Str) `}<span className={ns("comment")}>{`/* ignore */`}</span>{`}
   }
 
   doutln "Done!";
@@ -315,18 +319,18 @@ fn main() {
                   </div>
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   The above code shows the server sending modifications to the client. The client can also send modification requests to the server, see <Link to="/superstructures/functions">Functions</Link>.
                 </div>
 
               </div>
             </div>
 
-            <div className={cssns("margin")}>
+            <div className={ns("margin")}>
 
-              <div className={cssns("toc-container")}>
+              <div className={ns("toc-container")}>
                 <SuperstructuresTOC page="intro"/>
-                <div className={cssns("notes-header")}>
+                <div className={ns("notes-header")}>
                   <NotesHeader update={this.updateNotesHeaderRect}/>
                 </div>
               </div>

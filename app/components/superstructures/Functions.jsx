@@ -1,15 +1,15 @@
 import React from 'react';
-import './Tutorial.css';
-import './Superstructures.css';
+import '../Tripage.css';
+import '../Tripage.css';
 import Header from '../Header.jsx';
 import Footer from '../Footer.jsx';
 import {Link} from 'react-router-dom';
 import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
 import SuperstructuresTOC from './SuperstructuresTOC.jsx';
 
-const cssns = (classes) => "c-ssfunctions m-tutorial m-superstructures " + (classes || "");
+const ns = (classes) => "c-ssfunctions m-tripage m-superstructures " + (classes || "");
 
-const incode = (code) => <span className={cssns("inline-code")}>{code}</span>
+const incode = (code) => <span className={ns("inline-code")}>{code}</span>
 
 class SuperstructuresFunctions extends React.Component {
   constructor(props) {
@@ -26,71 +26,75 @@ class SuperstructuresFunctions extends React.Component {
     this.noteManager.componentDidUpdate();
   }
 
+  noteAnchor(anchorName) {
+    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+  }
+
   render() {
     return (
-      <div className={cssns("root")}>
+      <div className={ns("root")}>
         <Header/>
 
-        <div className={cssns("page")}>
+        <div className={ns("page")}>
 
-          <div className={cssns("columns")}>
+          <div className={ns("columns")}>
 
-            <div className={cssns("left")}>
-              <div className={cssns("main")}>
+            <div className={ns("left")}>
+              <div className={ns("main")}>
 
-                <h1 className={cssns("noline")}>Superstructures Guide: Functions</h1>
+                <h1 className={ns("noline")}>Superstructures Guide: Functions</h1>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   For simple operations, accessing superstructure data directly works well.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   For more complex operations, we should add <strong>superstructure functions</strong>.
                 </div>
 
                 <h3>Show me a Function!</h3>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <div className={cssns("content")}>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    <div className={ns("content")}>
                       Let's make a simple function to add a moon with a random mass.
                     </div>
-                    <div className={cssns("content")}>
+                    <div className={ns("content")}>
                       Before that, let's talk about requirements for superstructure functions.
                     </div>
-                    <div className={cssns("content")}>
-                      First, their arguments can only be values <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="values"/> or members of the superstructure.
+                    <div className={ns("content")}>
+                      First, their arguments can only be values {this.noteAnchor("values")} or members of the superstructure.
                     </div>
-                    <div className={cssns("content")}>
-                      Second, they must be <strong>deterministic</strong>. This means they cannot cannot access any globals, and they can't use any nondeterministic functions, such as {incode("cin.readLine")} and {incode("File.read")}. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="same"/>
+                    <div className={ns("content")}>
+                      Second, they must be <strong>deterministic</strong>. This means they cannot cannot access any globals, and they can't use any nondeterministic functions, such as {incode("cin.readLine")} and {incode("File.read")}. {this.noteAnchor("same")}
                     </div>
-                    <div className={cssns("content")}>
+                    <div className={ns("content")}>
                       Unfortunately for us, {incode("Math.random")} is nondeterminstic, so we can't use it.
                     </div>
-                    <div className={cssns("content")}>
-                      However, pseudo-randomness (like the hash function on the right) is fine. It's random enough for our purposes. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="rand"/>
+                    <div className={ns("content")}>
+                      However, pseudo-randomness (like the hash function on the right) is fine. It's random enough for our purposes. {this.noteAnchor("rand")}
                     </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   We would call it like this:
                 </div>
 
-                <div className={cssns("content code end")}>
+                <div className={ns("content code end")}>
 {`let saturn = &mySS.root.planets.1;
 addMoonWithRandomMass(
   saturn, "Enceladus")`}
                 </div>
 
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`superstructure MySuperstructure {
   root struct SolarSystem {
     planets: List:Planet;
   }
   struct Planet {
     name: Str;
-    mass!: Int;`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="bang"/>{`
+    mass!: Int;`} {this.noteAnchor("bang")}{`
     moons: List:Moon;
   }
   struct Moon {
@@ -108,8 +112,8 @@ addMoonWithRandomMass(
 
   fn hash(s: Str) {
     let chars = s.split("");
-    let ints = chars..toInt();`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="map"/>{`
-    ret ints.fold(0, +);`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="reducer"/>{`
+    let ints = chars..toInt();`} {this.noteAnchor("map")}{`
+    ret ints.fold(0, +);`} {this.noteAnchor("reducer")}{`
   }
 }`}
                     </div>
@@ -119,10 +123,10 @@ addMoonWithRandomMass(
 
                 <h3>Constraints</h3>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   In the <Link to="/superstructures/constraints">Constraints</Link> page, we made a superstructure that enforced that planets were heavier than their moons. The following code would violate the constraint:
                 </div>
-                <div className={cssns("content code cozy")}>
+                <div className={ns("content code cozy")}>
 {`let mySS =
   MySuperstructure(
     SolarSystem(
@@ -130,14 +134,14 @@ addMoonWithRandomMass(
 mySS.root.planets.0.mass = 100;
 mySS.root.planets.0.moons.0.mass = 50;`}
                 </div>
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   The program halts when we set Saturn's mass to 100, because it checks constraints after that line.
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   We should instead wrap this in a superstructure function:
                 </div>
-                <div className={cssns("content code cozy")}>
+                <div className={ns("content code cozy")}>
 {`superstructure MySuperstructure {
   ...
 
@@ -149,33 +153,33 @@ mySS.root.planets.0.moons.0.mass = 50;`}
   }
 }`}
                 </div>
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   And we would call it like so:
                 </div>
-                <div className={cssns("content code")}>
+                <div className={ns("content code")}>
 {`setPlanetAndMoonMass(&mySS.root.planets.0, 100, &mySS.root.planets.0.moons.0, 50);`}
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   This works because constraints are checked after superstructure functions, not during.
                 </div>
 
                 <h3>References in Functions</h3>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   In <Link to="/superstructures/references">References</Link>, we talked about how moving something out of a superstructure while there's still a strong reference to it will halt the program.
                 </div>
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Functions solve that, just how they solve the above constraints problem. References in a function are still considered part of the superstructure, albeit temporarily detached.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   The below is an example of a game's superstructure, with bases and tanks, where every tank must be at a base.
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`superstructure MySuperstructure {
   root struct Game {
     bases: List:Base;
@@ -195,8 +199,8 @@ mySS.root.planets.0.moons.0.mass = 50;`}
 }`}
                     </div>
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`let mySS =
   MySuperstructure(
     Game(
@@ -222,21 +226,21 @@ mySS.root.planets.0.moons.0.mass = 50;`}
                   </div>
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   Raynor is currently occupying Electria's "Shootybob" turret. We want to move Shootybob to Valencia:
                 </div>
-                <div className={cssns("content code cozy")}>
+                <div className={ns("content code cozy")}>
 {`let shootybob = mySS.root.bases.0.turrets.remove(0);
 mySS.root.bases.1.turrets.append(shootybob);`}
                 </div>
-                <div className={cssns("content")}>
-                  But the program halts on the first line! This is because we just moved shootybob out of the superstructure while someone (Raynor) still had a strong reference to it. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="disregard"/>
+                <div className={ns("content")}>
+                  But the program halts on the first line! This is because we just moved shootybob out of the superstructure while someone (Raynor) still had a strong reference to it. {this.noteAnchor("disregard")}
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   However, this works nicely if we put it inside a superstructure function:
                 </div>
-                <div className={cssns("content code cozy")}>
+                <div className={ns("content code cozy")}>
 {`superstructure MySuperstructure {
   ...
 
@@ -246,35 +250,35 @@ mySS.root.bases.1.turrets.append(shootybob);`}
   }
 }`}
                 </div>
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   And we would call it like so:
                 </div>
-                <div className={cssns("content code")}>
+                <div className={ns("content code")}>
 {`let shootybob = &mySS.root.bases.0.turrets.0;
 moveTurret(shootybob, &mySS.root.bases.0, &mySS.root.bases.1);`}
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   This works because variables inside a superstructure function are considered part of the superstructure, just temporarily detached.
                 </div>
 
-                <div className={cssns("content")}>
-                  A good rule of thumb is that every modification of a superstructure should be done with a superstructure function. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="goodidea"/>
+                <div className={ns("content")}>
+                  A good rule of thumb is that every modification of a superstructure should be done with a superstructure function. {this.noteAnchor("goodidea")}
                 </div>
 
                 <h3>Observing Calls</h3>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Much like how we can listen to effects that happen to the superstructure, we can listen for function calls.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Using the earlier {incode("addMoonWithRandomMass")} example, let's see what observing calls is like:
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`superstructure MySuperstructure {
   ...
 
@@ -294,8 +298,8 @@ moveTurret(shootybob, &mySS.root.bases.0, &mySS.root.bases.1);`}
 }`}
                     </div>
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`let mySS =
   MySuperstructure(
    SolarSystem(
@@ -315,32 +319,32 @@ addMoonWithRandomMass(
                   </div>
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   The above code outputs:
                 </div>
-                <div className={cssns("content code")}>
+                <div className={ns("content code")}>
 {`Call:addMoonWithRandomMass(3, "Enceladus");`}
                 </div>
 
                 <h3>The Call Struct</h3>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   {incode("Call")} is a special struct template which represents a function call, it contains all of the arguments to the call. Think of it like {incode("Flat")} but for function arguments.
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <div className={cssns("content")}>
-                      See right for what {incode("Call:addMoonWithRandomMass")} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="funcarg"/> looks like.
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    <div className={ns("content")}>
+                      See right for what {incode("Call:addMoonWithRandomMass")} {this.noteAnchor("funcarg")} looks like.
                     </div>
-                    <div className={cssns("content end")}>
+                    <div className={ns("content end")}>
                       Note how planet is an {incode("Int")} now instead of a {incode("&Planet")}.
                     </div>
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
 {`struct Call:addMoonWithRandomMass {
-  isa ICall;`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="isa"/>{`
+  isa ICall;`} {this.noteAnchor("isa")}{`
 
   planet: Int;
   moonName: Str;
@@ -349,21 +353,21 @@ addMoonWithRandomMass(
                   </div>
                 </div>
 
-                <div className={cssns("line")}/>
+                <div className={ns("line")}/>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   In the next page, we see the first time-traveling superstructure feature: Reverting. Or, keep reading below to see how clients can use superstructure functions to send requests to servers.
                 </div>
 
-                <div className={cssns("content")} style={{textAlign: "right"}}>
+                <div className={ns("content")} style={{textAlign: "right"}}>
                   <strong>Next:</strong> <a href="/superstructures/reverting">Reverting</a>
                 </div>
               </div>
 
-              <div className={cssns("networking")}>
-                <h2 className={cssns("noline")}>Sending Requests</h2>
+              <div className={ns("networking")}>
+                <h2 className={ns("noline")}>Sending Requests</h2>
 
-                <div className={cssns("half code")} style={{float: "right"}}>
+                <div className={ns("half code")} style={{float: "right"}}>
 {`superstructure ChatModel {
   root struct Room {
     messages: List:String;
@@ -374,87 +378,87 @@ addMoonWithRandomMass(
 }`}
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   {incode("SimpleSuperstructureClient")} can send requests to call superstructure functions.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   On the right is a superstructure with some chat rooms and messages.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Below are an example of a server and client, where the client sends requests to the server to add messages.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   {incode("SimpleSuperstructureClient")} has the {incode("request")} method, which takes as a template argument the superstructure function we want to call on the server.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Our client would call {incode('sssc.request:addMsg(&room, "I have arrived!");')} to send a message.
                 </div>
 
                 <div style={{clear: "both"}}/>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
-{``}<div className={cssns("comment")}>{`// Server
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
+{``}<div className={ns("comment")}>{`// Server
 `}</div>{`
 fn main() {
   let charSS =
     ChatModel(Room(List()))));
 
-`}<div className={cssns("comment")}>{`  // Make the server.
+`}<div className={ns("comment")}>{`  // Make the server.
 `}</div>{`  let server =
     SimpleSuperstructureServer(
       &mySS, 8080);
 
-`}<div className={cssns("comment")}>{`  // Listen for new connections,
+`}<div className={ns("comment")}>{`  // Listen for new connections,
   // send updates in real-time.
 `}</div>{`  server.start();
 
-`}<div className={cssns("comment")}>{`  // This stream listens to both
+`}<div className={ns("comment")}>{`  // This stream listens to both
   // client requests and keyboard.
 `}</div>{`  let eventsStream =
     and(ssss.requests, cin);
 
-`}<div className={cssns("comment")}>{`  // Receives requests from server
+`}<div className={ns("comment")}>{`  // Receives requests from server
   // and events from keyboard.
   // Stops on ctrl+D.
 `}</div>{`  foreach eventsStream {
-    {:Call:addMsg(_, m) `}<NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="pattern"/>{`
+    {:Call:addMsg(_, m) `}{this.noteAnchor("pattern")}{`
       doutln "Got message: " m;
     }
-    {(char: Str) `}<span className={cssns("comment")}>{`/* ignore */`}</span>{`}
+    {(char: Str) `}<span className={ns("comment")}>{`/* ignore */`}</span>{`}
   }
 
   doutln "Done!";
 }`}
                     </div>
                   </div>
-                  <div className={cssns("half")}>
-                    <div className={cssns("code")}>
-{``}<div className={cssns("comment")}>{`// Client
+                  <div className={ns("half")}>
+                    <div className={ns("code")}>
+{``}<div className={ns("comment")}>{`// Client
 `}</div>{`
 fn main() {
-`}<div className={cssns("comment")}>{`  // Make the client.
+`}<div className={ns("comment")}>{`  // Make the client.
 `}</div>{`  let sssc =
     SimpleSuperstructureClient(
       "localhost", 8080);
 
-`}<div className={cssns("comment")}>{`  // Receive superstructure,
+`}<div className={ns("comment")}>{`  // Receive superstructure,
   // listen for updates.
 `}</div>{`  let chatSS = ssss.start();
 
   let room = &chatSS.room;
 
-`}<div className={cssns("comment")}>{`  // Print all messages so far.
+`}<div className={ns("comment")}>{`  // Print all messages so far.
 `}
 </div>
 {`  room.messages.map(doutln);
 
-`}<div className={cssns("comment")}>
+`}<div className={ns("comment")}>
 {`  // This stream listens to both
   // the server and the keyboard.
 `}
@@ -462,7 +466,7 @@ fn main() {
 {`  let eventsStream =
     and(sssc.updates, lines(cin));
 
-`}<div className={cssns("comment")}>
+`}<div className={ns("comment")}>
 {`  // Receives updates from server
   // and lines from keyboard.
   // Stops on ctrl+D.
@@ -485,24 +489,24 @@ fn main() {
                   </div>
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   The above {incode('sssc.request:addMsg(&room, line);')} doesn't send the resulting {incode("Effect")}, it sends the {incode("Call")} struct.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   The server receives it and runs the addMsg function on its end.
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   The server might choose to keep the entire superstructure in memory at all times, for speedy execution, or it might put the superstructure in storage. The code looks the same in both cases, thanks to <Link to="/networking/superlining">Superlining</Link>, which aggressively and transparently pre-fetches and caches data from underlying storage.
                 </div>
               </div>
             </div>
 
-            <div className={cssns("margin")}>
-              <div className={cssns("toc-container")}>
+            <div className={ns("margin")}>
+              <div className={ns("toc-container")}>
                 <SuperstructuresTOC page="functions"/>
-                <div className={cssns("notes-header")}>
+                <div className={ns("notes-header")}>
                   <NotesHeader update={this.updateNotesHeaderRect}/>
                 </div>
               </div>

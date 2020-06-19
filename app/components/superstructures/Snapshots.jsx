@@ -1,15 +1,15 @@
 import React from 'react';
-import './Tutorial.css';
-import './Superstructures.css';
+import '../Tripage.css';
+import '../Tripage.css';
 import Header from '../Header.jsx';
 import Footer from '../Footer.jsx';
 import {Link} from 'react-router-dom';
 import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
 import SuperstructuresTOC from './SuperstructuresTOC.jsx';
 
-const cssns = (classes) => "c-sssnapshots m-tutorial m-superstructures " + (classes || "");
+const ns = (classes) => "c-sssnapshots m-tripage m-superstructures " + (classes || "");
 
-const incode = (code) => <span className={cssns("inline-code")}>{code}</span>
+const incode = (code) => <span className={ns("inline-code")}>{code}</span>
 
 class SuperstructuresSnapshots extends React.Component {
   constructor(props) {
@@ -26,47 +26,51 @@ class SuperstructuresSnapshots extends React.Component {
     this.noteManager.componentDidUpdate();
   }
 
+  noteAnchor(anchorName) {
+    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+  }
+
   render() {
     return (
-      <div className={cssns("root")}>
+      <div className={ns("root")}>
         <Header/>
 
-        <div className={cssns("page")}>
+        <div className={ns("page")}>
 
-          <div className={cssns("columns")}>
+          <div className={ns("columns")}>
 
-            <div className={cssns("left")}>
-              <div className={cssns("main")}>
+            <div className={ns("left")}>
+              <div className={ns("main")}>
 
-                <h1 className={cssns("noline")}>Superstructures Guide: Snapshots</h1>
-                <div className={cssns("content")}>
+                <h1 className={ns("noline")}>Superstructures Guide: Snapshots</h1>
+                <div className={ns("content")}>
                   Valence not only has a way to revert our superstructure to a past version, but it also lets us read that data without reverting.
                 </div>
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   At any time, we can make a <strong>snapshot</strong> of our superstructure, and from then on, we can read it and query it.
                 </div>
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   One would assume it's extremely expensive to take a copy like this, but thanks to the underlying <Link to="/superstructures/chronobase">chronobase</Link>, <strong>this operation is free</strong>.
                 </div>
 
-                <h3 className={cssns("cozy")}>What can we use snapshots for?</h3>
+                <h3 className={ns("cozy")}>What can we use snapshots for?</h3>
 
-                <ul className={cssns("cozy")}>
-                  <li className={cssns()}>Make graphs over time of how your data has evolved.</li>
-                  <li className={cssns()}>Pipelining; one part of your application can use a "good" version of the data while the rest of your application builds the next version.</li>
-                  <li className={cssns()}>Since theyre immutable, we can send them across thread boundaries at will. This is incredibly powerful when combined with <Link to="/superstructures/forking">Forking</Link> and <Link to="/superstructures/synchronization">Synchronization</Link>.</li>
+                <ul className={ns("cozy")}>
+                  <li className={ns()}>Make graphs over time of how your data has evolved.</li>
+                  <li className={ns()}>Pipelining; one part of your application can use a "good" version of the data while the rest of your application builds the next version.</li>
+                  <li className={ns()}>Since theyre immutable, we can send them across thread boundaries at will. This is incredibly powerful when combined with <Link to="/superstructures/forking">Forking</Link> and <Link to="/superstructures/synchronization">Synchronization</Link>.</li>
                 </ul>
 
                 <h3>Snapshotting in Action</h3>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Below is a superstructure that contained some planets and moons. This page will show how to make snapshots, and what they look like.
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
 
-  <div className={cssns("code")}>
+  <div className={ns("code")}>
 {`superstructure MySuperstructure {
   root struct SolarSystem {
     planets: List:Planet;
@@ -84,8 +88,8 @@ class SuperstructuresSnapshots extends React.Component {
 `}
   </div>
                   </div>
-                  <div className={cssns("half")}>
-  <div className={cssns("code")}>
+                  <div className={ns("half")}>
+  <div className={ns("code")}>
 {`let mySS =
   MySuperstructure(
     SolarSystem(
@@ -95,7 +99,7 @@ class SuperstructuresSnapshots extends React.Component {
           List(
             Moon("Luna", 1737))))));
 
-let snapshot1 = mySS.snapshot();`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note1"/>{`
+let snapshot1 = mySS.snapshot();`} {this.noteAnchor("note1")}{`
 
 mySS.root.planets.0.moons.add(
   Moon("Raine", 898));
@@ -108,12 +112,12 @@ doutln snapshot2;`}
                   </div>
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   The above code outputs:
                 </div>
 
-                <div className={cssns("content")}>
-                  <div className={cssns("code")}>
+                <div className={ns("content")}>
+                  <div className={ns("code")}>
 {`MySuperstructure(
   SolarSystem#5(
     List#4(Planet#3("Earth", List#2(Moon#1("Luna", 1737))))))
@@ -128,51 +132,51 @@ MySuperstructure(
                   </div>
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   We can read and query the snapshot the same way we can read and query the live instance:
                 </div>
 
-                <div className={cssns("content cozy")}>
-                  <div className={cssns("code")}>
-{`doutln mySS.findAll:Moon();`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note2"/>{`
+                <div className={ns("content cozy")}>
+                  <div className={ns("code")}>
+{`doutln mySS.findAll:Moon();`} {this.noteAnchor("note2")}{`
 doutln snapshot1.findAll:Moon();`}
                   </div>
                 </div>
 
-                <div className={cssns("content cozy")}>
+                <div className={ns("content cozy")}>
                   The above code outputs:
                 </div>
 
-                <div className={cssns("content")}>
-                  <div className={cssns("code")}>
+                <div className={ns("content")}>
+                  <div className={ns("code")}>
 {`List()
 List(Moon#6("Raine", 898))`}
                   </div>
                 </div>
 
-                <h3 className={cssns("cozy")}>Keep in mind...</h3>
+                <h3 className={ns("cozy")}>Keep in mind...</h3>
 
-                <ul className={cssns()}>
-                  <li className={cssns()}>Chronobases store snapshots extremely efficiently; the only additional memory used is what has changed since the last version. Still, a regular computer can't handle billions of snapshots. Keep an eye on memory usage.</li>
-                  <li className={cssns()}>For Chronobase, snapshots are free, but for Linear, they are O(n).</li>
+                <ul className={ns()}>
+                  <li className={ns()}>Chronobases store snapshots extremely efficiently; the only additional memory used is what has changed since the last version. Still, a regular computer can't handle billions of snapshots. Keep an eye on memory usage.</li>
+                  <li className={ns()}>For Chronobase, snapshots are free, but for Linear, they are O(n).</li>
                 </ul>
 
-                <div className={cssns("line")}/>
+                <div className={ns("line")}/>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   In the next page, we see how to compare data from different versions or snapshots.
                 </div>
 
-                <div className={cssns("content")} style={{textAlign: "right"}}>
+                <div className={ns("content")} style={{textAlign: "right"}}>
                   <strong>Next:</strong> <a href="/superstructures/comparing">Comparing</a>
                 </div>
               </div>
             </div>
 
-            <div className={cssns("margin")}>
-              <div className={cssns("toc-container")}>
+            <div className={ns("margin")}>
+              <div className={ns("toc-container")}>
                 <SuperstructuresTOC page="snapshots"/>
-                <div className={cssns("notes-header")}>
+                <div className={ns("notes-header")}>
                   <NotesHeader update={this.updateNotesHeaderRect}/>
                 </div>
               </div>

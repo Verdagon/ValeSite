@@ -3,6 +3,11 @@ import Home from './Home.jsx';
 import RefIntro from './reference/Intro.jsx';
 import RefStructs from './reference/Structs.jsx';
 import RefReferences from './reference/References.jsx';
+import RefInterfaces from './reference/Interfaces.jsx';
+import RefGenerics from './reference/Generics.jsx';
+import RefPatterns from './reference/Patterns.jsx';
+import RefRegions from './reference/Regions.jsx';
+import BlogRaiiNextSteps from './blog/RaiiNextSteps.jsx';
 import SuperstructuresIntro from './superstructures/Intro.jsx';
 import SuperstructuresReferences from './superstructures/References.jsx';
 import SuperstructuresReverting from './superstructures/Reverting.jsx';
@@ -28,7 +33,13 @@ class App extends React.Component {
 					  <Redirect exact={true} from="/ref" to="/ref/intro" />
 			    	<Route path="/ref/intro" component={RefIntro}/>
 			    	<Route path="/ref/structs" component={RefStructs}/>
-			    	<Route path="/ref/references" component={RefReferences}/>
+            <Route path="/ref/references" component={RefReferences}/>
+            <Route path="/ref/interfaces" component={RefInterfaces}/>
+            <Route path="/ref/generics" component={RefGenerics}/>
+            <Route path="/ref/patterns" component={RefPatterns}/>
+            <Route path="/ref/regions" component={RefRegions}/>
+
+            <Route path="/blog/raii-next-steps" component={BlogRaiiNextSteps}/>
 
 					  <Redirect exact={true} from="/superstructures" to="/superstructures/intro" />
 			    	<Route path="/superstructures/intro" component={SuperstructuresIntro}/>

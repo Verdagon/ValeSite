@@ -76,15 +76,16 @@ class NoteAnchor extends React.Component {
   }
 
   componentDidMount() {
+    // console.log("noteanchor cdm");
     this.sendPosition();
 
-    window.document.addEventListener('DOMContentLoaded', this.sendPosition);
-    window.addEventListener('load', this.sendPosition);
+    // window.document.addEventListener('DOMContentLoaded', this.sendPosition);
+    // window.addEventListener('load', this.sendPosition);
   }
 
   componentWillUnmount() {
-    window.document.removeEventListener('DOMContentLoaded', this.sendPosition);
-    window.removeEventListener('load', this.sendPosition);
+    // window.document.removeEventListener('DOMContentLoaded', this.sendPosition);
+    // window.removeEventListener('load', this.sendPosition);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -99,7 +100,7 @@ class NoteAnchor extends React.Component {
   }
 
   render() {
-    return <span className="c-note anchor root" ref={this.onElementRef}><div className={"c-note anchor image color" + this.state.color}></div></span>;
+    return <span className="c-note anchor root" ref={this.onElementRef}><span className={"c-note anchor image color" + this.state.color}></span></span>;
   }
 }
 
@@ -142,15 +143,16 @@ class Note extends React.Component {
   }
 
   componentDidMount() {
+    // console.log("note cdm");
     this.sendSize();
 
-    window.document.addEventListener('DOMContentLoaded', this.sendSize);
-    window.addEventListener('load', this.sendSize);
+    // window.document.addEventListener('DOMContentLoaded', this.sendSize);
+    // window.addEventListener('load', this.sendSize);
   }
 
   componentWillUnmount() {
-    window.document.removeEventListener('DOMContentLoaded', this.sendSize);
-    window.removeEventListener('load', this.sendSize);
+    // window.document.removeEventListener('DOMContentLoaded', this.sendSize);
+    // window.removeEventListener('load', this.sendSize);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -177,6 +179,49 @@ class Note extends React.Component {
   }
 }
 
+function debounce(func, wait, immediate) {
+  // 'private' variable for instance
+  // The returned function will be able to reference this due to closure.
+  // Each call to the returned function will share this common timer.
+  var timeout;
+
+  // Calling debounce returns a new anonymous function
+  return function() {
+    // reference the context and args for the setTimeout function
+    var context = this,
+      args = arguments;
+
+    // Should the function be called now? If immediate is true
+    //   and not already in a timeout then the answer is: Yes
+    var callNow = immediate && !timeout;
+
+    // This is the basic debounce behaviour where you can call this 
+    //   function several times, but it will only execute once 
+    //   [before or after imposing a delay]. 
+    //   Each time the returned function is called, the timer starts over.
+    clearTimeout(timeout);
+
+    // Set the new timeout
+    timeout = setTimeout(function() {
+
+      // Inside the timeout function, clear the timeout variable
+      // which will let the next execution run when in 'immediate' mode
+      timeout = null;
+
+      // Check if the function already ran with the immediate flag
+      if (!immediate) {
+        // Call the original function with apply
+        // apply lets you define the 'this' object as well as the arguments 
+        //    (both captured before setTimeout)
+        func.apply(context, args);
+      }
+    }, wait);
+
+    // Immediate mode and no wait timer? Execute the function..
+    if (callNow) func.apply(context, args);
+  }
+}
+
 class NoteManager {
   constructor(owner) {
     this.owner = owner;
@@ -186,28 +231,37 @@ class NoteManager {
       noteSizes: {},
       noteColorsAndPositions: {},
     };
+    this.mounted = false;
   }
 
   updateNotesHeaderRect(rect) {
-    console.log("got rect!", rect);
-    this.owner.setState((state, props) => {
-      state.notesHeaderRect = rect;
-      return state;
-    });
+    // setTimeout(() => {
+      // console.log("updateNotesHeaderRect");
+      this.owner.setState((state, props) => {
+        state.notesHeaderRect = rect;
+        return state;
+      });
+    // });
   }
 
   updateNoteAnchorPosition(name, position) {
-    this.owner.setState((state, props) => {
-      state.noteAnchorPositions[name] = position;
-      return state;
-    });
+    // setTimeout(() => {
+      // console.log("updateNoteAnchorPosition");
+      this.owner.setState((state, props) => {
+        state.noteAnchorPositions[name] = position;
+        return state;
+      });
+    // });
   }
 
   updateNoteSize(name, size) {
-    this.owner.setState((state, props) => {
-      state.noteSizes[name] = size;
-      return state;
-    });
+    // setTimeout(() => {
+      // console.log("updateNoteSize");
+      this.owner.setState((state, props) => {
+        state.noteSizes[name] = size;
+        return state;
+      });
+    // });
   }
 
   calculateNoteColorsAndPositions(notesHeaderRect, desiredPositions, sizes) {
@@ -252,6 +306,7 @@ class NoteManager {
   }
 
   componentDidUpdate() {
+    // console.log("cdu")
     let readyNotes = new Set(Object.keys(this.owner.state.noteSizes));
     let readyAnchors = new Set(Object.keys(this.owner.state.noteAnchorPositions));
     let missingNotes = new Set([...readyAnchors].filter(x => !readyNotes.has(x)));
@@ -268,6 +323,7 @@ class NoteManager {
           return state;
         });
       }
+      // console.log("done");
     }
   }
 }

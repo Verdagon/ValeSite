@@ -2,9 +2,9 @@ import React from 'react';
 import './ReferenceTOC.css';
 import {Link} from 'react-router-dom';
 
-const cssns = (classes) => "c-referencetoc " + (classes || "");
+const ns = (classes) => "c-toc " + (classes || "");
 
-class ReferenceTOC extends React.Component {
+class toc extends React.Component {
   render() {
 
     let sectionsByPage = {
@@ -25,15 +25,15 @@ class ReferenceTOC extends React.Component {
       sectionsByPage["intro"] = (
         <div>
           <strong>Introduction *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Hello world!</li>
-            <li className={cssns()}>Locals</li>
-            <li className={cssns()}>Static Typing & Inference</li>
-            <li className={cssns()}>Functions</li>
-            <li className={cssns()}>Tuples</li>
-            <li className={cssns()}>Arrays</li>
-            <li className={cssns()}>Lists</li>
-            <li className={cssns()}>Loops</li>
+          <ul className={ns()}>
+            <li className={ns()}>Hello world!</li>
+            <li className={ns()}>Locals</li>
+            <li className={ns()}>Static Typing & Inference</li>
+            <li className={ns()}>Functions</li>
+            <li className={ns()}>Tuples</li>
+            <li className={ns()}>Arrays</li>
+            <li className={ns()}>Lists</li>
+            <li className={ns()}>Loops</li>
           </ul>
         </div>
       );
@@ -42,12 +42,15 @@ class ReferenceTOC extends React.Component {
       sectionsByPage["structs"] = (
         <div>
           <strong>Structs *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Structs</li>
-            <li className={cssns()}>Constructors</li>
-            <li className={cssns()}>Ownership</li>
-            <li className={cssns()}>Destructors</li>
-            <li className={cssns()}>Mutability</li>
+          <ul className={ns()}>
+            <li className={ns()}>Structs</li>
+            <li className={ns()}>Constructors</li>
+            <ul className={ns()}>
+              <li className={ns()}>Shortcalling</li>
+            </ul>
+            <li className={ns()}>Ownership</li>
+            <li className={ns()}>Destructors</li>
+            <li className={ns()}>Mutability</li>
           </ul>
         </div>
       );
@@ -56,25 +59,25 @@ class ReferenceTOC extends React.Component {
       sectionsByPage["references"] = (
         <div>
           <strong>References *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Owning References</li>
-            <ul className={cssns()}>
-              <li className={cssns()}>Moving</li>
-              <li className={cssns()}>Inlining</li>
-              <li className={cssns()}>For Immutables</li>
+          <ul className={ns()}>
+            <li className={ns()}>Owning References</li>
+            <ul className={ns()}>
+              <li className={ns()}>Immutables</li>
+              <li className={ns()}>Moving</li>
             </ul>
-            <li className={cssns()}>Non-owning References</li>
-            <ul className={cssns()}>
-              <li className={cssns()}>Borrow References</li>
-              <ul className={cssns()}>
-                <li className={cssns()}>Limitations</li>
+            <li className={ns()}>Non-owning References</li>
+            <ul className={ns()}>
+              {/*<li className={ns()}>Borrow References</li>
+              <ul className={ns()}>
+                <li className={ns()}>Limitations</li>
+              </ul>*/}
+              <li className={ns()}>Constraint References</li>
+              <ul className={ns()}>
+                <li className={ns()}>Modes</li>
               </ul>
-              <li className={cssns()}>Constraint References</li>
-              <ul className={cssns()}>
-                <li className={cssns()}>Modes</li>
-              </ul>
-              <li className={cssns()}>Weak References</li>
+              <li className={ns()}>Weak References</li>
             </ul>
+            <li className={ns()}>Inlining</li>
           </ul>
         </div>
       );
@@ -83,10 +86,16 @@ class ReferenceTOC extends React.Component {
       sectionsByPage["interfaces"] = (
         <div>
           <strong>Interfaces *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Interfaces</li>
-            <li className={cssns()}>Interface Constructors</li>
-            <li className={cssns()}>Structural Interfaces</li>
+          <ul className={ns()}>
+            <li className={ns()}>Using Interfaces</li>
+            <ul className={ns()}>
+              <li className={ns()}>Anonymous Substructs</li>
+            </ul>
+            <li className={ns()}>Sealed Interfaces</li>
+            <ul className={ns()}>
+              <li className={ns()}>Constructors</li>
+              <li className={ns()}>Shortcalling</li>
+            </ul>
           </ul>
         </div>
       );
@@ -95,7 +104,7 @@ class ReferenceTOC extends React.Component {
       sectionsByPage["generics"] = (
         <div>
           <strong>Generics *</strong>
-          <ul className={cssns()}>
+          <ul className={ns()}>
           </ul>
         </div>
       );
@@ -104,11 +113,11 @@ class ReferenceTOC extends React.Component {
       sectionsByPage["patterns"] = (
         <div>
           <strong>Patterns *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Patterns</li>
-            <li className={cssns()}>Destructuring</li>
-            <li className={cssns()}>Parameters</li>
-            <li className={cssns()}>Pattern Calling</li>
+          <ul className={ns()}>
+            <li className={ns()}>Patterns</li>
+            <li className={ns()}>Destructuring</li>
+            <li className={ns()}>Parameters</li>
+            <li className={ns()}>Match Statement</li>
           </ul>
         </div>
       );
@@ -117,9 +126,9 @@ class ReferenceTOC extends React.Component {
       sectionsByPage["operators"] = (
         <div>
           <strong>Operators *</strong>
-          <ul className={cssns()}>
-            <li className={cssns()}>Map Operator</li>
-            <li className={cssns()}>FlatMap Operator</li>
+          <ul className={ns()}>
+            <li className={ns()}>Map Operator</li>
+            <li className={ns()}>FlatMap Operator</li>
           </ul>
         </div>
       );
@@ -128,7 +137,7 @@ class ReferenceTOC extends React.Component {
       sectionsByPage["errors"] = (
         <div>
           <strong>Errors *</strong>
-          <ul className={cssns()}>
+          <ul className={ns()}>
           </ul>
         </div>
       );
@@ -137,7 +146,7 @@ class ReferenceTOC extends React.Component {
       sectionsByPage["regions"] = (
         <div>
           <strong>Regions *</strong>
-          <ul className={cssns()}>
+          <ul className={ns()}>
           </ul>
         </div>
       );
@@ -146,32 +155,32 @@ class ReferenceTOC extends React.Component {
       sectionsByPage["cross-compilation"] = (
         <div>
           <strong>Cross Compilation *</strong>
-          <ul className={cssns()}>
+          <ul className={ns()}>
           </ul>
         </div>
       );
     }
 
     return (
-      <div className={cssns("root")}>
+      <div className={ns("root")}>
         Reference
-        <ul className={cssns()}>
-          <li className={cssns()}>{sectionsByPage["intro"]}</li>
-          <li className={cssns()}>{sectionsByPage["structs"]}</li>
-          <li className={cssns()}>{sectionsByPage["references"]}</li>
-          <li className={cssns()}>{sectionsByPage["interfaces"]}</li>
-          <li className={cssns()}>{sectionsByPage["generics"]}</li>
-          <li className={cssns()}>{sectionsByPage["patterns"]}</li>
-          <li className={cssns()}>{sectionsByPage["operators"]}</li>
-          <li className={cssns()}>{sectionsByPage["errors"]}</li>
-          <li className={cssns()}>{sectionsByPage["regions"]}</li>
-          <li className={cssns()}>{sectionsByPage["cross-compilation"]}</li>
+        <ul className={ns()}>
+          <li className={ns()}>{sectionsByPage["intro"]}</li>
+          <li className={ns()}>{sectionsByPage["structs"]}</li>
+          <li className={ns()}>{sectionsByPage["references"]}</li>
+          <li className={ns()}>{sectionsByPage["interfaces"]}</li>
+          <li className={ns()}>{sectionsByPage["generics"]}</li>
+          <li className={ns()}>{sectionsByPage["patterns"]}</li>
+          {/*<li className={ns()}>{sectionsByPage["operators"]}</li>*/}
+          {/*<li className={ns()}>{sectionsByPage["errors"]}</li>*/}
+          <li className={ns()}>{sectionsByPage["regions"]}</li>
+          {/*<li className={ns()}>{sectionsByPage["cross-compilation"]}</li>*/}
         </ul>
       </div>
 
     );
-    // <li className={cssns()}>{sectionsByPage["forking"]}</li>
+    // <li className={ns()}>{sectionsByPage["forking"]}</li>
   }
 }
 
-export default ReferenceTOC;
+export default toc;

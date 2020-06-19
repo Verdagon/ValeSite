@@ -1,15 +1,15 @@
 import React from 'react';
-import './Tutorial.css';
-import './Superstructures.css';
+import '../Tripage.css';
+import '../Tripage.css';
 import Header from '../Header.jsx';
 import Footer from '../Footer.jsx';
 import {Link} from 'react-router-dom';
 import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
 import SuperstructuresTOC from './SuperstructuresTOC.jsx';
 
-const cssns = (classes) => "c-ssreverting m-tutorial m-superstructures " + (classes || "");
+const ns = (classes) => "c-ssreverting m-tripage m-superstructures " + (classes || "");
 
-const incode = (code) => <span className={cssns("inline-code")}>{code}</span>
+const incode = (code) => <span className={ns("inline-code")}>{code}</span>
 
 class SuperstructuresReverting extends React.Component {
   constructor(props) {
@@ -26,27 +26,31 @@ class SuperstructuresReverting extends React.Component {
     this.noteManager.componentDidUpdate();
   }
 
+  noteAnchor(anchorName) {
+    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+  }
+
   render() {
     return (
-      <div className={cssns("root")}>
+      <div className={ns("root")}>
         <Header/>
 
-        <div className={cssns("page")}>
+        <div className={ns("page")}>
 
-          <div className={cssns("columns")}>
+          <div className={ns("columns")}>
 
-            <div className={cssns("left")}>
-              <div className={cssns("main")}>
+            <div className={ns("left")}>
+              <div className={ns("main")}>
 
-                <h1 className={cssns("noline")}>Superstructures Guide: Reverting</h1>
-                <div className={cssns("content")}>
+                <h1 className={ns("noline")}>Superstructures Guide: Reverting</h1>
+                <div className={ns("content")}>
                   In the <Link to="/superstructures/intro">References</Link> page, we made a superstructure that contained some planets, some moons, and an astronaut, shown below. This page will show how to revert to past versions of this data.
                 </div>
 
-                <div className={cssns("content splitter")}>
-                  <div className={cssns("half")}>
+                <div className={ns("content splitter")}>
+                  <div className={ns("half")}>
 
-  <div className={cssns("code")}>
+  <div className={ns("code")}>
 {`superstructure MySuperstructure {
   root struct SolarSystem {
     planets: List:Planet;
@@ -67,9 +71,9 @@ class SuperstructuresReverting extends React.Component {
 }`}
   </div>
                   </div>
-                  <div className={cssns("half")}>
+                  <div className={ns("half")}>
 
-  <div className={cssns("code")}>
+  <div className={ns("code")}>
 {`let mySS =
   MySuperstructure(
     SolarSystem(
@@ -94,19 +98,19 @@ mySS.root.astronauts.add(
                   </div>
                 </div>
 
-                <h3 className={cssns()}>Enabling Reverting</h3>
+                <h3 className={ns()}>Enabling Reverting</h3>
 
-                <div className={cssns("code-on-right")}>
-                  <div className={cssns("content splitter")}>
-                    <div className={cssns("half")}>
-                      <div className={cssns("content")}>First, we enable history on our superstructure with {incode("History")} and {incode("Revertible")}.</div>
-                      <div className={cssns("content end")}>The {incode("@Revertible(true);")} enables reverting.</div>
+                <div className={ns("code-on-right")}>
+                  <div className={ns("content splitter")}>
+                    <div className={ns("half")}>
+                      <div className={ns("content")}>First, we enable history on our superstructure with {incode("History")} and {incode("Revertible")}.</div>
+                      <div className={ns("content end")}>The {incode("@Revertible(true);")} enables reverting.</div>
                     </div>
 
-                    <div className={cssns("half")} style={{float: "right", clear: "both"}}>
-  <div className={cssns("code")}>
+                    <div className={ns("half")} style={{float: "right", clear: "both"}}>
+  <div className={ns("code")}>
 {`superstructure MySuperstructure {
-  @History(Linear);`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note0"/> <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note0.5"/>{`
+  @History(Linear);`} {this.noteAnchor("note0")} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note0.5"/>{`
   @Revertible(true);
 
   root struct SolarSystem {
@@ -116,34 +120,34 @@ mySS.root.astronauts.add(
                   </div>
                 </div>
 
-                <div className={cssns("content")}>Revertibility requires history, so the {incode("@History(Linear);")} instructs the compiler to keep track of changes. See <Link to="/superstructures/annotations">Superstructure Settings</Link> for other history options.</div>
+                <div className={ns("content")}>Revertibility requires history, so the {incode("@History(Linear);")} instructs the compiler to keep track of changes. See <Link to="/superstructures/annotations">Superstructure Settings</Link> for other history options.</div>
 
-                <h3 className={cssns()}>Using It</h3>
+                <h3 className={ns()}>Using It</h3>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Let's hold onto a version number, do some changes, and then revert those changes.
                 </div>
 
-                <div className={cssns("code-on-right")}>
-                  <div className={cssns("content splitter")}>
-                    <div className={cssns("half")}>
-                      We can get the version number of our superstructure using {incode("v.version")}. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note1"/> <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note1.5"/>
+                <div className={ns("code-on-right")}>
+                  <div className={ns("content splitter")}>
+                    <div className={ns("half")}>
+                      We can get the version number of our superstructure using {incode("v.version")}. {this.noteAnchor("note1")} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note1.5"/>
                     </div>
 
-                    <div className={cssns("half")} style={{float: "right", clear: "both"}}>
-  <div className={cssns("code")}>
+                    <div className={ns("half")} style={{float: "right", clear: "both"}}>
+  <div className={ns("code")}>
 {`let firstVersion = v.version(mySS);`}
   </div>
                     </div>
                   </div>
 
-                  <div className={cssns("content splitter")}>
-                    <div className={cssns("half")}>
+                  <div className={ns("content splitter")}>
+                    <div className={ns("half")}>
                       Then, let's add another planet, Pluto, and make the astronaut's {incode("planet")} field point to it.
                     </div>
 
-                    <div className={cssns("half")}>
-  <div className={cssns("code")}>
+                    <div className={ns("half")}>
+  <div className={ns("code")}>
 {`mySS.root.planets.add(
   Planet(
     "Pluto",
@@ -157,67 +161,67 @@ mySS.root.astronauts.0.planet =
                     </div>
                   </div>
 
-                  <div className={cssns("content splitter")}>
-                    <div className={cssns("half")}>
+                  <div className={ns("content splitter")}>
+                    <div className={ns("half")}>
                       Then, let's revert the entire superstructure back to the previous version, using {incode("v.revert")}.
                     </div>
-                    <div className={cssns("half")}>
-  <div className={cssns("code")}>
-{`v.revert(mySS, firstVersion);`} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note2"/>
+                    <div className={ns("half")}>
+  <div className={ns("code")}>
+{`v.revert(mySS, firstVersion);`} {this.noteAnchor("note2")}
   </div>
                     </div>
                   </div>
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   Suddenly, Pluto's gone, and the astronaut's {incode("planet")} field is pointing to Saturn, like it was before!
                 </div>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   See <Link to="/playground">the full code here</Link>.
                 </div>
 
-                <h3 className={cssns("cozy")}>What can we use reverting for?</h3>
+                <h3 className={ns("cozy")}>What can we use reverting for?</h3>
 
-                <div className={cssns("content")}>
-                  <ul className={cssns()}>
-                    <li className={cssns()}>Undo history, for example in Photoshop.</li>
-                    <li className={cssns()}>Saves in a video game.</li>
-                    <li className={cssns()}>Restoring to the last good state after errors.</li>
+                <div className={ns("content")}>
+                  <ul className={ns()}>
+                    <li className={ns()}>Undo history, for example in Photoshop.</li>
+                    <li className={ns()}>Saves in a video game.</li>
+                    <li className={ns()}>Restoring to the last good state after errors.</li>
                   </ul>
 
                   Reverting can also enable <Link to="/superstructures/clientsideprediction">Client-Side Prediction</Link>, which applies changes locally before sending them to a server.
                 </div>
 
-                <h3 className={cssns("cozy")}>Keep in mind...</h3>
+                <h3 className={ns("cozy")}>Keep in mind...</h3>
 
-                <div className={cssns("content cozy")}>
-                  <ul className={cssns()}>
-                    <li className={cssns()}>
-                      We can speed up reverting to <strong>constant time</strong> by changing the superstructure's history setting to <Link to="/superstructures/formats">chronotree</Link> or <Link to="/superstructures/formats">chronobase</Link>. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note3"/>
+                <div className={ns("content cozy")}>
+                  <ul className={ns()}>
+                    <li className={ns()}>
+                      We can speed up reverting to <strong>constant time</strong> by changing the superstructure's history setting to <Link to="/superstructures/formats">chronotree</Link> or <Link to="/superstructures/formats">chronobase</Link>. {this.noteAnchor("note3")}
                     </li>
-                    <li className={cssns()}>
-                      The strong reference rules apply, just like anywhere in Valence. Anything pointed at by a strong reference cannot be deleted in a revert. <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note4"/>
+                    <li className={ns()}>
+                      The strong reference rules apply, just like anywhere in Valence. Anything pointed at by a strong reference cannot be deleted in a revert. {this.noteAnchor("note4")}
                     </li>
                   </ul>
                 </div>
 
-                <div className={cssns("line")}/>
+                <div className={ns("line")}/>
 
-                <div className={cssns("content")}>
+                <div className={ns("content")}>
                   In the next page, we see how to read data from past versions: Snapshots!
                 </div>
 
-                <div className={cssns("content")} style={{textAlign: "right"}}>
+                <div className={ns("content")} style={{textAlign: "right"}}>
                   <strong>Next:</strong> <a href="/superstructures/snapshots">Snapshots</a>
                 </div>
               </div>
             </div>
 
-            <div className={cssns("margin")}>
-              <div className={cssns("toc-container")}>
+            <div className={ns("margin")}>
+              <div className={ns("toc-container")}>
                 <SuperstructuresTOC page="reverting"/>
-                <div className={cssns("notes-header")}>
+                <div className={ns("notes-header")}>
                   <NotesHeader update={this.updateNotesHeaderRect}/>
                 </div>
               </div>

@@ -32,9 +32,13 @@ class Header extends React.Component {
 				<div className="header vorb"></div>
 			</div>
 		);
-		let title = (
+		let langTitle = (
 			<div className="header title">The <span className="header vale">Vale</span> Programming Language</div>
 		)
+		let blogTitle = (
+			<div className="header title"><span className="header explorations">Explorations</span> in <span className="header vale">Vale</span></div>
+		)
+		let title = this.props.blog ? blogTitle : langTitle;
 		if (!this.props.easterEgg) {
 			vorb = <Link to="/" className="header">{vorb}</Link>;
 			title = <Link to="/" className="header">{title}</Link>;
@@ -48,7 +52,7 @@ class Header extends React.Component {
 						</div>
 						<div className="header links">
 							<Link to="/ref">Reference</Link>
-							<a>Github Repository</a>
+							<a href="https://github.com/Verdagon/Vale">Github Repository</a>
 						</div>
 					</div>
 				</div>

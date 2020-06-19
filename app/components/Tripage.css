@@ -1,22 +1,50 @@
-.m-tutorial .page {
+
+.m-tripage.subtitle {
+  opacity: .6;
+}
+
+.m-tripage.inline-code {
+	font-family: Roboto Mono, Courier New, Courier;
+	padding: 0 4px;
+	white-space: nowrap;
+	font-size: 10pt;
+}
+
+.m-tripage.main .m-tripage.inline-code {
+  border: 1px solid #E0E0E0;
+  background-color: #F0F0F0;
+}
+
+.m-tripage.plans {
+	background-color: #F0F0FF;
+	padding: 16px 16px 1px 16px;
+	border-right: 2px solid #E8E8FF;
+}
+
+.m-tripage.plans .m-tripage.inline-code {
+  border: 1px solid #D0D0D0;
+  background-color: white;
+}
+
+.m-tripage .page {
   width: 896px;
   box-sizing: border-box;
   margin: auto;
   position: relative;
 }
 
-.m-tutorial .left {
+.m-tripage .left {
   overflow: auto;
   width: 632px;
 }
 
-.m-tutorial .main {
+.m-tripage .main {
   padding-top: 16px;
   padding-right: 16px;
   overflow: auto;
 }
 
-.m-tutorial .margin {
+.m-tripage .margin {
   position: absolute;
   width: 264px;
   top: 0;
@@ -25,11 +53,11 @@
   background-color: #F0F0F0;
 }
 
-.m-tutorial .content {
+.m-tripage .content {
   margin-bottom: 16px;
 }
 
-.m-tutorial .input {
+.m-tripage .input {
   width: 100%;
   box-sizing: border-box;
   color: #f8f8f2;
@@ -42,7 +70,7 @@
   overflow: auto;
 }
 
-.m-tutorial .output {
+.m-tripage .output {
   width: 100%;
   box-sizing: border-box;
   color: #f8f8f2;
@@ -55,45 +83,45 @@
   overflow: auto;
 }
 
-.m-tutorial .splitter {
+.m-tripage .splitter {
   display: flex;
 }
 
-.m-tutorial.half {
+.m-tripage.half {
   flex-grow: 1;
   width: calc(50% - 8px);
 }
-.m-tutorial.half + .m-tutorial.half {
+.m-tripage.half + .m-tripage.half {
   margin-left: 16px;
 }
 
-.m-tutorial.width60 {
+.m-tripage.width60 {
   flex-grow: 1;
   width: calc(60% - 8px);
 }
-.m-tutorial.width40 {
+.m-tripage.width40 {
   flex-grow: 1;
   width: calc(40% - 8px);
 }
-.m-tutorial.width60 + .m-tutorial.width40 {
+.m-tripage.width60 + .m-tripage.width40 {
   margin-left: 16px;
 }
-.m-tutorial.width40 + .m-tutorial.width60 {
+.m-tripage.width40 + .m-tripage.width60 {
   margin-left: 16px;
 }
 
 
-.m-tutorial.intro-container {
+.m-tripage.intro-container {
   width: 616px;
 }
-.m-tutorial.toc-container {
+.m-tripage.toc-container {
   width: 264px;
   background-color: white;
   position: absolute;
   box-sizing: border-box;
 }
 
-.m-tutorial.notes-header {
+.m-tripage.notes-header {
   opacity: .5;
   font-style: italic;
   text-align: center;
@@ -106,37 +134,37 @@
 
 
 
-.m-tutorial p {
+.m-tripage p {
   margin: 0 0 16px 0;
 }
 
-.m-tutorial .cozy {
+.m-tripage .cozy {
   margin-bottom: 8px;
 }
 
-ul.m-tutorial {
+ul.m-tripage {
   margin: 8px 0;
 }
 
-li.m-tutorial {
+li.m-tripage {
   margin-bottom: 0;
 }
 
-li.m-tutorial + li.m-tutorial {
+li.m-tripage + li.m-tripage {
   margin-top: 8px;
 }
 
-.m-tutorial.end {
+.m-tripage.end {
   margin-bottom: 0;
 }
 
-.m-tutorial h1 {
+.m-tripage h1 {
   margin-top: 16px;
   margin-bottom: 16px;
   font-size: 18pt;
 }
 
-.m-tutorial h2 {
+.m-tripage h2 {
   border-top: 2px solid #E0E0E0;
   margin-top: 16px;
   padding-top: 8px;
@@ -144,12 +172,12 @@ li.m-tutorial + li.m-tutorial {
   font-size: 16pt;
 }
 
-.m-tutorial.line {
+.m-tripage.line {
   border-top: 2px solid #E0E0E0;
   margin: 16px 0;
 }
 
-.m-tutorial h3 {
+.m-tripage h3 {
   border-top: 2px solid #E0E0E0;
   margin-top: 16px;
   padding-top: 8px;
@@ -158,7 +186,7 @@ li.m-tutorial + li.m-tutorial {
   font-size: 14pt;
 }
 
-.m-tutorial h4 {
+.m-tripage h4 {
   margin-top: 16px;
   margin-bottom: 16px;
   margin-right: 16px;
@@ -166,7 +194,7 @@ li.m-tutorial + li.m-tutorial {
   color: #303030;
 }
 
-.m-tutorial h5 {
+.m-tripage h5 {
   margin-top: 16px;
   margin-bottom: 16px;
   margin-right: 16px;
@@ -175,18 +203,36 @@ li.m-tutorial + li.m-tutorial {
   font-weight: bold;
 }
 
-.m-tutorial.noline {
+.m-tripage.noline {
   border-top-width: 0;
   margin-top: 0;
   padding-top: 0;
 }
 
-.m-tutorial.comment {
+.m-tripage.comment {
   color: #A0A0A0;
 }
 
-.m-tutorial ul,
-.m-tutorial ol {
+.m-tripage ul,
+.m-tripage ol {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+
+table.m-tripage.comparison {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+table.m-tripage.comparison td,
+table.m-tripage.comparison th {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #C0C0C0;
+}
+table.m-tripage.comparison .good {
+  background-color: #D8F0D8;
+}
+table.m-tripage.comparison .bad {
+  background-color: #F0D8D8;
 }

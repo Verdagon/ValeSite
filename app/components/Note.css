@@ -24,6 +24,11 @@
 }
 
 .c-note.anchor.image {
+	display: block;
+}
+
+.c-note ul {
+	padding-left: 1.25em;
 }
 
 .code .c-note.anchor {
@@ -63,7 +68,7 @@
 }
 
 .c-note.color0 {
-	filter: hue-rotate(0deg) saturate(150%);
+	filter: hue-rotate(-15deg) saturate(200%);
 }
 
 .c-note.color1 {
