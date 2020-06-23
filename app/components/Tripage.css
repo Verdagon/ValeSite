@@ -229,6 +229,7 @@ table.m-tripage.comparison th {
   text-align: left;
   padding: 8px;
   border: 1px solid #C0C0C0;
+  vertical-align: top;
 }
 table.m-tripage.comparison .good {
   background-color: #D8F0D8;

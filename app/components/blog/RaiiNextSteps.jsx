@@ -166,16 +166,16 @@ struct BigClass {
   b B;
   c C;
   d D;
-  fn BigClass(this) {
+  fn BigClass() {
     this.a = A(); (nomakeunique)
-    this.b = B(&a); (noget)
-    this.c = C(&a);
-    this.d = D(&a, &c);
+    this.b = B(&this.a); (noget)
+    this.c = C(&this.a);
+    this.d = D(&this.a, &this.c);
   }
 }
 */}
 
-<span className="Prog"><span className="Struct">struct <span className="StructName">BigClass</span> <span className="Membs">&#123;<br />  <span className="Memb"><span className="MembName">a</span> <span className="Typ">A</span>;</span> {this.noteAnchor("nounique")}<br />  <span className="Memb"><span className="MembName">b</span> <span className="Typ">B</span>;</span><br />  <span className="Memb"><span className="MembName">c</span> <span className="Typ">C</span>;</span><br />  <span className="Memb"><span className="MembName">d</span> <span className="Typ">D</span>;</span><br />  <span className="Fn">fn <span className="FnName">BigClass</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>)</span> <span className="Block">&#123;<br />    <span className="Let"><span className="Pat"><span className="Capture"><span className="CaptureName">this.a</span></span></span> = <span className="Call"><span className="CallLookup">A</span>()</span>;</span> {this.noteAnchor("nomakeunique")}<br />    <span className="Let"><span className="Pat"><span className="Capture"><span className="CaptureName">this.b</span></span></span> = <span className="Call"><span className="CallLookup">B</span>(<span className="Lend">&<span className="Lookup">a</span></span>)</span>;</span> {this.noteAnchor("noget")}<br />    <span className="Let"><span className="Pat"><span className="Capture"><span className="CaptureName">this.c</span></span></span> = <span className="Call"><span className="CallLookup">C</span>(<span className="Lend">&<span className="Lookup">a</span></span>)</span>;</span><br />    <span className="Let"><span className="Pat"><span className="Capture"><span className="CaptureName">this.d</span></span></span> = <span className="Call"><span className="CallLookup">D</span>(<span className="Lend">&<span className="Lookup">a</span></span>, <span className="Lend">&<span className="Lookup">c</span></span>)</span>;</span><span className="W"></span><br />  &#125;</span></span><br />&#125;</span></span><br /></span>
+<span className="Prog"><span className="Struct">struct <span className="StructName">BigClass</span> <span className="Membs">&#123;<br />  <span className="Memb"><span className="MembName">a</span> <span className="Typ">A</span>;</span> {this.noteAnchor("nounique")}<br />  <span className="Memb"><span className="MembName">b</span> <span className="Typ">B</span>;</span><br />  <span className="Memb"><span className="MembName">c</span> <span className="Typ">C</span>;</span><br />  <span className="Memb"><span className="MembName">d</span> <span className="Typ">D</span>;</span><br />  <span className="Fn">fn <span className="FnName">BigClass</span><span className="Params">()</span> <span className="Block">&#123;<br />    <span className="Let"><span className="Pat"><span className="Capture"><span className="CaptureName">this.a</span></span></span> = <span className="Call"><span className="CallLookup">A</span>()</span>;</span> {this.noteAnchor("nomakeunique")}<br />    <span className="Let"><span className="Pat"><span className="Capture"><span className="CaptureName">this.b</span></span></span> = <span className="Call"><span className="CallLookup">B</span>(<span className="Lend">&<span className="MemberAccess"><span className="Lookup">this</span>.<span className="Lookup">a</span></span></span>)</span>;</span> {this.noteAnchor("noget")}<br />    <span className="Let"><span className="Pat"><span className="Capture"><span className="CaptureName">this.c</span></span></span> = <span className="Call"><span className="CallLookup">C</span>(<span className="Lend">&<span className="MemberAccess"><span className="Lookup">this</span>.<span className="Lookup">a</span></span></span>)</span>;</span><br />    <span className="Let"><span className="Pat"><span className="Capture"><span className="CaptureName">this.d</span></span></span> = <span className="Call"><span className="CallLookup">D</span>(<span className="Lend">&<span className="MemberAccess"><span className="Lookup">this</span>.<span className="Lookup">a</span></span></span>, <span className="Lend">&<span className="MemberAccess"><span className="Lookup">this</span>.<span className="Lookup">c</span></span></span>)</span>;</span><span className="W"></span><br />  &#125;</span></span><br />&#125;</span></span><br /></span>
 
                     </Snippet>
                   </div>
@@ -227,7 +227,7 @@ struct BigClass {
                 <h5 className={ns()}>Constraint Behavior Modes</h5>
 
                 <div className={ns("content cozy")}>
-                  The best part: constraint references can be <b>zero cost</b>! We make another wrapper around {incode("shared_ptr")} called {incode("constraint_ptr")}. In release mode, it would compile to a raw pointer instead, and our {incode("owning_ptr")} would compile to a {incode("unique_ptr")}. In Vale, these are called <b>Normal Mode</b> and <b>Fast Mode</b> respectively.
+                  The best part: constraint references can be <b>zero cost</b>! We just need to make another wrapper around {incode("shared_ptr")} called {incode("constraint_ptr")}. In release mode, it would compile to a raw pointer instead, and our {incode("owning_ptr")} would compile to a {incode("unique_ptr")}. In Vale, this is called <b>Fast Mode</b>.
                 </div>
                 <div className={ns("content cozy")}>
                   Developing and testing with constraint references drastically reduces the chance of a crash or vulnerability in production. It's not perfect, but it lets us alias {this.noteAnchor("alias")} with much more safety.
@@ -320,7 +320,7 @@ struct Network {
 
 */}
 
-<span class="Prog"><span class="Interface">interface <span class="StructName">INetworkCallback</span> &#123;<br />  <span class="Fn">fn <span class="FnName">handleResponse</span><span class="Params">(<span class="Pat"><span class="Lend">&</span><span class="Capture"><span class="CaptureName">this</span></span></span>, <span class="Pat"><span class="Capture"><span class="CaptureName">resp</span></span> <span class="Typ">Str</span></span>)</span>;</span><br />  <span class="Fn">fn <span class="FnName">drop</span><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">this</span></span></span>)</span>;</span><br />&#125;</span><br /><span class="Struct">struct <span class="StructName">Network</span> <span class="Membs">&#123;<br />  <span class="Fn">fn <span class="FnName">request</span><span class="Params">(<br />      <span class="Pat"><span class="Lend">&</span><span class="Capture"><span class="CaptureName">this</span></span></span>,<br />      <span class="Pat"><span class="Capture"><span class="CaptureName">url</span></span> <span class="Typ">Str</span></span>,<br />      <span class="Pat"><span class="Capture"><span class="CaptureName">callback</span></span> <span class="Ownership">&<span class="Typ">INetworkCallback</span></span></span>)</span><br />  <span class="Block">&#123; <span class="Lookup">...</span> &#125;</span></span><br />&#125;</span></span><br /></span>
+<span className="Prog"><span className="Interface">interface <span className="StructName">INetworkCallback</span> &#123;<br />  <span className="Fn">fn <span className="FnName">handleResponse</span><span className="Params">(<span className="Pat"><span className="Lend">&</span><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">resp</span></span> <span className="Typ">Str</span></span>)</span>;</span><br />  <span className="Fn">fn <span className="FnName">drop</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>)</span>;</span><br />&#125;</span><br /><span className="Struct">struct <span className="StructName">Network</span> <span className="Membs">&#123;<br />  <span className="Fn">fn <span className="FnName">request</span><span className="Params">(<br />      <span className="Pat"><span className="Lend">&</span><span className="Capture"><span className="CaptureName">this</span></span></span>,<br />      <span className="Pat"><span className="Capture"><span className="CaptureName">url</span></span> <span className="Typ">Str</span></span>,<br />      <span className="Pat"><span className="Capture"><span className="CaptureName">callback</span></span> <span className="Ownership">&<span className="Typ">INetworkCallback</span></span></span>)</span><br />  <span className="Block">&#123; <span className="Lookup">...</span> &#125;</span></span><br />&#125;</span></span><br /></span>
 
                     </Snippet>
                   </div>
@@ -557,9 +557,9 @@ transaction.rollback(TUMBLE);
 
 */}
 
-<span class="Prog"><span class="Struct">struct <span class="StructName">Transaction</span> <span class="Membs">&#123;<br />  <span class="Fn">fn <span class="FnName">read</span><span class="Params">(<span class="Pat"><span class="Lend">&</span><span class="Capture"><span class="CaptureName">this</span></span></span>, <span class="Pat"><span class="Capture"><span class="CaptureName">query</span></span> <span class="Typ">ReadQuery</span></span>)</span><br />  <span class="Typ">ReadResult</span> <span class="Block">&#123; <span class="Lookup">...</span> &#125;</span></span><br /><br />  <span class="Fn">fn <span class="FnName">commit</span><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">this</span></span></span>)</span> <span class="Block">&#123;  {this.noteAnchor("ownthis")}<br />    <span class="Lookup">...</span>;<br />    <span class="Call"><span class="CallLookup">destruct</span> <span class="Lookup">this</span></span>;<span class="W"></span><br />  &#125;</span></span><br /><br />  <span class="Fn">fn <span class="FnName">rollback</span><span class="Params">(<span class="Pat"><span class="Capture"><span class="CaptureName">this</span></span></span>, <span class="Pat"><span class="Capture"><span class="CaptureName">mode</span></span> <span class="Typ">RollMode</span></span>)</span> <span class="Block">&#123;<br />    <span class="Call"><span class="Lookup">...</span><br />    <span class="CallLookup">destruct</span> <span class="Lookup">this</span></span>;<span class="W"></span><br />  &#125;</span></span><br />&#125;</span></span><br /><br />
+<span className="Prog"><span className="Struct">struct <span className="StructName">Transaction</span> <span className="Membs">&#123;<br />  <span className="Fn">fn <span className="FnName">read</span><span className="Params">(<span className="Pat"><span className="Lend">&</span><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">query</span></span> <span className="Typ">ReadQuery</span></span>)</span><br />  <span className="Typ">ReadResult</span> <span className="Block">&#123; <span className="Lookup">...</span> &#125;</span></span><br /><br />  <span className="Fn">fn <span className="FnName">commit</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>)</span> <span className="Block">&#123;  {this.noteAnchor("ownthis")}<br />    <span className="Lookup">...</span>;<br />    <span className="Call"><span className="CallLookup">destruct</span> <span className="Lookup">this</span></span>;<span className="W"></span><br />  &#125;</span></span><br /><br />  <span className="Fn">fn <span className="FnName">rollback</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">mode</span></span> <span className="Typ">RollMode</span></span>)</span> <span className="Block">&#123;<br />    <span className="Call"><span className="Lookup">...</span><br />    <span className="CallLookup">destruct</span> <span className="Lookup">this</span></span>;<span className="W"></span><br />  &#125;</span></span><br />&#125;</span></span><br /><br />
 
-<span class="Comment">// To commit:</span><br /><span class="Call"><span class="Lookup">transaction</span>.<span class="CallLookup">commit</span>()</span>;<br /><span class="Comment">// To rollback:</span><br /><span class="Call"><span class="Lookup">transaction</span>.<span class="CallLookup">rollback</span>(<span class="Lookup">TUMBLE</span>)</span>;<span class="W"></span>
+<span className="Comment">// To commit:</span><br /><span className="Call"><span className="Lookup">transaction</span>.<span className="CallLookup">commit</span>()</span>;<br /><span className="Comment">// To rollback:</span><br /><span className="Call"><span className="Lookup">transaction</span>.<span className="CallLookup">rollback</span>(<span className="Lookup">TUMBLE</span>)</span>;<span className="W"></span>
 
 
 </span>
@@ -693,7 +693,7 @@ public:
                     <li className={ns()}>An i64 generation per-object.</li>
                     <li className={ns()}>An i64 generation per-reference.</li>
                     <li className={ns()}>The Vec's usual wasted space, which is 1-2x the <i>highest</i> number {this.noteAnchor("206")} of {incode("(i64, T)")} elements we've had in the past.</li>
-                    <li className={ns()}>Prevents RAII, because it doesn't destroy the object immediately when the "owning" index disappears. For example, a binary tree here would be a {incode("Vec<(i64, Node)>")}, where each node is owned by the {incode("Vec")}, <b>not by the parent node</b>. Who knows when the Vec would disappear and call {incode("drop")} on the elements. {this.noteAnchor("406")}</li>
+                    <li className={ns()}>Prevents RAII, because it doesn't destroy the object immediately when the <b>owning index</b> disappears. For example, a binary tree here would be a {incode("Vec<(i64, Node)>")}, where each node is owned by the {incode("Vec")}, <b>not by the parent node</b>. Who knows when the Vec would disappear and call {incode("drop")} on the elements. {this.noteAnchor("406")}</li>
                     <li className={ns()}>Requires us to pass the Vec as a parameter to wherever we want to access the object.</li>
                   </ul>
                 </ul>
@@ -714,24 +714,24 @@ public:
                   <thead>
                     <tr className={ns()}>
                       <th className={ns()}></th>
-                      <th className={ns()}>Safe</th>
+                      <th width="15%" className={ns()}>Safe</th>
                       <th className={ns()}>Speed</th>
                       <th className={ns()}>Memory</th>
-                      <th className={ns()}>RAII</th>
+                      <th width="10%" className={ns()}>RAII</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className={ns()}>
                       <th className={ns()}>C Refs, Normal</th>
                       <td className={ns("good")}>Yes</td>
-                      <td className={ns("bad")}>Rc Overhead {this.noteAnchor("548")}</td>
+                      <td className={ns("bad")}>Optimized Rc<br/>Overhead {this.noteAnchor("elide")} {this.noteAnchor("548")}</td>
                       <td className={ns("bad")}>8b for all objs {this.noteAnchor("1041")}</td>
                       <td className={ns("good")}>Yes</td>
                     </tr>
                     <tr className={ns()}>
                       <th className={ns()}>C Refs, Resilient</th>
                       <td className={ns("good")}>Yes</td>
-                      <td className={ns("bad")}>Rc Overhead</td>
+                      <td className={ns("bad")}>Optimized Rc<br/>Overhead</td>
                       <td className={ns("bad")}>8b for all objs</td>
                       <td className={ns("good")}>Yes</td>
                     </tr>
@@ -770,22 +770,25 @@ public:
 
 
                 <ul className={ns("content cozy")}>
-                  <li className={ns()}><b>C Refs, Normal</b>: Normal constraint refs, where a dangling reference halts the program.</li>
-                  <li className={ns()}><b>C Refs, Resilient</b>: Where constraint refs kept an object alive with nonatomic ref-counting, and we only panic on dereferencing one.</li>
+                  <li className={ns()}><b>C Refs, Normal</b>: Dangling reference halts the program.</li>
+                  <li className={ns()}><b>C Refs, Resilient</b>: Constraint refs keep objects alive, only panic on dereferencing.</li>
                   <li className={ns()}><b>C Refs, Fast</b>: Fast mode, where constraint refs are compiled to raw pointers.</li>
                   <li className={ns()}><b>Borrow w/ Unsafe</b>: Using the borrow checker, with unsafe as a fall-back.</li>
-                  <li className={ns()}><b>Borrow w/ IDs</b>: Using the borrow checker, with generational IDs for "aliasing".</li>
+                  <li className={ns()}><b>Borrow w/ IDs</b>: Using the borrow checker, generational IDs instead of aliasing.</li>
                   <li className={ns()}><b>Borrow w/ Rc</b>: Using the borrow checker, with {incode("Rc<T>")} as a fall-back. Assuming an Rc control block of 8b share count and 8b weak count.</li>
                 </ul>
 
                 <div className={ns("content cozy")}>
-                  In the end, constraint references and the borrow checker both accomplish speed and safety, but in different ways and with different tradeoffs. Which one is better will depend on the use case and the programmer.
-
+                  Rust and Vale both accomplish speed and safety, but in different ways and with different tradeoffs. {this.noteAnchor("436")} Comparing a Vale program to an average Rust program that has a mix of the above strategies:
                 </div>
+                <ul className={ns("content cozy")}>
+                  <li className={ns()}>Vale's Normal and Resilient modes are safer, because the Rust program has parts that are {incode("unsafe")}. They could be faster or slower, depending on how many IDs and {incode("Rc")} the Rust program used to get around the borrow checker.</li>
+                  <li className={ns()}>Vale's Fast Mode uses less memory and is probably faster, because it doesn't suffer the {incode("Rc")} and {incode("Vec")}+ID overhead. Fast Mode could be less safe, depending on test coverage and how much {incode("unsafe")} there is in the Rust program.</li>
+                  <li className={ns()}>Vale could be easier, because it allows aliasing freely, and one can opt-out of constraint refs to use weak refs for any particular case at any time.</li>
+                </ul>
                 <div className={ns("content cozy")}>
-                  We explored adding an {incode("OwningRef<T>")} and {incode("ConstrantRef<T>")} to Rust, but alas, the syntax became very noisy, and it was incompatible with borrow refs. {this.noteAnchor("436")}
+                  These are only our initial estimations; experimenting will enlighten which approach is better for which use cases.
                 </div>
-
 
 
                 <a name="singleownership"></a>
@@ -898,7 +901,13 @@ public:
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="604">
-                Rust's borrow references are also like this, though much more restricted.
+                Rust's borrow references also do something like this.
+                <div style={{marginTop: "8px"}}>
+                  Constraint references have the safety of borrow references, and we can alias them as much as we want!
+                </div>
+                <div style={{marginTop: "8px"}}>
+                  And counter-intuitively, constraint references can sometimes be more efficient, when you consider the program as a whole. Keep reading to learn how!
+                </div>
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="950">
@@ -967,12 +976,15 @@ public:
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="sovsraii">
-                "Single ownership" and "RAII" are often used interchangeably, but there's an important difference.
+                "Single ownership" and "RAII" aren't the same thing.
                 <div style={{marginTop: "8px"}}>
-                  Single ownership is when an object is owned by a single reference, and is deallocated when that reference goes out of scope.
+                  Single ownership is when a single reference controls an object's lifetime.
                 </div>
                 <div style={{marginTop: "8px"}}>
-                  RAII is when we use single ownership to track responsibility, so we don't forget to do something.
+                  RAII is when we use ownership to make sure something <i>will</i> happen, and in a timely fashion.
+                </div>
+                <div style={{marginTop: "8px"}}>
+                  One can have RAII with shared ownership, but it's risky and more limited, as shown below.
                 </div>
               </Note>
 
@@ -1035,12 +1047,16 @@ public:
                 To "alias" a pointer means to make another pointer, pointing to the same thing. Memory safety is challenging when aliasing gets involved, so here's a way to make aliasing safer.
               </Note>
 
+              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="elide">
+                When a language has reference counting built-in, it can optimize out the vast majority of increments and decrements.
+              </Note>
+
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="548">
-                This isn't always true: constraint refs and weak refs into read-only regions have zero overhead.
+                Further, references into read-only regions have zero overhead.
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="1041">
-                The number here (8b) is less than Rust's, but it applies to all objects. In Rust, we pay the cost per object and reference that uses Rc or IDs. In total, this could be more or less depending on the use case.
+                The number here (8b) is less than Rust's, but it applies to all objects. In Rust, we pay the cost per object and reference that uses Rc or IDs.
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="212">
@@ -1051,7 +1067,7 @@ public:
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="1040">
-                To compare, the "C Refs, Resilient" approach tells the CPU to expect all owning references' decrements to deallocate, and expect all borrow references' decrements to not deallocate.
+                RC-backed single ownership can tell the CPU to expect all owning references' decrements to deallocate, and expect all borrow references' decrements to <i>not</i> deallocate.
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="whatever">
@@ -1072,10 +1088,13 @@ public:
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="alpha">
                 Vale is still in early alpha. Check out the <Link to="/roadmap">Roadmap</Link> for progress and plans!
+                <div style={{marginTop: "8px"}}>
+                  All the features mentioned here are available in Vale, but Resilient Mode, regions, RC elision, and weak references are still on the way.
+                </div>
               </Note>
 
               <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="436">
-                In the same way that Rc is incompatible with borrow refs; where the two collide, one often has to re-work their code to use more Rc.
+                Fun fact: we explored adding an {incode("OwningRef<T>")} and {incode("ConstrantRef<T>")} to Rust, but alas, the syntax became very noisy, and it was incompatible with borrow refs in the same way as {incode("Rc")}: where the two collide, one often has to re-work their code to use more {incode("Rc")}.
               </Note>
             </div>
           </div>
