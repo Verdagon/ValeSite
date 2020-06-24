@@ -25,7 +25,7 @@ class RefPatterns extends React.Component {
     this.noteManager = new NoteManager(this);
 
     this.updateNoteAnchorPosition = (...args) => this.noteManager.updateNoteAnchorPosition(...args);
-    this.updateNoteSize = (...args) => this.noteManager.updateNoteSize(...args);
+    this.updateNoteSizeAndCustomIcon = (...args) => this.noteManager.updateNoteSizeAndCustomIcon(...args);
     this.updateNotesHeaderRect = (...args) => this.noteManager.updateNotesHeaderRect(...args);
   }
 
@@ -34,7 +34,7 @@ class RefPatterns extends React.Component {
   }
 
   noteAnchor(anchorName) {
-    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+    return <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
   }
 
   render() {
@@ -170,7 +170,7 @@ fn refuel(
                 </div>
 
                 <a name="match"></a>
-                <h3 className={ns()}>Match Statement</h3>
+                <h3 className={ns()}>Match Statement {this.noteAnchor("nomatchyet")}</h3>
 
                 <div className={ns("content splitter cozy")}>
                   <div className={ns("half")}>
@@ -243,6 +243,10 @@ fn main() {
                   </div>
                 </div>
 
+                <div className={ns("content")} style={{textAlign: "right"}}>
+                  <strong>Next:</strong> <a href="/ref/regions">Regions</a>
+                </div>
+
               </div>
 
             </div>
@@ -254,6 +258,10 @@ fn main() {
                   <NotesHeader update={this.updateNotesHeaderRect}/>
                 </div>
               </div>
+
+              <Note name="nomatchyet" customIcon="notyet" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
+                Planned feature; see <Link to="/roadmap">Roadmap</Link>!
+              </Note>
 
             </div>
           </div>

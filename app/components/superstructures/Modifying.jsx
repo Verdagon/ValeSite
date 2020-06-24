@@ -18,7 +18,7 @@ class SuperstructuresModifying extends React.Component {
     this.noteManager = new NoteManager(this);
 
     this.updateNoteAnchorPosition = (...args) => this.noteManager.updateNoteAnchorPosition(...args);
-    this.updateNoteSize = (...args) => this.noteManager.updateNoteSize(...args);
+    this.updateNoteSizeAndCustomIcon = (...args) => this.noteManager.updateNoteSizeAndCustomIcon(...args);
     this.updateNotesHeaderRect = (...args) => this.noteManager.updateNotesHeaderRect(...args);
   }
 
@@ -27,7 +27,7 @@ class SuperstructuresModifying extends React.Component {
   }
 
   noteAnchor(anchorName) {
-    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+    return <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
   }
 
   render() {
@@ -183,15 +183,15 @@ mut saturn.name! = "Flamscrankle";`}
                 </div>
               </div>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="noteAnd">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noteAnd">
                 {incode("and")} makes a stream that pulls from two streams and closes when either of them closes.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="noteUpdates">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noteUpdates">
                 Waiting on the updates stream (like {incode("foreach")} is indirectly doing here) gives {incode("sssc.updates")} the opportunity to check the network for incoming requests and apply them to {incode("mySS")}.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="noteCollections">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noteCollections">
                 We can also use other collections like {incode("Map")}, {incode("Set")}, etc. See <Link to="/reference/colelctions">Collections</Link> for more.
               </Note>
 

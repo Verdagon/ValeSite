@@ -18,7 +18,7 @@ class SuperstructuresEffects extends React.Component {
     this.noteManager = new NoteManager(this);
 
     this.updateNoteAnchorPosition = (...args) => this.noteManager.updateNoteAnchorPosition(...args);
-    this.updateNoteSize = (...args) => this.noteManager.updateNoteSize(...args);
+    this.updateNoteSizeAndCustomIcon = (...args) => this.noteManager.updateNoteSizeAndCustomIcon(...args);
     this.updateNotesHeaderRect = (...args) => this.noteManager.updateNotesHeaderRect(...args);
   }
 
@@ -27,7 +27,7 @@ class SuperstructuresEffects extends React.Component {
   }
 
   noteAnchor(anchorName) {
-    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+    return <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
   }
 
   render() {
@@ -274,45 +274,45 @@ ListAppendEffect:Planet(2, 12)`}
                 </div>
               </div>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="0">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="0">
                 See <Link to="/basics/lambdas">Lambdas</Link> for more.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="1">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1">
                 {incode("addAfterEffectObserver")} actually takes an IAfterEffectObserver interface instance. Valence automatically converted our lambda to an instance of new subclass of that interface.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="IEffect">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="IEffect">
                 {incode("IEffect")} has another template argument, left out in this page for brevity. See the <Link to="/reference/IEffect">IEffect</Link> for more.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="Isa">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="Isa">
                 {incode("isa")} means "is a subclass of". Here, it means this CreateEffect is a subclass of IEffect.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="Move">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="Move">
                 If we instead appended into a {incode("List:&Moon")}, we would just be adding a reference to the Moon.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="Flat">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="Flat">
                 Flat actually has two template arguments, and would look like {incode("Flat:(Moon, Int)")} (there's an extra template argument for the kind of ID) but that's left out in this page for brevity.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="equiv">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="equiv">
                 {incode("{ doutln _; }")} is equivalent to {incode("{(x) doutln x;}")}.
               </Note>
 
 
 {/*
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="2">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="2">
                 Depending on the superstructure's settings, the IDs might not be sequential integers, but instead random UUIDs.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="3">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="3">
                 {incode("{ doutln _; }")} is the same as {incode("{(x) doutln x; }")} or even just {incode("doutln")} in this case, see <Link to="/basics/calling">Calling</Link> for more.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="4">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="4">
                 The MySuperstructure owns the List:Moon which owns the Moon.
               </Note>*/}
             </div>

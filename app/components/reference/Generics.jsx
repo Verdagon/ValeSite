@@ -25,7 +25,7 @@ class RefGenerics extends React.Component {
     this.noteManager = new NoteManager(this);
 
     this.updateNoteAnchorPosition = (...args) => this.noteManager.updateNoteAnchorPosition(...args);
-    this.updateNoteSize = (...args) => this.noteManager.updateNoteSize(...args);
+    this.updateNoteSizeAndCustomIcon = (...args) => this.noteManager.updateNoteSizeAndCustomIcon(...args);
     this.updateNotesHeaderRect = (...args) => this.noteManager.updateNotesHeaderRect(...args);
   }
 
@@ -34,7 +34,7 @@ class RefGenerics extends React.Component {
   }
 
   noteAnchor(anchorName) {
-    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+    return <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
   }
 
   render() {
@@ -232,6 +232,10 @@ fn main() {
                   </div>
                 </div>
 
+                <div className={ns("content")} style={{textAlign: "right"}}>
+                  <strong>Next:</strong> <a href="/ref/patterns">Patterns</a>
+                </div>
+
               </div>
 
             </div>
@@ -244,7 +248,7 @@ fn main() {
                 </div>
               </div>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="anglies">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="anglies">
                 We can actually leave off the {incode("<Firefly>")} here, the compiler can figure it out from the arguments we passed in.
               </Note>
 

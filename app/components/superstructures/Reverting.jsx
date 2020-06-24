@@ -18,7 +18,7 @@ class SuperstructuresReverting extends React.Component {
     this.noteManager = new NoteManager(this);
 
     this.updateNoteAnchorPosition = (...args) => this.noteManager.updateNoteAnchorPosition(...args);
-    this.updateNoteSize = (...args) => this.noteManager.updateNoteSize(...args);
+    this.updateNoteSizeAndCustomIcon = (...args) => this.noteManager.updateNoteSizeAndCustomIcon(...args);
     this.updateNotesHeaderRect = (...args) => this.noteManager.updateNotesHeaderRect(...args);
   }
 
@@ -27,7 +27,7 @@ class SuperstructuresReverting extends React.Component {
   }
 
   noteAnchor(anchorName) {
-    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+    return <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
   }
 
   render() {
@@ -110,7 +110,7 @@ mySS.root.astronauts.add(
                     <div className={ns("half")} style={{float: "right", clear: "both"}}>
   <div className={ns("code")}>
 {`superstructure MySuperstructure {
-  @History(Linear);`} {this.noteAnchor("note0")} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note0.5"/>{`
+  @History(Linear);`} {this.noteAnchor("note0")} <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name="note0.5"/>{`
   @Revertible(true);
 
   root struct SolarSystem {
@@ -131,7 +131,7 @@ mySS.root.astronauts.add(
                 <div className={ns("code-on-right")}>
                   <div className={ns("content splitter")}>
                     <div className={ns("half")}>
-                      We can get the version number of our superstructure using {incode("v.version")}. {this.noteAnchor("note1")} <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name="note1.5"/>
+                      We can get the version number of our superstructure using {incode("v.version")}. {this.noteAnchor("note1")} <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name="note1.5"/>
                     </div>
 
                     <div className={ns("half")} style={{float: "right", clear: "both"}}>
@@ -226,30 +226,30 @@ mySS.root.astronauts.0.planet =
                 </div>
               </div>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="note1">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note1">
                 {incode("v.version")} is a built-in function.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="note1.5">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note1.5">
                 If we had {incode("using v;")} at the top of the file, then we could call {incode("version")} without the {incode("v.")} in front.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="note2">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note2">
                 {incode("v.revert")} is a built-in function.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="note3">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note3">
                 See <Link to="/superstructures/formats">history settings</Link> for more.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="note4">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note4">
                 For example, if we said {incode("let x = &mySS.root.planets.2")} before the {incode("v.revert")} call, the program would have halted.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="note0">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note0">
                 These are annotations, like in Java. Unlike Java, these apply to the containing thing (the superstructure), not the following thing (the struct).
               </Note>
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="note0.5">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note0.5">
                 These are assuming we have {incode("using v;")} above, otherwise it would be {incode("@v.History(v.Linear)")} and {incode("@v.Revertible(true)")}.
               </Note>
             </div>

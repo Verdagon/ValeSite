@@ -25,7 +25,7 @@ class RefReferences extends React.Component {
     this.noteManager = new NoteManager(this);
 
     this.updateNoteAnchorPosition = (...args) => this.noteManager.updateNoteAnchorPosition(...args);
-    this.updateNoteSize = (...args) => this.noteManager.updateNoteSize(...args);
+    this.updateNoteSizeAndCustomIcon = (...args) => this.noteManager.updateNoteSizeAndCustomIcon(...args);
     this.updateNotesHeaderRect = (...args) => this.noteManager.updateNotesHeaderRect(...args);
   }
 
@@ -34,7 +34,7 @@ class RefReferences extends React.Component {
   }
 
   noteAnchor(anchorName) {
-    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+    return <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
   }
 
   render() {
@@ -334,7 +334,7 @@ Continue? [y,N]`}
                 </ul>
 
                 <a name="constraint"></a>
-                <h4 className={ns("noline")}>Weak References</h4>
+                <h4 className={ns("noline")}>Weak References {this.noteAnchor("noweakyet")}</h4>
 
                 <div className={ns("content splitter")}>
                   <div className={ns("half")}>
@@ -398,7 +398,7 @@ Ship base unknown!`}
                 </div>
 
                 <a name="inline"></a>
-                <h3 className={ns("noline")}>Pointers vs Values ("Inlining")</h3>
+                <h3 className={ns("noline")}>Pointers vs Values ("Inlining") {this.noteAnchor("noinlyet")}</h3>
 
                 <div className={ns("content splitter")}>
                   <div className={ns("half")}>
@@ -470,6 +470,10 @@ fn main() {
                   </div>
                 </div>
 
+                <div className={ns("content")} style={{textAlign: "right"}}>
+                  <strong>Next:</strong> <a href="/ref/interfaces">Interfaces</a>
+                </div>
+
               </div>
 
             </div>
@@ -482,7 +486,7 @@ fn main() {
                 </div>
               </div>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="ownership">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="ownership">
                 Ownership is also found in C++ ({incode("unique_ptr")}), Rust, and Cyclone.
                 <div style={{marginTop: "8px"}}>
                   C also has "conceptual" ownership, in that we must track ownership without the language's help, to know when to {incode("free")} an object.
@@ -492,45 +496,45 @@ fn main() {
                 </div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="autoinl">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="autoinl">
                 Vale uses escape analysis to automatically inline every local that doesn't get moved into a global or parameter. The {incode("inl")} keyword is useful to force it, when optimizing.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="inlinterfaces">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="inlinterfaces">
                 Vale can even inline interfaces if they're {incode("sealed")}, resulting in something similar to tagged unions in C, or enums in Rust. See <Link to="/ref/interfaces">Interfaces</Link> for more.
               </Note>
 
-              {/*<Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="constraintlike">
+              {/*<Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="constraintlike">
                 Vale's owning and constraint references are respectively similar to C++'s unique_ptr and raw pointers, but safer because there can be no dangling pointers.
               </Note>*/}
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="noshared">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noshared">
                 Like C++'s {incode("shared_ptr")} or Rust's {incode("Rc")} or all references in Java and Python.
               </Note>
 
               {/*
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="shortlived">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="shortlived">
                 The programmer works with the compiler to prove that a borrow is well-behaved. However, it's not always possible, which is why we also have the other (more flexible) reference types.
               </Note>
               */}
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="dangling">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="dangling">
                 Dangling means pointing to a deallocated struct.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="likesql">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="likesql">
                 A constraint reference is similar to a foreign key constraint in SQL: it prevents us from deallocating the object it points to.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="stillsafer">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="stillsafer">
                 This is safer than C++, because we can do our testing in normal mode, giving us more confidence that we aren't even <b>making</b> any pointers dangle, which makes us even <i>more</i> confident that we wouldn't accidentally <b>use</b> any dangling pointers.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="copyout">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="copyout">
                 For example, by copying the needed data out. In this example, we could have copied into a {incode("wings")} local.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="checkweak">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="checkweak">
                 A weak reference is an interface with two possible subclasses: the zero-member struct {incode("Dead")} and one-member struct {incode("Live")}.
                 <div style={{marginTop: "8px"}}>
                   This line is checking if {incode("ship.origin")} is the one-member subclass {incode("Live")} and if so, assigns its member to {incode("o")}.
@@ -540,17 +544,26 @@ fn main() {
                 </div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="matweak">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="matweak">
                 We could also use a {incode("mat")} (match statement) here to check whether the weak pointer was Live or Dead.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="dontwantweak">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="dontwantweak">
                 A constraint reference is the best kind of reference to use here. A weak reference just delays the halt until we try to dereference it. It's often better to catch bugs sooner.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="failonprint">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="failonprint">
                 In the last example, the program would instead have crashed on the final println, because that's when the {incode("shipCRef")} constraint ref is <i>used</i>.
               </Note>
+
+              <Note name="noweakyet" customIcon="notyet" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
+                Planned feature; see <Link to="/roadmap">Roadmap</Link>!
+              </Note>
+
+              <Note name="noinlyet" customIcon="notyet" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
+                Planned feature; see <Link to="/roadmap">Roadmap</Link>!
+              </Note>
+
             </div>
           </div>
 

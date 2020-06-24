@@ -67,26 +67,33 @@
 	height: 12px;
 }
 
-.c-note.color0 {
+.c-note.icon0 {
 	filter: hue-rotate(-15deg) saturate(200%);
 }
 
-.c-note.color1 {
+.c-note.icon1 {
 	filter: hue-rotate(50deg) saturate(300%);
 }
 
-.c-note.color2 {
+.c-note.icon2 {
 	filter: hue-rotate(120deg) saturate(150%);
 }
 
-.c-note.color3 {
+.c-note.icon3 {
 	filter: hue-rotate(240deg) saturate(300%);
 }
 
-.c-note.color4 {
+.c-note.icon4 {
 	filter: hue-rotate(280deg) saturate(200%);
 }
 
-.c-note.color5 {
+.c-note.icon5 {
 	filter: saturate(0%) brightness(120%);
+}
+
+.c-note.note.image.notyet {
+	background-image: url("../images/clock48.png");
+}
+.c-note.anchor.image.notyet {
+	background-image: url("../images/clock48.png");
 }

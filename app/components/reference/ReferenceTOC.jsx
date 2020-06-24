@@ -8,7 +8,7 @@ class toc extends React.Component {
   render() {
 
     let sectionsByPage = {
-      "intro": <Link to="/ref/intro">Intro</Link>,
+      "intro": <Link to="/ref/intro">Introduction</Link>,
       "structs": <Link to="/ref/structs">Structs</Link>,
       "references": <Link to="/ref/references">References</Link>,
       "interfaces": <Link to="/ref/interfaces">Interfaces</Link>,

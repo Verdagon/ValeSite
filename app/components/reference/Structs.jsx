@@ -25,7 +25,7 @@ class RefStructs extends React.Component {
     this.noteManager = new NoteManager(this);
 
     this.updateNoteAnchorPosition = (...args) => this.noteManager.updateNoteAnchorPosition(...args);
-    this.updateNoteSize = (...args) => this.noteManager.updateNoteSize(...args);
+    this.updateNoteSizeAndCustomIcon = (...args) => this.noteManager.updateNoteSizeAndCustomIcon(...args);
     this.updateNotesHeaderRect = (...args) => this.noteManager.updateNotesHeaderRect(...args);
   }
 
@@ -34,7 +34,7 @@ class RefStructs extends React.Component {
   }
 
   noteAnchor(anchorName) {
-    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+    return <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
   }
 
   render() {
@@ -120,7 +120,7 @@ fn main() {
 
 
                 <a name="shortcalling"></a>
-                <h4 className={ns()}>Shortcalling Constructors</h4>
+                <h4 className={ns()}>Shortcalling Constructors {this.noteAnchor("notyet")}</h4>
 
                 <div className={ns("content splitter cozy")}>
                   <div className={ns("half")}>
@@ -375,7 +375,7 @@ fn main() {
                 </div>
               </div>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="ownership">
+              <Note name="ownership" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
                 Ownership is also found in C++ ({incode("unique_ptr")}), Rust, and Cyclone.
                 <div style={{marginTop: "8px"}}>
                   C also has "conceptual" ownership, in that we must track ownership without the language's help, to know when to {incode("free")} an object.
@@ -385,28 +385,32 @@ fn main() {
                 </div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="otherrefs">
+              <Note name="otherrefs" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
                 There are other kinds of references (constraint, borrow, weak), <Link to="/ref/references">References</Link> explains more.
               </Note>
               
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="destructure">
+              <Note name="destructure" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
                 When we "destructure", we deallocate the object and move all of its previous members into locals, at the same time. See <Link to="/ref/patterns">Pattern Matching</Link> for how destructuring ensures memory safety and fits into the rest of the language.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="construct">
+              <Note name="construct" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
                 Inside the constructor, we must call either another constructor or {incode("constructor<T>")}.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="refcounting">
+              <Note name="refcounting" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
                 Small immutable structs (32b or less) are copied and passed by-value. Larger objects use <b>LWRC</b> (light-weight reference counting) to free themselves.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="shareddestructor">
+              <Note name="shareddestructor" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
                 See <Link to="/blog/shareddestructors">Shared Destructibles</Link> for the reasoning behind this.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="valedestructorsarecooler">
+              <Note name="valedestructorsarecooler" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
                 Drop functions also appear in C++ ("destructors") and Rust. Vale's drop functions are like those but more flexible: they can return values and even take extra parameters. In those cases, they must be called manually.
+              </Note>
+
+              <Note name="notyet" customIcon="notyet" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
+                Planned feature; see <Link to="/roadmap">Roadmap</Link>!
               </Note>
 
             </div>

@@ -25,7 +25,7 @@ class RefInterfaces extends React.Component {
     this.noteManager = new NoteManager(this);
 
     this.updateNoteAnchorPosition = (...args) => this.noteManager.updateNoteAnchorPosition(...args);
-    this.updateNoteSize = (...args) => this.noteManager.updateNoteSize(...args);
+    this.updateNoteSizeAndCustomIcon = (...args) => this.noteManager.updateNoteSizeAndCustomIcon(...args);
     this.updateNotesHeaderRect = (...args) => this.noteManager.updateNotesHeaderRect(...args);
   }
 
@@ -34,7 +34,7 @@ class RefInterfaces extends React.Component {
   }
 
   noteAnchor(anchorName) {
-    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+    return <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
   }
 
   render() {
@@ -189,7 +189,7 @@ fn main() {
                 </div>
 
                 <a name="sealed"></a>
-                <h3 className={ns()}>Sealed Interfaces</h3>
+                <h3 className={ns()}>Sealed Interfaces {this.noteAnchor("nosealedyet")}</h3>
 
                 <div className={ns("content splitter")}>
                   <div className={ns("half")}>
@@ -322,6 +322,10 @@ fn main() {
                   </div>
                 </div>
 
+                <div className={ns("content")} style={{textAlign: "right"}}>
+                  <strong>Next:</strong> <a href="/ref/generics">Generics</a>
+                </div>
+
               </div>
 
             </div>
@@ -334,15 +338,19 @@ fn main() {
                 </div>
               </div>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="substruct">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="substruct">
                 When a struct {incode("impl", "ements")} an interface, we call it a <b>substruct</b> of that interface.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="inlining">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="inlining">
                 Locals and members can {incode("inl", "ine")} sealed interfaces. The compiler will figure out the size of the largest substruct, and reserve that much memory in the stack (if an {incode("inl")} local) or the containing struct (if an {incode("inl")} member), and use that memory for the substruct. (This is the equivalent of a C/C++ union or Rust enum)
               </Note>
 
-              {/*<Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="packing">
+              <Note name="nosealedyet" customIcon="notyet" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
+                Planned feature; see <Link to="/roadmap">Roadmap</Link>!
+              </Note>
+
+              {/*<Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="packing">
                 If there are 8 or less substructs, then Vale will use the unused low bits of the pointer to remember the type of the underlying substruct, instead of a full 64 bit pointer like it would instead.
               </Note>*/}
 

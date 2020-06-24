@@ -8,6 +8,23 @@ import './Blog.css'
 import Snippet from '../Snippet.jsx';
 import claspsvg from './clasp.svg';
 
+/*
+mentioned that sandboxed realms like wasm would also love fast mode
+
+DEFINITELY support all the syntax we're showing. or at the very least, have some notes
+at the end talkimg about whats different from whats implemented. maybe note to it
+from the first mention of vale.
+  now that v's fucked up everything, we need to be super careful about over-promising.
+  maybe say "we want to be very clear about what is and isnt implemented in vale yet, and
+  not over-promise."
+hint that fast mode on JVM will let us have single ownership on JVM
+maybe have an afterword:
+  we experimented with this style in three ways:
+  using an owning_ptr and borrow_ptr, wrapping shared_ptr, for this little game here:
+  using the style of it, with discipline rather than enforcement, in another codebase.
+  used the style of it for this little roguelike game.
+*/
+
 const ns = (classes) => "c-blog m-tripage " + (classes || "");
 
 function incode(code, suffix) {
@@ -25,7 +42,7 @@ class BlogRaiiNextSteps extends React.Component {
     this.noteManager = new NoteManager(this);
 
     this.updateNoteAnchorPosition = (...args) => this.noteManager.updateNoteAnchorPosition(...args);
-    this.updateNoteSize = (...args) => this.noteManager.updateNoteSize(...args);
+    this.updateNoteSizeAndCustomIcon = (...args) => this.noteManager.updateNoteSizeAndCustomIcon(...args);
     this.updateNotesHeaderRect = (...args) => this.noteManager.updateNotesHeaderRect(...args);
   }
 
@@ -40,7 +57,7 @@ class BlogRaiiNextSteps extends React.Component {
   }
 
   noteAnchor(anchorName) {
-    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+    return <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
   }
 
   render() {
@@ -236,7 +253,7 @@ struct BigClass {
                   Some applications will prefer <b>Resilient Mode</b> in production, where instead of halting the program when we violate a constraint, we halt when we actually try to dereference it. This is similar to running a C++ program with Valgrind or ASan.
                 </div>
                 <div className={ns("content cozy")}>
-                  Vale's region isolation allows Normal Mode and Resilient Mode to use non-atomic ref counting, which is much faster than {incode("shared_ptr", "'s")} atomic ref-counting. Ref-counting might be slow in C++, but it's <b>very</b> fast in Vale.
+                  Vale's region isolation allows Normal Mode and Resilient Mode to use non-atomic ref counting, which is much faster than {incode("shared_ptr", "'s")} atomic ref-counting. Ref-counting might be slow in C++, but it's <b>much</b> faster in Vale.
                 </div>
 
 
@@ -896,11 +913,11 @@ public:
                 </div>
               </div>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="642a">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="642a">
                 RAII stands for Resource Acquisition Is Initialization, which is a fancy way of saying "put that code in a destructor so you can be sure it actually happens."
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="604">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="604">
                 Rust's borrow references also do something like this.
                 <div style={{marginTop: "8px"}}>
                   Constraint references have the safety of borrow references, and we can alias them as much as we want!
@@ -910,19 +927,19 @@ public:
                 </div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="950">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="950">
                 In 2007, Gel was the first language to incorporate constraint references, described in <a href="https://researcher.watson.ibm.com/researcher/files/us-bacon/Dingle07Ownership.pdf">Ownership You Can Count On</a> as the "alias counting" technique.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="engines">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="engines">
                 According to legend, some C++ game engines already do this.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="544">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="544">
                 Or, if asserting isn't quite your fancy, there's a mode that pauses and shows a "Continue?" prompt which keeps it alive until the last constraint reference disappears.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="safehandling">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="safehandling">
                 Some other safe patterns:
                 <ul className={ns("content cozy")} style={{marginTop: "8px"}}>
                   <li className={ns()}>Destroying things in the reverse order they were made.</li>
@@ -931,17 +948,17 @@ public:
                 </ul>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="ownthis">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="ownthis">
                 Notice how {incode("read")} takes a constraint reference ({incode("&this")}), but the two "destructors" take in an owning reference ({incode("this")}).
               </Note>
 
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="735">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="735">
                 This can be controlled on a case-by-case basis; if we don't want this, we can use a weak reference instead, explained below.
               </Note>
 
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="512">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="512">
                 We could refactor our codebase to make all our {incode("Thing", "s")} shared, so we could give {incode("Network")} a {incode("shared_ptr<Thing>", "...")} a bit invasive though.
                 <div style={{marginTop: "8px"}}>
                   We could give {incode("Network")} a {incode("shared_ptr<ThingRespHandler>")}. In fact, that's what {incode("std::function")} is: a {incode("shared_ptr")} around a function pointer and some arguments.
@@ -951,7 +968,7 @@ public:
                 </div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="519">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="519">
                 This is a common complaint in GC'd languages too. An accidental reference way over in some corner of the codebase is keeping my very large object alive and in memory.
                 <div style={{marginTop: "8px"}}>
                   We call these "memory leaks". Yes, GC'd languages can have memory leaks!
@@ -961,7 +978,7 @@ public:
                 </div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="532">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="532">
                 We didn't run into any, but there are some hypothetical cases where one might want shared ownership. Luckily, you can implement shared ownership with single ownership, as an escape hatch.
               </Note>
 
@@ -971,11 +988,11 @@ public:
 
 
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="942">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="942">
                 This is common in all languages: we often have a "main" reference to an object.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="sovsraii">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="sovsraii">
                 "Single ownership" and "RAII" aren't the same thing.
                 <div style={{marginTop: "8px"}}>
                   Single ownership is when a single reference controls an object's lifetime.
@@ -988,112 +1005,112 @@ public:
                 </div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="515">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="515">
                 We could also use a deleter, set up when we create the object, but thats often too early to know what parameters to pass into the destructor.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="247">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="247">
                 Go-style defer blocks can make this even nicer.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="mustuse">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="mustuse">
                 This also lets us implement <a href="https://en.cppreference.com/w/cpp/language/attributes/nodiscard">[[nodiscard]]</a> easily: name your destructor something else (or make your {incode("drop")} private).
               </Note>
 
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="777">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="777">
                 In Vale, if you use the {incode("%")} operator to propagate errors upwards, it will automatically call {incode(".drop()")} on any local in scope.
                 <div style={{marginTop: "8px"}}>
                   However, if you have a local {incode("x")} which doesn't have a zero-arg {incode(".drop()")}, then you would normally hold onto the error, call the correct destructor for {incode("x")}, and then proceed to return the error upwards.
                 </div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="1000">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1000">
                 Maybe we could make this work in C++ if it allowed us to specify an explicit {incode("this")} parameter, which was wrapped in a {incode("unique_ptr")}. Something like Rust's <a href="https://github.com/rust-lang/rust/issues/44874">Arbitrary Self Types</a>.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="1012">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1012">
                 Your signature doesn't matter, it's whats inside that counts. What makes you a destructor is whether you free {incode("this")} inside your function, and don't let anyone tell you otherwise!
               </Note>
 
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="546b">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="546b">
                 Rust also won't let us do the subcomponents pattern mentioned above, because the references between the components would effectively freeze them for all time.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="409">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="409">
                 Keep in mind that Rust never promised 100% safety; Rust is about minimizing unsafety and isolating it into very well-marked areas which we can scrutinize more heavily. Some level of unsafety is expected, even in Rust programs.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="1217">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1217">
                 This may seem large, but a smaller integer usually doesn't save us anything, because of padding in the {incode("(i64, T)", "s")} inside the Vec.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="206">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="206">
                 We could instead have a {incode("Vec<(i32, Box<T>)>")}, but that would introduce an extra cache-miss.
               </Note>
 
 
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="406">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="406">
                 This could also lead to leaks (in the Java sense of the word), where we forget to clean up a child from the central Vec when its parent is destroyed.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="1046">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1046">
                 It's worth noting that, in Rust, we can choose which strategy to use per-situation, while in Vale, it's a global compilation option.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="alias">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="alias">
                 To "alias" a pointer means to make another pointer, pointing to the same thing. Memory safety is challenging when aliasing gets involved, so here's a way to make aliasing safer.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="elide">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="elide">
                 When a language has reference counting built-in, it can optimize out the vast majority of increments and decrements.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="548">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="548">
                 Further, references into read-only regions have zero overhead.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="1041">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1041">
                 The number here (8b) is less than Rust's, but it applies to all objects. In Rust, we pay the cost per object and reference that uses Rc or IDs.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="212">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="212">
                 From branching when comparing the generations.
                 <div style={{marginTop: "8px"}}>
                   Also, if using boxing like {incode("Vec<(i64, Box<T>)>")} to save memory, we have an additional indirection.
                 </div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="1040">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1040">
                 RC-backed single ownership can tell the CPU to expect all owning references' decrements to deallocate, and expect all borrow references' decrements to <i>not</i> deallocate.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="whatever">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="whatever">
                 In C++, the XYZ is calling the destructor, which is a function that takes no parameters and returns no useful information. We'll show how we can use RAII to make sure we call any of multiple methods which have no such restrictions!
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="nounique">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="nounique">
                 Vale's default reference is an owning reference, like C++'s {incode("unique_ptr")}.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="nomakeunique">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="nomakeunique">
                 In Vale, constructors are called just like any other function, no {incode("new")} or {incode("make_unique")} required.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="noget">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noget">
                 One can think of {incode("&a")} like C++'s {incode("unique_ptr::get")}.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="alpha">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="alpha">
                 Vale is still in early alpha. Check out the <Link to="/roadmap">Roadmap</Link> for progress and plans!
                 <div style={{marginTop: "8px"}}>
                   All the features mentioned here are available in Vale, but Resilient Mode, regions, RC elision, and weak references are still on the way.
                 </div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="436">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="436">
                 Fun fact: we explored adding an {incode("OwningRef<T>")} and {incode("ConstrantRef<T>")} to Rust, but alas, the syntax became very noisy, and it was incompatible with borrow refs in the same way as {incode("Rc")}: where the two collide, one often has to re-work their code to use more {incode("Rc")}.
               </Note>
             </div>

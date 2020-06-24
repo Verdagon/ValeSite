@@ -58,7 +58,7 @@ class NoteAnchor extends React.Component {
     super(props);
     this.element = null;
     this.state = {
-      color: null
+      icon: null
     };
 
     this.onElementRef = this.onElementRef.bind(this);
@@ -71,12 +71,11 @@ class NoteAnchor extends React.Component {
 
   sendPosition() {
     if (this.element) {
-      this.props.update(this.props.name, offset(this.element));
+      this.props.update(this.props.name, offset(this.element), this.props.customIcon);
     }
   }
 
   componentDidMount() {
-    // console.log("noteanchor cdm");
     this.sendPosition();
 
     // window.document.addEventListener('DOMContentLoaded', this.sendPosition);
@@ -89,10 +88,10 @@ class NoteAnchor extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.name in this.props.colorsAndPositions) {
-      if (this.state.color != this.props.colorsAndPositions[this.props.name].color) {
+    if (this.props.name in this.props.iconsAndPositions) {
+      if (this.state.icon != this.props.iconsAndPositions[this.props.name].icon) {
         this.setState((state, props) => {
-          state.color = props.colorsAndPositions[props.name].color;
+          state.icon = props.iconsAndPositions[props.name].icon;
           return state;
         });
       }
@@ -100,7 +99,7 @@ class NoteAnchor extends React.Component {
   }
 
   render() {
-    return <span className="c-note anchor root" ref={this.onElementRef}><span className={"c-note anchor image color" + this.state.color}></span></span>;
+    return <span className="c-note anchor root" ref={this.onElementRef}><span className={"c-note anchor image " + this.state.icon}></span></span>;
   }
 }
 
@@ -111,7 +110,7 @@ class Note extends React.Component {
     this.state = {
       initialY: 0, // Where the element was when top:0px
       offsetY: 0, // Our CSS 'top' value (in pixels)
-      color: null,
+      icon: null,
     };
     this.onElementRef = this.onElementRef.bind(this);
     this.sendSize = this.sendSize.bind(this);
@@ -133,17 +132,17 @@ class Note extends React.Component {
       if (this.props.update) {
         const rect = this.element.getBoundingClientRect();
 
-        let updateSize = this.props.update;
-        updateSize(this.props.name, {
+        let updateSizeAndCustomIcon = this.props.update;
+        updateSizeAndCustomIcon(this.props.name, {
           width: rect.width,
-          height: rect.height
+          height: rect.height,
+          customIcon: this.props.customIcon,
         });
       }
     }
   }
 
   componentDidMount() {
-    // console.log("note cdm");
     this.sendSize();
 
     // window.document.addEventListener('DOMContentLoaded', this.sendSize);
@@ -156,12 +155,12 @@ class Note extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.name in this.props.colorsAndPositions) {
-      let newOffsetY = this.props.colorsAndPositions[this.props.name].y - this.state.initialY;
+    if (this.props.name in this.props.iconsAndPositions) {
+      let newOffsetY = this.props.iconsAndPositions[this.props.name].y - this.state.initialY;
       if (this.state.offsetY != newOffsetY) {
         this.setState((state, props) => {
-          state.offsetY = props.colorsAndPositions[props.name].y - state.initialY;
-          state.color = props.colorsAndPositions[props.name].color;
+          state.offsetY = props.iconsAndPositions[props.name].y - state.initialY;
+          state.icon = props.iconsAndPositions[props.name].icon;
           return state;
         });
       }
@@ -173,52 +172,9 @@ class Note extends React.Component {
       <div ref={this.onElementRef}
           className="c-note note root"
           style={{top: this.state.offsetY}}>
-        <span className="c-note note image-container" ref={this.onElementRef}><div className={"c-note note image color" + this.state.color}></div></span> {this.props.children}
+        <span className="c-note note image-container" ref={this.onElementRef}><div className={"c-note note image " + this.state.icon}></div></span> {this.props.children}
       </div>
     );
-  }
-}
-
-function debounce(func, wait, immediate) {
-  // 'private' variable for instance
-  // The returned function will be able to reference this due to closure.
-  // Each call to the returned function will share this common timer.
-  var timeout;
-
-  // Calling debounce returns a new anonymous function
-  return function() {
-    // reference the context and args for the setTimeout function
-    var context = this,
-      args = arguments;
-
-    // Should the function be called now? If immediate is true
-    //   and not already in a timeout then the answer is: Yes
-    var callNow = immediate && !timeout;
-
-    // This is the basic debounce behaviour where you can call this 
-    //   function several times, but it will only execute once 
-    //   [before or after imposing a delay]. 
-    //   Each time the returned function is called, the timer starts over.
-    clearTimeout(timeout);
-
-    // Set the new timeout
-    timeout = setTimeout(function() {
-
-      // Inside the timeout function, clear the timeout variable
-      // which will let the next execution run when in 'immediate' mode
-      timeout = null;
-
-      // Check if the function already ran with the immediate flag
-      if (!immediate) {
-        // Call the original function with apply
-        // apply lets you define the 'this' object as well as the arguments 
-        //    (both captured before setTimeout)
-        func.apply(context, args);
-      }
-    }, wait);
-
-    // Immediate mode and no wait timer? Execute the function..
-    if (callNow) func.apply(context, args);
   }
 }
 
@@ -228,8 +184,8 @@ class NoteManager {
     this.owner.state = {
       noteAnchorPositions: {},
       notesHeaderRect: null,
-      noteSizes: {},
-      noteColorsAndPositions: {},
+      noteSizesAndCustomIcons: {},
+      noteIconsAndPositions: {},
     };
     this.mounted = false;
   }
@@ -254,25 +210,26 @@ class NoteManager {
     // });
   }
 
-  updateNoteSize(name, size) {
+  updateNoteSizeAndCustomIcon(name, sizeAndCustomIcon) {
     // setTimeout(() => {
-      // console.log("updateNoteSize");
+      // console.log("updateNoteSizeAndCustomIcon");
       this.owner.setState((state, props) => {
-        state.noteSizes[name] = size;
+        state.noteSizesAndCustomIcons[name] = sizeAndCustomIcon;
         return state;
       });
     // });
   }
 
-  calculateNoteColorsAndPositions(notesHeaderRect, desiredPositions, sizes) {
-    let noteColorsAndPositions = {};
+  calculateNoteIconsAndPositions(notesHeaderRect, desiredPositions, sizesAndCustomIcons) {
+    let noteIconsAndPositions = {};
 
     let notes = [];
     for (let name in desiredPositions) {
       notes.push({
         name: name,
         y: desiredPositions[name].y | 0,
-        height: sizes[name].height | 0
+        height: sizesAndCustomIcons[name].height | 0,
+        customIcon: sizesAndCustomIcons[name].customIcon || "",
       });
     }
 
@@ -295,19 +252,18 @@ class NoteManager {
     }
     for (let i = 1; i < notes.length; i++) {
       let note = notes[i];
-      noteColorsAndPositions[note.name] = {
+      noteIconsAndPositions[note.name] = {
         x: note.x,
         y: note.y,
-        color: (i - 1) % 6,
+        icon: note.customIcon || "icon" + ((i - 1) % 6),
       };
     }
 
-    return noteColorsAndPositions;
+    return noteIconsAndPositions;
   }
 
   componentDidUpdate() {
-    // console.log("cdu")
-    let readyNotes = new Set(Object.keys(this.owner.state.noteSizes));
+    let readyNotes = new Set(Object.keys(this.owner.state.noteSizesAndCustomIcons));
     let readyAnchors = new Set(Object.keys(this.owner.state.noteAnchorPositions));
     let missingNotes = new Set([...readyAnchors].filter(x => !readyNotes.has(x)));
     let missingAnchors = new Set([...readyNotes].filter(x => !readyAnchors.has(x)));
@@ -316,14 +272,13 @@ class NoteManager {
       missingAnchors.size && console.log("Waiting on anchors: ", missingAnchors);
       this.owner.state.notesHeaderRect == null && console.log("Waiting on notes header position.");
     } else {
-      const newNoteColorsAndPositions = this.calculateNoteColorsAndPositions(this.owner.state.notesHeaderRect, this.owner.state.noteAnchorPositions, this.owner.state.noteSizes);
-      if (JSON.stringify(this.owner.state.noteColorsAndPositions) != JSON.stringify(newNoteColorsAndPositions)) {
+      const newNoteIconsAndPositions = this.calculateNoteIconsAndPositions(this.owner.state.notesHeaderRect, this.owner.state.noteAnchorPositions, this.owner.state.noteSizesAndCustomIcons);
+      if (JSON.stringify(this.owner.state.noteIconsAndPositions) != JSON.stringify(newNoteIconsAndPositions)) {
         this.owner.setState((state, props) => {
-          state.noteColorsAndPositions = newNoteColorsAndPositions;
+          state.noteIconsAndPositions = newNoteIconsAndPositions;
           return state;
         });
       }
-      // console.log("done");
     }
   }
 }

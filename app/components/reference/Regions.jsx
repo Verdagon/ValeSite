@@ -25,7 +25,7 @@ class RefRegions extends React.Component {
     this.noteManager = new NoteManager(this);
 
     this.updateNoteAnchorPosition = (...args) => this.noteManager.updateNoteAnchorPosition(...args);
-    this.updateNoteSize = (...args) => this.noteManager.updateNoteSize(...args);
+    this.updateNoteSizeAndCustomIcon = (...args) => this.noteManager.updateNoteSizeAndCustomIcon(...args);
     this.updateNotesHeaderRect = (...args) => this.noteManager.updateNotesHeaderRect(...args);
   }
 
@@ -34,7 +34,7 @@ class RefRegions extends React.Component {
   }
 
   noteAnchor(anchorName) {
-    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+    return <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
   }
 
   render() {
@@ -52,7 +52,7 @@ class RefRegions extends React.Component {
                 <h1 className={ns("noline")}>Regions</h1>
 
                 <div className={ns("content cozy")}>
-                  We can divide our program's memory into <b>regions</b>, for <b>safer</b> and <b>faster</b> code.
+                  We can divide our program's memory into <b>regions</b>, for <b>safer</b> and <b>faster</b> code. {this.noteAnchor("notyet")}
                 </div>
 
                 <div className={ns("content cozy")}>
@@ -390,11 +390,15 @@ fn segmentifyAndSend<'a, 'b>(
                 </div>
               </div>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="optimize">
+              <Note name="notyet" customIcon="notyet" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
+                Regions are planned for v0.2 and v0.3, see <Link to="/roadmap">Roadmap</Link>!
+              </Note>
+
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="optimize">
                 Making constraint references and weak references into read-only regions are completely free; the compiler optimizes them into raw pointers.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="secedecost">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="secedecost">
                 The cost depends on various factors:
                 <ul>
                   <li>Faster if the objects are already in the CPU cache.</li>

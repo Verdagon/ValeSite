@@ -49,6 +49,7 @@ class Roadmap extends React.Component {
                 <li className={ns("done")}><span className={ns("icon")}></span> Constrant Refs</li>
                 <li className={ns("v01")}><span className={ns("icon")}></span> Weak Refs</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Expect</li>
+                <li className={ns("v02")}><span className={ns("icon")}></span> Optional Sugar</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Inlining</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Varying/Final</li>
               </ul>
@@ -93,6 +94,7 @@ class Roadmap extends React.Component {
               <ul className={ns()}>
                 <li className={ns("done")}><span className={ns("icon")}></span> Mutability</li>
                 <li className={ns("done")}><span className={ns("icon")}></span> Auto-drop</li>
+                <li className={ns("done")}><span className={ns("icon")}></span> Member constructing</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Explicit auto-drop</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> constructor&lt;T&gt;</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Destructor Parameters</li>
@@ -118,7 +120,7 @@ class Roadmap extends React.Component {
                 <li className={ns("v01")}><span className={ns("icon")}></span> Match</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> EachI</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> If Let</li>
-                <li className={ns("v02")}><span className={ns("icon")}></span> Let Else</li>
+                <li className={ns("v02")}><span className={ns("icon")}></span> If Let Else</li>
               </ul>
               <h3 className={ns()}>Patterns</h3>
               <ul className={ns()}>
@@ -129,11 +131,13 @@ class Roadmap extends React.Component {
               </ul>
               <h3 className={ns()}>Operators</h3>
               <ul className={ns()}>
+                <li className={ns("v02")}><span className={ns("icon")}></span> Short-circuiting</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Map, FlatMap</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Bail</li>
               </ul>
               <h3 className={ns()}>Standard Library</h3>
               <ul className={ns()}>
+                <li className={ns("done")}><span className={ns("icon")}></span> Optional</li>
                 <li className={ns("done")}><span className={ns("icon")}></span> List</li>
                 <li className={ns("done")}><span className={ns("icon")}></span> HashMap</li>
                 <li className={ns("v01")}><span className={ns("icon")}></span> Set</li>
@@ -164,7 +168,7 @@ class Roadmap extends React.Component {
                 <li className={ns("v02")}><span className={ns("icon")}></span> Compile Errors</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Syntax Highlighting</li>
               </ul>
-              <h3 className={ns()}>Moonshots</h3>
+              <h3 className={ns()}>Possibilities</h3>
               <ul className={ns()}>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Self-Hosting</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> JVM/CLR Backend</li>

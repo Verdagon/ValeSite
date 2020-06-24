@@ -25,7 +25,7 @@ class RefIntro extends React.Component {
     this.noteManager = new NoteManager(this);
 
     this.updateNoteAnchorPosition = (...args) => this.noteManager.updateNoteAnchorPosition(...args);
-    this.updateNoteSize = (...args) => this.noteManager.updateNoteSize(...args);
+    this.updateNoteSizeAndCustomIcon = (...args) => this.noteManager.updateNoteSizeAndCustomIcon(...args);
     this.updateNotesHeaderRect = (...args) => this.noteManager.updateNotesHeaderRect(...args);
   }
 
@@ -34,7 +34,7 @@ class RefIntro extends React.Component {
   }
 
   noteAnchor(anchorName) {
-    return <NoteAnchor colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
+    return <NoteAnchor iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteAnchorPosition} name={anchorName}/>;
   }
 
   render() {
@@ -513,30 +513,30 @@ Fire
                 </div>
               </div>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="running">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="running">
                 We can also make an executable with {incode("vale build hello.vale")}, which produces an executable {incode("hello")} (or {incode("hello.exe")} on windows). We can also specify the name with the {incode("-o")} flag.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="each">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="each">
                 The {incode("each")} statement is syntactic sugar for the {incode("each")} method:
                 <div>{incode("each arr (x){ println(x); }")}</div>
                 <div>is equivalent to</div>
                 <div>{incode("arr.each((x){ println(x); })")}</div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="variantindexing">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="variantindexing">
                 Most language can't index into tuples, but Vale makes it possible with <a href="#">variant indexing</a>. Discounting optimizations, indexing this struct gives a variant {incode("(Int|Bool|Str)")}, with a {incode("+")} function that calls the appropriate actual {incode("+")} depending on the run-time type ({incode("Int")} vs {incode("Bool")} vs {incode("Str")}).
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="constantint">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="constantint">
                 A "constant integer" is an integer known at compile time.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="ntupletype">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="ntupletype">
                 The type of {incode("arr")} is {incode("[3 * Int]")}.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="changeable">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="changeable">
                 Vale's {incode("x")} and {incode("x!")} are like
                 <div>
                   Java's {incode("final int x")} and {incode("int x")},
@@ -552,30 +552,30 @@ Fire
                 </div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="seetuplelambda">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="seetuplelambda">
                 See the Tuples section below for an example of how lambdas are super useful.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="arraylist">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="arraylist">
                 Vale's lists are like C#'s {incode("List")}, Java's {incode("ArrayList")} or C++'s {incode("vector")}; it's backed by an array, not a linked list.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="inputInt">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="inputInt">
                 {incode("inputInt")} reads an integer from the user's keyboard. In this example, the user is entering 4.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="arraytype">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="arraytype">
                 The type of {incode("arr")} here is {incode("Array<Int>")}.
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="ufcs">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="ufcs">
                 This is known as Universal Function Call Syntax. This makes method chaining nicer, for example
                 <div>{incode("a.f(3).g(true).h(\"Yendor\")")}</div>
                 as opposed to
                 <div>{incode("h(g(f(a, 3), true), \"Yendor\")")}.</div>
               </Note>
 
-              <Note colorsAndPositions={this.state.noteColorsAndPositions} update={this.updateNoteSize} name="genericlambda">
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="genericlambda">
                 Taking out the parameter's type makes this a "generic" lambda. See <Link to="/ref/generics">generics</Link> for more.
               </Note>
             </div>
