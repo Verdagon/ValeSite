@@ -78,6 +78,7 @@ class toc extends React.Component {
               <li className={ns()}>Weak References</li>
             </ul>
             <li className={ns()}>Inlining</li>
+            <li className={ns()}>Optional</li>
           </ul>
         </div>
       );

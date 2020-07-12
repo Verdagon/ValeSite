@@ -54,14 +54,14 @@ class RefIntro extends React.Component {
                   Welcome to Vale! Vale is a fast, safe, and easy programming language. This introduction will show how to write a program in Vale.
                 </div>
                 <div className={ns("content cozy")}>
-                  This tutorial assumes that you are familiar with basic programming concepts, and at least one other imperative language (like C, Java, Python, etc).
+                  This reference assumes that you are familiar with basic programming concepts, and at least one other imperative language (like C, Java, Python, etc).
                 </div>
                 <div className={ns("content cozy")}>
                   Vale is still "in alpha", which means it's a preview; you can write programs in it, but some of the features that make it easy aren't yet available.
                 </div>
-                <div className={ns("content cozy")}>
+                {/*<div className={ns("content cozy")}>
                   To get started, download Vale from the <a href="/downloads">downloads page</a>!
-                </div>
+                </div>*/}
 
                 <a name="helloworld"></a>
                 <h3 className={ns()}>Hello world!</h3>
@@ -547,9 +547,9 @@ Fire
                 <div>
                   Rust's {incode("let x")} and {incode("let mut x")}.
                 </div>
-                <div style={{marginTop: "8px"}}>
+                {/*<div style={{marginTop: "8px"}}>
                   See <Link to="/blog/bangsyntax">Syntax Design for Varying</Link> for why Vale chose {incode("!")} and {incode("mut")}.
-                </div>
+                </div>*/}
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="seetuplelambda">

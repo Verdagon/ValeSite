@@ -128,6 +128,7 @@ class Home extends React.Component {
                 <a className={ns("external-link")} href="https://github.com/Verdagon/Valestrom">Github Repository</a>
               </div>*/}
 
+          {/*
           <div className={ns("posts")}>
             <div className={ns("recent-posts")}>
               <div className={ns("recent-posts-title")}>Recent posts:</div>
@@ -135,17 +136,17 @@ class Home extends React.Component {
                 <li><Link to="/blog/verdagon/2020-no-garbage-collection">Safety without Garbage Collection</Link></li>
                 <li><Link to="/blog/verdagon/2020-borrow-references">Constraint and Borrow References</Link></li>
                 <li><Link to="/blog/verdagon/2020-single-ownership-patterns">Patterns with Single Ownership</Link></li>
-                {/*<li><Link to="/blog/verdagon/2020-binary-operators-generic-syntax">Binary Operators and Generic Syntax</Link></li>
+                {<li><Link to="/blog/verdagon/2020-binary-operators-generic-syntax">Binary Operators and Generic Syntax</Link></li>
                 <li><Link to="/blog/verdagon/2020-ufcs">Making UFCS Work</Link></li>
                 <li><Link to="/blog/verdagon/2020-shortcalling">Shortcalling Syntax</Link></li>
                 <li><Link to="/blog/verdagon/2020-improved-destructors">Destructors with Parameters and Returns</Link></li>
                 <li><Link to="/blog/verdagon/2020-error-handling">Better Error Handling</Link></li>
                 <li><Link to="/blog/verdagon/2020-auto-inlining">Auto-inlining</Link></li>
-                <li><Link to="/blog/verdagon/2020-cross-compilation-optimization">Cross Compilation and Optimization</Link></li>*/}
+                <li><Link to="/blog/verdagon/2020-cross-compilation-optimization">Cross Compilation and Optimization</Link></li>
               </ul>
             </div>
           </div>
-
+          */}
 
 
 

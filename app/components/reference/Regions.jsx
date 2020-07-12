@@ -365,6 +365,13 @@ fn segmentifyAndSend<'a, 'b>(
                   </div>
                 </div>
 
+                <a name="bumpcalling"></a>
+                <h3 className={ns()}>Bump Calling</h3>
+
+                <div className={ns("content cozy")}>
+                  With the <b>bump</b> keyword on a region declaration, all the region's allocations will use a bump allocator. This is especially useful for calling pure functions which have short lifetimes. {this.noteAnchor("bumptba")}
+                </div>
+
                 <a name="inpractice"></a>
                 <h3 className={ns()}>Regions in Practice</h3>
 
@@ -396,6 +403,10 @@ fn segmentifyAndSend<'a, 'b>(
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="optimize">
                 Making constraint references and weak references into read-only regions are completely free; the compiler optimizes them into raw pointers.
+              </Note>
+
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="bumptba">
+                More explanation soon, stay tuned or swing by our discord for more information!
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="secedecost">

@@ -23,7 +23,7 @@ class Roadmap extends React.Component {
             <div className={ns("intro")}>
               <div>Vale is currently version 0.0: getting the basic language to work.</div>
               <div>(...plus generics and lambdas, because we couldn't help ourselves!)</div>
-              <div>We're currently <b>81%</b> of the way to version 0.1!</div>
+              <div>We're currently <b>85%</b> of the way to version 0.1!</div>
             </div>
             <div className={ns("legend")}>
               <div className={ns("done")}><span className={ns("icon")}></span> Done</div>
@@ -62,13 +62,17 @@ class Roadmap extends React.Component {
                 <li className={ns("done")}><span className={ns("icon")}></span> Abstract Functions</li>
                 <li className={ns("done")}><span className={ns("icon")}></span> Virtual Functions</li>
                 <li className={ns("done")}><span className={ns("icon")}></span> Extern Calls</li>
+                <li className={ns("done")}><span className={ns("icon")}></span> Overloads</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Must-use</li>
+
               </ul>
               <h3 className={ns()}>Generics</h3>
               <ul className={ns()}>
                 <li className={ns("done")}><span className={ns("icon")}></span> Functions</li>
                 <li className={ns("done")}><span className={ns("icon")}></span> Structs/Interfaces</li>
                 <li className={ns("done")}><span className={ns("icon")}></span> Virtual Generics</li>
+                <li className={ns("done")}><span className={ns("icon")}></span> Const Generics</li>
+                <li className={ns("v02")}><span className={ns("icon")}></span> Static Eaching</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Metaprogramming</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Concepts</li>
               </ul>
@@ -121,6 +125,8 @@ class Roadmap extends React.Component {
                 <li className={ns("v02")}><span className={ns("icon")}></span> EachI</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> If Let</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> If Let Else</li>
+                <li className={ns("v02")}><span className={ns("icon")}></span> Break, Continue</li>
+
               </ul>
               <h3 className={ns()}>Patterns</h3>
               <ul className={ns()}>

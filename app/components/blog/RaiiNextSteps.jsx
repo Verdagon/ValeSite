@@ -73,7 +73,9 @@ class BlogRaiiNextSteps extends React.Component {
               <div className={ns("main")}>
 
                 <h1 className={ns("noline cozy")}>The Next Steps for RAII</h1>
-                <div className={ns("subtitle content")}>How constraint references enable memory safety, much more powerful destructors, and mercenary raccoons!</div>
+                <div className={ns("subtitle content cozy")}>How constraint references enable memory safety, much more powerful destructors, and mercenary raccoons!</div>
+
+                <div className={ns("content")}><span className={ns("date")}>Feb 30th, 2077</span> <span className={ns("author")}>&nbsp;&mdash;&nbsp; Evan Ovadia</span></div>
 
                 <div className={ns("content")}>
                   While diving the depths of single ownership, we discovered a hidden gem from the most unlikely of places. With it, we were able to reassemble C++ into something that really unleashes the full potential of RAII.
@@ -861,7 +863,7 @@ public:
               <div className={ns("toc-container")}>
 
                 <div className={ns("c-toc root")}>
-                  <div className={ns("subtitle content")}>By Evan Ovadia &nbsp;&mdash;&nbsp; Feb 30th, 2077</div>
+                  <b>The Next Steps for RAII</b>
 
                   <ul className={ns("c-toc")}>
                     <li>

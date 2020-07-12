@@ -52,7 +52,8 @@ class Header extends React.Component {
 						</div>
 						<div className="header links">
 							<Link to="/ref">Reference</Link>
-							<a href="https://github.com/Verdagon/Vale">Github Repository</a>
+							<a href="https://github.com/Verdagon/Vale">Github</a>
+							<a href="https://discord.gg/SNB8yGH">Discord</a>
 						</div>
 					</div>
 				</div>

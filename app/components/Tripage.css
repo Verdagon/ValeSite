@@ -3,6 +3,13 @@
   opacity: .6;
 }
 
+.m-tripage.author {
+  opacity: .6;
+}
+.m-tripage.date {
+  font-weight: bold;
+}
+
 .m-tripage.inline-code {
 	font-family: Roboto Mono, Courier New, Courier;
 	padding: 0 4px;
