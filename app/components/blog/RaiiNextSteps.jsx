@@ -8,23 +8,6 @@ import './Blog.css'
 import Snippet from '../Snippet.jsx';
 import claspsvg from './clasp.svg';
 
-/*
-mentioned that sandboxed realms like wasm would also love fast mode
-
-DEFINITELY support all the syntax we're showing. or at the very least, have some notes
-at the end talkimg about whats different from whats implemented. maybe note to it
-from the first mention of vale.
-  now that v's fucked up everything, we need to be super careful about over-promising.
-  maybe say "we want to be very clear about what is and isnt implemented in vale yet, and
-  not over-promise."
-hint that fast mode on JVM will let us have single ownership on JVM
-maybe have an afterword:
-  we experimented with this style in three ways:
-  using an owning_ptr and borrow_ptr, wrapping shared_ptr, for this little game here:
-  using the style of it, with discipline rather than enforcement, in another codebase.
-  used the style of it for this little roguelike game.
-*/
-
 const ns = (classes) => "c-blog m-tripage " + (classes || "");
 
 function incode(code, suffix) {
@@ -72,10 +55,10 @@ class BlogRaiiNextSteps extends React.Component {
 
               <div className={ns("main")}>
 
-                <h1 className={ns("noline cozy")}>The Next Steps for RAII</h1>
-                <div className={ns("subtitle content cozy")}>How constraint references enable memory safety, much more powerful destructors, and mercenary raccoons!</div>
+                <h1 className={ns("noline cozy")} style={{marginTop: "8px"}}>The Next Steps for Single Ownership and RAII</h1>
+                <div className={ns("subtitle content cozy")}>How constraint references enable easy safety, speed, and much more powerful RAII!</div>
 
-                <div className={ns("content")}><span className={ns("date")}>Feb 30th, 2077</span> <span className={ns("author")}>&nbsp;&mdash;&nbsp; Evan Ovadia</span></div>
+                <div className={ns("content")} style={{marginBottom: "32px"}}><span className={ns("date")}>July 15th, 2020</span> <span className={ns("author")}>&nbsp;&mdash;&nbsp; Evan Ovadia</span></div>
 
                 <div className={ns("content")}>
                   While diving the depths of single ownership, we discovered a hidden gem from the most unlikely of places. With it, we were able to reassemble C++ into something that really unleashes the full potential of RAII.
@@ -108,29 +91,45 @@ class BlogRaiiNextSteps extends React.Component {
                 <h3 className={ns()}>Single Ownership</h3>
 
                 <div className={ns("content cozy")}>
-                  Our journey started in 2011, when C++ introduced {incode("unique_ptr")} to the world, and changed our lives forever.
+                  Our journey started in 2011, when C++'s {incode("unique_ptr")} introduced single ownership and move semantics to the world, and changed our lives forever.
                 </div>
                 <div className={ns("content cozy")}>
-                  In one fell swoop, it basically single-handedly solved memory leaks. Single-ownership is one of those notions that, once it clicked, felt <i>right</i>. It was probably because this is how we already think: in C and C++, we would implicitly track ownership, to know whose responsibility it was to free an object. Even in GC'd languages, we would implicitly track who's responsible for calling {incode(".dispose()")}.
+                  In one fell swoop, it basically single-handedly solved memory leaks. Single-ownership is one of those notions that, once it clicked, felt <i>right</i>. It was probably because this is how we already think: in C, we would implicitly track ownership, to know whose responsibility it was to free an object. Even in GC'd languages, we would implicitly track who's responsible for calling {incode(".dispose()")}.
                 </div>
                 <div className={ns("content cozy")}>
                   We slowly discovered that we could use RAII for things other than freeing memory! We could:
                 </div>
                 <ul className={ns("content cozy")}>
-                  <li className={ns()}>Close a file stream.</li>
+                  <li className={ns()}>Remove self from an observers list. {this.noteAnchor("dispose")}</li>
+                  <li className={ns()}>Close a file stream, or clean up a temp file.</li>
                   <li className={ns()}>Close a mutex's lock.</li>
-                  <li className={ns()}>Roll-back a transaction if it wasn't already committed.</li>
-                  <li className={ns()}>Remove self from an observers list.</li>
+                  <li className={ns()}>Stop an ongoing calculation in another thread.</li>
+                  <li className={ns()}>Roll-back or commit a transaction.</li>
+                  <li className={ns()}>Cancel a retrying network request.</li>
+                  <li className={ns()}>Remove some UI elements from the view.</li>
+                  <li className={ns()}>Resolve or reject a future.</li>
+                  <li className={ns()}>Notify others that we're being freed.</li>
+                  <li className={ns()}>Enforce that we actually handled an error, rather than dropping it on the floor.</li>
+                  {/* Other uses:
+                  - could represent an atLeastOnce kind of thing by having a doX and doFinalX.
+                  - if i want to make sure they call recalculateIndices, i can have it return a responsibility which is only taken in by recalculateIndices.
+                  - reset view, if this was a mode
+                  - decrement call depth for a guard
+                  - save to cache to resume next time
+                  - assert we did something
+                  - restore last state (rolling back)
+                  - publish results now that we know there wont be any more commands forthcoming (like a builder?)
+                  */}
                 </ul>
                 <div className={ns("content cozy")}>
-                  Then it clicked: RAII wasn't just way to track who should free an object, and these weren't just neat tricks. RAII is much more, it's a way to <b>track responsibility</b>. {this.noteAnchor("sovsraii")}
+                  We realized: RAII wasn't just way to track who should free an object, and these weren't just neat tricks. RAII is much more, it's a way to <b>track responsibility</b>. {this.noteAnchor("sovsraii")}
                 </div>
                 <div className={ns("content cozy")}>
                   It's a promise that's enforced by the compiler. Instead of just "The compiler will make sure we free this," RAII is "The compiler will make sure that we XYZ" where XYZ is whatever we want. {this.noteAnchor("whatever")}
                 </div>
 
 
-                <a name="singleownership"></a>
+                <a name="safehandlingofaliases"></a>
                 <h3 className={ns()}>Safe Handling of Aliases</h3>
 
                 <div className={ns("content cozy")}>
@@ -211,8 +210,8 @@ struct BigClass {
 
 
 
-                <a name="singleownership"></a>
-                <h5 className={ns()}>Constraint Reference</h5>
+                <a name="constraintreferences"></a>
+                <h4 className={ns()}>Constraint Reference</h4>
 
                 <div className={ns("content cozy")}>
                   This kind of "non-outliving pointer" is everywhere. Some examples:
@@ -226,77 +225,97 @@ struct BigClass {
                   This pointer, which shouldn't outlive what it's pointing to, may seem oddly familiar to many of us: SQL has them! {this.noteAnchor("604")}
                 </div>
                 <div className={ns("content cozy")}>
-                 In SQL, a foreign key constraint is a reference that cannot outlive the object (otherwise, it aborts the current transaction).
+                  In SQL, a foreign key constraint is a reference that cannot outlive the object (otherwise, it aborts the current transaction).
                 </div>
                 <div className={ns("content cozy")}>
                   For that reason, we call this kind of pointer a <b>constraint reference</b>.  {this.noteAnchor("950")}
                 </div>
+
                 <div className={ns("content cozy")}>
-                  C++ can have constraint references. {this.noteAnchor("engines")} We just wrap {incode("shared_ptr")} in a class called {incode("owning_ptr")} which uses move semantics like {incode("unique_ptr")} and checks the ref count to assert {this.noteAnchor("544")} that it's the last pointer to the object.
+                  We've used constraint references in C++! {this.noteAnchor("engines")} We simply:
+                </div>
+                <ul className={ns("content cozy")}>
+                  <li>Wrapped {incode("shared_ptr")} in a class called {incode("owning_ptr")} which uses move semantics like {incode("unique_ptr")} and, when destroyed, checks the ref count to assert {this.noteAnchor("544")} that it's the last pointer to the object.</li>
+                  <li>Made another wrapper around {incode("shared_ptr")} called {incode("constraint_ptr")}.</li>
+                  <li>In release mode, compiled {incode("owning_ptr")} to a {incode("unique_ptr")}, and compiled {incode("constraint_ptr")} to a raw pointer.</li>
+                </ul>
+                <div className={ns("content cozy")}>
+                  We fell in love with the approach instantly:
+                </div>
+                <ul className={ns("content cozy")}>
+                  <li>It was <b>memory safe!</b> We never had a use-after-free once we switched to constraint references.</li>
+                  <li>It was <b>conservative!</b> In development mode, we couldn't even <b>make</b> pointers dangle, much less dereference them. It caught risky behavior much earlier and made it extremely unlikely to have unsafe behavior in release mode.</li>
+                  <li>It was <b>zero-cost!</b> They compiled to a unique_ptr and raw pointers, so there was no extra overhead in release mode.</li>
+                  <li>It was <b>easy!</b> We could alias {this.noteAnchor("alias")} with freedom, and most of our pointers didn't outlive what they were pointing to anyway, so there was no learning curve to struggle against!</li>
+                </ul>
+
+                <div className={ns("content cozy")}>
+                  With raw pointers, if someone deletes the object your raw pointer is pointing to, you won't see the problem until much later, when you try and dereference it. Constraint refs answer the question "who destroyed that object I'm pointing to?" much sooner; {this.noteAnchor("735")} we get a nice debugger pause or stack trace when someone accidentally frees what we're pointing at.
                 </div>
 
                 <div className={ns("content cozy")}>
-                  <b>We are now memory safe!</b> In this approach, pointers don't even <b>become</b> dangling, so they definitely can't be dereferenced.
-                </div>
-                <div className={ns("content cozy")}>
-                  With raw pointers, if someone deletes the object your raw pointer is pointing to, you won't see the problem until much later, when you try and dereference it. Constraint refs answer the question "who destroyed that object I'm pointing to?" much sooner; {this.noteAnchor("735")} we get a nice debugger pause or stack trace when we accidentally destroy what we're pointing at.
-                </div>
-
-                <a name="singleownership"></a>
-                <h5 className={ns()}>Constraint Behavior Modes</h5>
-
-                <div className={ns("content cozy")}>
-                  The best part: constraint references can be <b>zero cost</b>! We just need to make another wrapper around {incode("shared_ptr")} called {incode("constraint_ptr")}. In release mode, it would compile to a raw pointer instead, and our {incode("owning_ptr")} would compile to a {incode("unique_ptr")}. In Vale, this is called <b>Fast Mode</b>.
-                </div>
-                <div className={ns("content cozy")}>
-                  Developing and testing with constraint references drastically reduces the chance of a crash or vulnerability in production. It's not perfect, but it lets us alias {this.noteAnchor("alias")} with much more safety.
-                </div>
-                <div className={ns("content cozy")}>
-                  Some applications will prefer <b>Resilient Mode</b> in production, where instead of halting the program when we violate a constraint, we halt when we actually try to dereference it. This is similar to running a C++ program with Valgrind or ASan.
-                </div>
-                <div className={ns("content cozy")}>
-                  Vale's region isolation allows Normal Mode and Resilient Mode to use non-atomic ref counting, which is much faster than {incode("shared_ptr", "'s")} atomic ref-counting. Ref-counting might be slow in C++, but it's <b>much</b> faster in Vale.
+                  To summarize, we can get speed and memory safety with ease by, when developing and testing, making the program halt when we free an object that any constraint reference is pointing at.
                 </div>
 
 
-                <a name="singleownership"></a>
-                <h5 className={ns()}>Weak Reference</h5>
+                <a name="constraintbehaviormodes"></a>
+                <h4 className={ns()}>Constraint Behavior Modes</h4>
 
                 <div className={ns("content cozy")}>
-                  As we saw, a raw pointer is sometimes a constraint reference.
+                  <b>Normal Mode</b> is used in development and testing, where we halt the program when we accidentally free an object that a constraint reference is pointing at.
                 </div>
+
                 <div className={ns("content cozy")}>
-                  But, like two raccoons in a trench coat, the raw pointer can sometimes be something else: a pointer that <i>should</i> be able to outlive what it points to, as long as we don't dereference it. This is a <b>weak reference</b>.
+                  <b>Fast Mode</b> is used for release, and compiles the references down to raw pointers.
                 </div>
+
                 <div className={ns("content cozy")}>
-                  For example, a missile launched by a spaceship should keep flying, even if its targeted asteroid disappears.
+                  If someone prefers absolute safety, then they could use <b>Resilient Mode</b> for release, where we compile {incode("constraint_ptr")} to use a {incode("weak_ptr")} internally, and it will halt the program when we try to dereference a freed object instead. This is similar to running a program with Valgrind or ASan.
+                </div>
+
+                <div className={ns("content cozy")}>
+                  Unfortunately, C++'s {incode("shared_ptr")} and {incode("weak_ptr")} use atomic ref-counting under the hood, which would make these new constraint references very slow.
+                </div>
+
+                <div className={ns("content cozy")}>
+                  Luckily, Vale's region isolation allows Normal Mode and Resilient Mode to use non-atomic ref counting, which is much faster. {this.noteAnchor("rorc")} {this.noteAnchor("nocycles")}
+                </div>
+
+                <div className={ns("content cozy")}>
+                  Fast Mode could be useful for high performance computing like games, and areas where we have other measures for safety, like webassembly or other sandboxes. Vale's Resilient Mode is still incredibly fast and has zero unsafety, which would make it perfect for use in servers and apps.
                 </div>
 
 
-                <a name="singleownership"></a>
+                <a name="emergingpatterns"></a>
                 <h3 className={ns()}>Emerging Patterns</h3>
 
 
                 <div className={ns("content cozy")}>
-                  We coded in this style for years, to see how far constraint refs could go.
+                  We coded in this style for years, to see how far constraint refs could go. Whenever we reached for {incode("shared_ptr")}, we stopped, and pondered if there was a way to solve the problem with single ownership.
                 </div>
                 <div className={ns("content cozy")}>
-                  Like hidden spirits emerging from a forest, some patterns started revealing themselves to us.
+                  We suddenly started discovering certain recurring patterns, like nuggets of gold, deep in the mines.
                 </div>
+
+                <a name="clasp"></a>
+                <h4 className={ns()}>Clasp</h4>
 
                 <div className={ns("content splitter")}>
                   <div className={ns("half")}>
                     <div className={ns("content cozy")}>
+                      One pattern was the <b>clasp pattern</b>, which solved a certain problem with callbacks.
+                    </div>
+                    <div className={ns("content cozy")}>
                       Imagine we have a Network class, shown here.
                     </div>
                     <div className={ns("content cozy")}>
-                      {incode("Thing::doRequest")} would say {incode("network->request(\"vale.dev\", this);")}
+                      Let's say we had a class named {incode("Thing")}, whose {incode("doRequest")} method would say {incode("network->request(\"vale.dev\", this);")}
                     </div>
                     <div className={ns("content cozy")}>
-                      But wait, danger lurks!
+                      Wait, danger lurks!
                     </div>
                     <div className={ns("content cozy")}>
-                      If {incode("this")} is destroyed before the response comes back, then {incode("Network")} would call into a dangling pointer and crash!
+                      If {incode("this")} (the {incode("Thing")}) is destroyed before the response comes back, then {incode("Network")} would call into a dangling pointer and crash!
                     </div>
 
                     <div className={ns("content cozy")}>
@@ -333,13 +352,13 @@ struct Network {
   fn request(
       &this,
       url Str,
-      callback &INetworkCallback)
+      callback &!INetworkCallback)
   { ... }
 }
 
 */}
 
-<span className="Prog"><span className="Interface">interface <span className="StructName">INetworkCallback</span> &#123;<br />  <span className="Fn">fn <span className="FnName">handleResponse</span><span className="Params">(<span className="Pat"><span className="Lend">&</span><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">resp</span></span> <span className="Typ">Str</span></span>)</span>;</span><br />  <span className="Fn">fn <span className="FnName">drop</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>)</span>;</span><br />&#125;</span><br /><span className="Struct">struct <span className="StructName">Network</span> <span className="Membs">&#123;<br />  <span className="Fn">fn <span className="FnName">request</span><span className="Params">(<br />      <span className="Pat"><span className="Lend">&</span><span className="Capture"><span className="CaptureName">this</span></span></span>,<br />      <span className="Pat"><span className="Capture"><span className="CaptureName">url</span></span> <span className="Typ">Str</span></span>,<br />      <span className="Pat"><span className="Capture"><span className="CaptureName">callback</span></span> <span className="Ownership">&<span className="Typ">INetworkCallback</span></span></span>)</span><br />  <span className="Block">&#123; <span className="Lookup">...</span> &#125;</span></span><br />&#125;</span></span><br /></span>
+<span className="Prog"><span className="Interface">interface <span className="StructName">INetworkCallback</span> &#123;<br />  <span className="Fn">fn <span className="FnName">handleResponse</span><span className="Params">(<span className="Pat"><span className="Lend">&</span><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">resp</span></span> <span className="Typ">Str</span></span>)</span>;</span><br />  <span className="Fn">fn <span className="FnName">drop</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>)</span>;</span><br />&#125;</span><br /><span className="Struct">struct <span className="StructName">Network</span> <span className="Membs">&#123;<br />  <span className="Fn">fn <span className="FnName">request</span><span className="Params">(<br />      <span className="Pat"><span className="Lend">&!</span><span className="Capture"><span className="CaptureName">this</span></span></span>, {this.noteAnchor("bang")}<br />      <span className="Pat"><span className="Capture"><span className="CaptureName">url</span></span> <span className="Typ">Str</span></span>,<br />      <span className="Pat"><span className="Capture"><span className="CaptureName">callback</span></span> <span className="Ownership">&!<span className="Typ">INetworkCallback</span></span></span>)</span><br />  <span className="Block">&#123; <span className="Lookup">...</span> &#125;</span></span><br />&#125;</span></span><br /></span>
 
                     </Snippet>
                   </div>
@@ -366,45 +385,56 @@ struct Network {
                   We iterated on it, simplified it, and even made a one-to-many version, which was so useful that we promoted it to its own reference type, the <b>weak reference.</b>
                 </div>
 
+                <a name="weakreferences"></a>
+                <h4 className={ns()}>Weak Reference</h4>
+
                 <div className={ns("content cozy")}>
-                  Keep in mind, this weak reference works very differently from {incode("weak_ptr")}.
+                  Sometimes, we want a pointer to outlive what it points to.
                 </div>
                 <div className={ns("content cozy")}>
-                  When you lock a {incode("weak_ptr")}, you get a {incode("shared_ptr")} which will delay destruction and extend the lifetime of the object if the other {incode("shared_ptr", "s")} disappear.
-                </div>
-                <div className={ns("content cozy")}>
-                  Instead, when you lock a weak reference, you get a constraint reference, which will halt the program if the owning reference disappears.
+                  For example, a missile launched by a spaceship should keep flying, even if its targeted asteroid disappears.
                 </div>
 
+                <div className={ns("content cozy")}>
+                  We can use a <b>weak reference</b> for this. {this.noteAnchor("weakrefimpl")}
+                </div>
+                <div className={ns("content cozy")}>
+                  Note that this is very different from C++'s {incode("weak_ptr")}:
+                </div>
+                <ul className={ns("content cozy")}>
+                  <li>When you lock a {incode("weak_ptr")}, you get a {incode("shared_ptr")} which will delay destruction and extend the lifetime of the object if the other {incode("shared_ptr", "s")} disappear.</li>
+                  <li>When you lock a weak reference, you get a constraint reference, which will halt the program if the owning reference disappears.</li>
+                </ul>
 
-                <a name="singleownership"></a>
+
+                <a name="simplification"></a>
                 <h3 className={ns()}>Simplification</h3>
 
                 <div className={ns("content cozy")}>
                   In our quest, single ownership unexpectedly solved a major recurring problem.
                 </div>
                 <div className={ns("content cozy")}>
-                  We previously had a system where a {incode("shared_ptr", "'d")} object's destructor would remove it from the display when the last reference to it disappeared. <b>This was a terrible thing.</b> Every month, there would be a fresh bug saying "I hit the delete button, but the thing is still in the view!" and it'd take forever to figure out "who is keeping my object alive?" {this.noteAnchor("519")}
+                  We previously had a system where a {incode("shared_ptr", "'d")} object's destructor would remove it from the display when the last reference to it disappeared. <b>This was a terrible thing;</b> Every month, there would be a fresh bug saying "I hit the delete button, but the thing is still in the view!" and it'd take forever to figure out "who is keeping my object alive?" {this.noteAnchor("519")}
                 </div>
                 <div className={ns("content cozy")}>
-                  The best part was that we <b>knew</b> who the owner should be. We knew the exact line that <i>should have</i> had the last reference... {this.noteAnchor("942")} but apparently, it wasn't. Somewhere, another reference was preventing the destructor call.
+                  The ironic part was that we <b>knew</b> who the owner should be. We knew the exact line that <i>should have</i> had the last reference... {this.noteAnchor("942")} but apparently, it wasn't. Somewhere, another reference was preventing the destructor call.
                 </div>
                 <div className={ns("content cozy")}>
-                  After switching to owning, constraint, and weak references, this problem evaporated.
+                  This problem evaporated, because constriant references would notify us of the problem much earlier. {this.noteAnchor("diagnose")}
                 </div>
 
-                <a name="singleownership"></a>
+                <a name="surprise"></a>
                 <h3 className={ns()}>Surprise!</h3>
 
                 <div className={ns("content cozy")}>
                   We were new to this way of thinking, so we expected that maybe a quarter of our references could become constraint refs. We were shocked when we were able to get rid of <i>every single</i> raw pointer and {incode("shared_ptr")}, and make it into either a constraint ref, or occasionally a weak ref. {this.noteAnchor("532")}
                 </div>
                 <div className={ns("content cozy")}>
-                  We didn't know it at the time, but we had found the key to unlock the next steps for RAII.
+                  We didn't know it at the time, but we had found the key to unlock the next steps for RAII. Below, we explain how Vale and a hypothetical C++++ could harness this new freedom.
                 </div>
 
 
-                <a name="singleownership"></a>
+                <a name="parameters"></a>
                 <h3 className={ns()}>Language Implications: Destructor Parameters!</h3>
 
                 <div className={ns("content cozy")}>
@@ -419,7 +449,7 @@ struct Network {
                 <ul className={ns("content")}>
                   <li className={ns()}>Exceptions: We need to call an object's destructor automatically when an exception is in flight, where do we get the parameters for that?</li>
                   <ul>
-                    <li className={ns()}>We don't use exceptions anyway! In fact, entire companies' style guides prohibit them. Use Result instead.</li>
+                    <li className={ns()}>We don't use exceptions anyway! In fact, entire companies' style guides prohibit them. Use Result instead. {this.noteAnchor("exceptions")}</li>
                   </ul>
                   <li className={ns()}>If we implicitly call the destructor at the end of a block, how do we know what parameters to pass in?</li>
                   <ul>
@@ -427,7 +457,7 @@ struct Network {
                   </ul>
                   <li className={ns()}>If we have a {incode("vector<MyObj>")}, how would {incode("~vector()")} know what to pass into {incode("~MyObj()")}?</li>
                   <ul>
-                    <li className={ns()}>Destructors can have parameters now, so pass a "consumer" functor {incode("std::function<void(std::unique_ptr<MyObj>)>)")} (or {incode("fn(MyObj)Void")}), and we could give each element to it to destroy.</li>
+                    <li className={ns()}>Destructors can have parameters now, so pass a "consumer" functor {incode("std::function<void(std::unique_ptr<MyObj>)>)")} (or {incode("fn(MyObj)Void")}), and the vector could give each element to it to destroy.</li>
                   </ul>
                 </ul>
 
@@ -435,7 +465,7 @@ struct Network {
                 <div className={ns("content splitter")}>
                   <div className={ns("half")}>
                     <div className={ns("content cozy")}>
-                      Since we could have destructor parameters, we could revisit our {incode("Transaction")} class, shown to the right.
+                      Since we could have destructor parameters, we could improve our {incode("Transaction")} class, shown to the right.
                     </div>
                     <div className={ns("content cozy")}>
                       Notice how we have to call {incode("setRollbackMode")} before the destructor.
@@ -461,6 +491,9 @@ virtual ~Transaction(RollMode mode) {
 ~transaction(TUMBLE);
 `}
 </code></pre>
+                    </div>
+                    <div className={ns("content cozy")}>
+                      We've seen this pattern everywhere: since destructors couldn't take parameters, we had to hack them into members. Now we dont have to!
                     </div>
                   </div>
                   <div className={ns("half")}>
@@ -501,20 +534,20 @@ transaction = nullptr;
                 </div>
 
 
-                <a name="singleownership"></a>
+                <a name="overloads"></a>
                 <h3 className={ns()}>Destructor Overloads</h3>
 
 
                 <div className={ns("content splitter cozy")}>
                   <div className={ns("half")}>
                     <div className={ns("content cozy")}>
-                      Since we no longer need to implicitly call destructors, we can add destructor overloads!
+                      Since we don't have shared ownership anymore, we no longer need a single zero-arg destructor, and we can add destructor overloads!
                     </div>
                     <div className={ns("content cozy")}>
                       Notice how the destructors now have names.
                     </div>
                     <div className={ns("content cozy")}>
-                      Recall how RAII is where "the compiler will make sure that we XYZ". Here, the compiler will make sure that someone holding a Transaction either calls {incode("commit")} or {incode("rollback")}.
+                      Recall how RAII is where "the compiler will make sure that we XYZ". Here, the compiler will make sure that someone holding a Transaction <b>either</b> calls {incode("commit")} or {incode("rollback")}.
                     </div>
                   </div>
                   <div className={ns("half")}>
@@ -537,7 +570,7 @@ transaction->~rollback(TUMBLE);`}
                   </div>
                 </div>
 
-                <div className={ns("content splitter")}>
+                <div className={ns("content splitter cozy")}>
                   <div className={ns("half")}>
                     <div className={ns("content cozy")}>
                       Our hypothetical C++++ syntax is starting to show some cracks, so lets see this in Vale.
@@ -545,15 +578,24 @@ transaction->~rollback(TUMBLE);`}
                     <div className={ns("content")}>
                       Here, {incode("commit")} and {incode("rollback")} are just regular methods that take an owning {incode("this")} and happen to free it (with {incode("destruct")}). {this.noteAnchor("1012")}
                     </div>
-                    <div className={ns("content cozy")}>
+                    <div className={ns("content")}>
                       (That's all a destructor is, when you think about it.)
+                    </div>                
+                    <div className={ns("content cozy")}>
+                      This isn't just useful for transactions. Imagine a {incode("Future<T, E>")} class with two destructors:
+                      <ul>
+                        <li>{incode("void ~resolve(T successValue);")}</li>
+                        <li>{incode("void ~reject(E errorValue);")}</li>
+                      </ul>
+                      Now, we can never accidentally drop a future without resolving or rejecting it first!
                     </div>
+
                   </div>
                   <div className={ns("half")}>
                     <Snippet header="Vale">
 {/*
 struct Transaction {
-  fn read(&this, query ReadQuery)
+  fn read(&!this, query ReadQuery)
   ReadResult { ... }
 
   fn commit(this) { (ownthis)
@@ -569,16 +611,16 @@ struct Transaction {
 
 fn main() {
 // To commit:
-transaction.commit();
+transaction^.commit(); (caret)
 // To rollback:
-transaction.rollback(TUMBLE);
+transaction^.rollback(TUMBLE);
 }
 
 */}
 
-<span className="Prog"><span className="Struct">struct <span className="StructName">Transaction</span> <span className="Membs">&#123;<br />  <span className="Fn">fn <span className="FnName">read</span><span className="Params">(<span className="Pat"><span className="Lend">&</span><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">query</span></span> <span className="Typ">ReadQuery</span></span>)</span><br />  <span className="Typ">ReadResult</span> <span className="Block">&#123; <span className="Lookup">...</span> &#125;</span></span><br /><br />  <span className="Fn">fn <span className="FnName">commit</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>)</span> <span className="Block">&#123;  {this.noteAnchor("ownthis")}<br />    <span className="Lookup">...</span>;<br />    <span className="Call"><span className="CallLookup">destruct</span> <span className="Lookup">this</span></span>;<span className="W"></span><br />  &#125;</span></span><br /><br />  <span className="Fn">fn <span className="FnName">rollback</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">mode</span></span> <span className="Typ">RollMode</span></span>)</span> <span className="Block">&#123;<br />    <span className="Call"><span className="Lookup">...</span><br />    <span className="CallLookup">destruct</span> <span className="Lookup">this</span></span>;<span className="W"></span><br />  &#125;</span></span><br />&#125;</span></span><br /><br />
+<span className="Prog"><span className="Struct">struct <span className="StructName">Transaction</span> <span className="Membs">&#123;<br />  <span className="Fn">fn <span className="FnName">read</span><span className="Params">(<span className="Pat"><span className="Lend">&!</span><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">query</span></span> <span className="Typ">ReadQuery</span></span>)</span><br />  <span className="Typ">ReadResult</span> <span className="Block">&#123; <span className="Lookup">...</span> &#125;</span></span><br /><br />  <span className="Fn">fn <span className="FnName">commit</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>)</span> <span className="Block">&#123;  {this.noteAnchor("ownthis")}<br />    <span className="Lookup">...</span>;<br />    <span className="Call"><span className="CallLookup">destruct</span> <span className="Lookup">this</span></span>;<span className="W"></span><br />  &#125;</span></span><br /><br />  <span className="Fn">fn <span className="FnName">rollback</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">mode</span></span> <span className="Typ">RollMode</span></span>)</span> <span className="Block">&#123;<br />    <span className="Call"><span className="Lookup">...</span><br />    <span className="CallLookup">destruct</span> <span className="Lookup">this</span></span>;<span className="W"></span><br />  &#125;</span></span><br />&#125;</span></span><br /><br />
 
-<span className="Comment">// To commit:</span><br /><span className="Call"><span className="Lookup">transaction</span>.<span className="CallLookup">commit</span>()</span>;<br /><span className="Comment">// To rollback:</span><br /><span className="Call"><span className="Lookup">transaction</span>.<span className="CallLookup">rollback</span>(<span className="Lookup">TUMBLE</span>)</span>;<span className="W"></span>
+<span className="Comment">// To commit:</span><br /><span className="Call"><span className="Lookup">transaction</span>^.<span className="CallLookup">commit</span>()</span>; {this.noteAnchor("caret")}<br /><span className="Comment">// To rollback:</span><br /><span className="Call"><span className="Lookup">transaction</span>^.<span className="CallLookup">rollback</span>(<span className="Lookup">TUMBLE</span>)</span>;<span className="W"></span>
 
 
 </span>
@@ -588,7 +630,8 @@ transaction.rollback(TUMBLE);
                 </div>
 
 
-                <a name="singleownership"></a>
+
+                <a name="returns"></a>
                 <h3 className={ns()}>Destructor Returns</h3>
 
                 <div className={ns("content splitter")}>
@@ -622,9 +665,31 @@ public:
                   </div>
                 </div>
 
+                <div className={ns("content cozy")}>
+                  As you use this kind of improved RAII more, you start to see opportunities for it <i>everywhere</i>.
+                </div>
 
+                <div className={ns("content cozy")}>
+                  Imagine if {incode("std::thread")}'s destructor could return the result of a thread's calculation!
+                </div>
 
-                <a name="singleownership"></a>
+                <div className={ns("content cozy")}>
+                  Imagine a {incode("std::function", "-like")} class where its destructor called the underlying lambda and destroyed {incode("this")} at the same time, thus <b>guaranteeing it could only be called once.</b> The possibilities are endless!
+                </div>
+
+                <div className={ns("content cozy")}>
+                  Recently, C++17 added the <a href="https://en.cppreference.com/w/cpp/language/attributes/nodiscard">[[nodiscard]]</a> attribute, which was useful for functions like {incode("Result<ImportantResult, ImportantError> doSomethingImportant();")}, to prevent the user from ignoring the {incode("Result")}.
+                </div>
+                <div className={ns("content cozy")}>
+                  C++ wouldn't have needed a special attribute if it had this kind of improved RAII: Simply don't provide a default destructor, and provide other destructors, with return values:
+                  <ul>
+                    <li>ImportantResult ~getResult();</li>
+                    <li>ImportantError ~getError();</li>
+                    <li>void ~printResult();</li>
+                  </ul>
+                </div>
+
+                <a name="nondestroying"></a>
                 <h3 className={ns()}>Non-destroying Destructors</h3>
 
                 <div className={ns("content cozy")}>
@@ -641,7 +706,7 @@ public:
                 <div className={ns("content cozy")}>
                   <Snippet header="Vale">
 {/*struct Transaction {
-  fn read(&this, query ReadQuery) ReadResult { ... }
+  fn read(&!this, query ReadQuery) ReadResult { ... }
 
   fn commit(this, list &TransactionList) {
     ...;
@@ -655,12 +720,12 @@ public:
   }
 }*/}
 
-<span className="Prog"><span className="Struct">struct <span className="StructName">Transaction</span> <span className="Membs">&#123;<br />  <span className="Fn">fn <span className="FnName">read</span><span className="Params">(<span className="Pat"><span className="Lend">&</span><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">query</span></span> <span className="Typ">ReadQuery</span></span>)</span> <span className="Typ">ReadResult</span> <span className="Block">&#123; <span className="Lookup">...</span> &#125;</span></span><br /><br />  <span className="Fn">fn <span className="FnName">commit</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">list</span></span> <span className="Ownership">&<span className="Typ">TransactionList</span></span></span>)</span> <span className="Typ"></span> <span className="Block">&#123;<br />    <span className="Lookup">...</span>;<br />    <span className="Call"><span className="Lookup">list</span>.<span className="CallLookup">reclaim</span>(<span className="Lookup">this</span>)</span>;<span className="W"></span> <span className="Comment">// move this into a different function</span><br />  &#125;</span></span><br /><br />  <span className="Fn">fn <span className="FnName">rollback</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">list</span></span> <span className="Ownership">&<span className="Typ">TransactionList</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">mode</span></span> <span className="Typ">RollMode</span></span>)</span> <span className="Typ">RollbackStatus</span> <span className="Block">&#123;<br />    <span className="Lookup">...</span>;<br />    <span className="Call"><span className="Lookup">list</span>.<span className="CallLookup">reclaim</span>(<span className="Lookup">this</span>)</span>; <span className="Comment">// move this into a different function</span><br />    <span className="Ret">ret <span className="Lookup">SUCCESS</span>;</span><br />  &#125;</span></span><br />&#125;</span></span><br /></span>
+<span className="Prog"><span className="Struct">struct <span className="StructName">Transaction</span> <span className="Membs">&#123;<br />  <span className="Fn">fn <span className="FnName">read</span><span className="Params">(<span className="Pat"><span className="Lend">&!</span><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">query</span></span> <span className="Typ">ReadQuery</span></span>)</span> <span className="Typ">ReadResult</span> <span className="Block">&#123; <span className="Lookup">...</span> &#125;</span></span><br /><br />  <span className="Fn">fn <span className="FnName">commit</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">list</span></span> <span className="Ownership">&<span className="Typ">TransactionList</span></span></span>)</span> <span className="Typ"></span> <span className="Block">&#123;<br />    <span className="Lookup">...</span>;<br />    <span className="Call"><span className="Lookup">list</span>.<span className="CallLookup">reclaim</span>(<span className="Lookup">this</span>)</span>;<span className="W"></span> <span className="Comment">// move this into a different function</span><br />  &#125;</span></span><br /><br />  <span className="Fn">fn <span className="FnName">rollback</span><span className="Params">(<span className="Pat"><span className="Capture"><span className="CaptureName">this</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">list</span></span> <span className="Ownership">&<span className="Typ">TransactionList</span></span></span>, <span className="Pat"><span className="Capture"><span className="CaptureName">mode</span></span> <span className="Typ">RollMode</span></span>)</span> <span className="Typ">RollbackStatus</span> <span className="Block">&#123;<br />    <span className="Lookup">...</span>;<br />    <span className="Call"><span className="Lookup">list</span>.<span className="CallLookup">reclaim</span>(<span className="Lookup">this</span>)</span>; <span className="Comment">// move this into a different function</span><br />    <span className="Ret">ret <span className="Lookup">SUCCESS</span>;</span><br />  &#125;</span></span><br />&#125;</span></span><br /></span>
 
                     </Snippet>
                 </div>
 
-                <a name="singleownership"></a>
+                <a name="whatevenisadestructor"></a>
                 <h3 className={ns()}>What even <i>is</i> a destructor?</h3>
 
 
@@ -668,35 +733,75 @@ public:
                   By now you've noticed that Destructors can have overloads, take parameters, return values, and even decline to destroy {incode("this")}! There's hardly anything that separates them from regular functions.
                 </div>
                 <div className={ns("content cozy")}>
-                  In fact, in Vale, the whole "destructor" side of the language is built from one small feature:
+                  In fact, in Vale, the whole "destructor" side of the language is built from one small rule:
                 </div>
                 <div className={ns("content cozy")} style={{padding: "0 16px"}}>
-                  <b>If an owning reference goes out of scope, call {incode(".drop()")} on it.</b> If no public {incode(".drop()")} exists, give a compile error. {this.noteAnchor("mustuse")}
+                  "If an owning reference goes out of scope, call {incode(".drop()")} on it. If no public {incode(".drop()")} exists, give a compile error."
                 </div>
                 <div className={ns("content cozy")}>
                   In one fell swoop, by removing our dependence on {incode("shared_ptr")}, we had taken one of the thorniest corners of C++ and completely simplified it away.
                 </div>
 
 
-                <a name="singleownership"></a>
-                <h3 className={ns()}>A Detour Through Rust</h3>
+                <a name="raiipastpresentfuture"></a>
+                <h3 className={ns()}>RAII: Past, Present, Future</h3>
+
 
                 <div className={ns("content cozy")}>
-                  One can't have an article about safety and speed without mentioning Rust!
+                  Using constraint references, we unleashed the power of single ownership and found the next steps for RAII:
                 </div>
+
+                <ul className={ns("content")}>
+                  <li className={ns()}>Multiple destructors: Mark errors handled in different ways, rollback or commit a transaction, end things how you want!</li>
+                  <li className={ns()}>Destructor parameters: Resolve or reject futures with certain values, set a priority for a {incode("close")} operation, you name it!</li>
+                  <li className={ns()}>Destructor return values: Return error status, return the result of a thread's calculation, whatever you need!</li>
+                  <li className={ns()}>Non-destroying destructors: Reuse objects, give out ownership without risking freeing, sky's the limit!</li>
+                </ul>
+
                 <div className={ns("content cozy")}>
-                  Early in this odyssey, Rust was released, and it told a beautiful story: speed and memory safety, by doing this kind of reference lifetime enforcement at compile-time! The holy grail of memory management.
+                  With C++'s existing RAII, destructors can do very little. With improved RAII, an object can offer multiple options for destructors, each with return values and parameters.
                 </div>
 
                 <div className={ns("content cozy")}>
-                  However Rust's compile-time memory safety came at a cost: <b>we could no longer alias freely.</b> Other memory safe languages like Java allow you to have as many non-const references to an object as you want, but Rust can't make it's compile-time guarantees when you have any references (even const ones!) to an object when someone else might have a non-const reference to it.
+                  Someday, we might be able to add these features to C++, but before that can happen, we need to show the world that <b>single ownership is powerful, and we don't need shared ownership as much as we thought</b>. {/*{this.noteAnchor("comingsoon")}*/}
+                </div>
+
+                <div className={ns("content")}>
+                  We made Vale for exactly that reason. It's still in alpha, so if you want to help bring improved RAII into the world, come by the <a href="http://reddit.com/r/vale">r/Vale</a> subreddit or the <a href="https://discord.gg/SNB8yGH">Vale discord</a>! {this.noteAnchor("help")}
+                </div>
+
+                <div className={ns("content")}>
+                  This isn't even the end of the single ownership saga! In the coming weeks, we'll explain how this consistent single ownership approach enables other unique capabilities in Vale, such as cross-compilation, the <Link to="/ref/regions">region borrow checker</Link>, and lightning fast memory management.
+                </div>
+
+                <div className={ns("content cozy")}>                
+                  Until then, we want to hear from you! We'd love to hear your thoughts on single ownership, RAII, Vale, and any ideas you have! Come share your thoughts in the reddit post, the HN post, and come join the <a href="http://reddit.com/r/vale">r/Vale</a> subreddit and the <a href="https://discord.gg/SNB8yGH">Vale discord</a>!
+                </div>
+
+              </div>
+
+              <div className={ns("afterword")}>
+
+                <a name="afterword"></a>
+                <h3 className={ns("noline cozy")}>Afterword: Rust, RAII, and Constraint Refs</h3>
+
+                <div className={ns("content cozy")}>
+                  One can't have an article about RAII and speed and safety without mentioning Rust!
                 </div>
 
                 <div className={ns("content cozy")}>
-                  For example: if you have a list of Airports and a list of Planes, a Plane can't have a reference to its source and destination airports; if we did, we wouldn't ever be able to modify or remove any airports (or add them, because Vec's resizing could move the airports). {this.noteAnchor("546b")}
+                  Rust makes a beautiful promise: speed and memory safety, by doing this kind of reference lifetime enforcement at compile-time! The holy grail of memory management.
+                </div>
+
+                <div className={ns("content cozy")}>
+                  Rust is amazing for certain purposes, but nothing is perfect, and Rust's compile-time memory safety comes at a cost: <b>we can no longer alias freely,</b> and we're forced into less efficient workarounds. Other memory safe languages like Java allow you to have as many non-const references to an object as you want, but Rust can't make it's compile-time guarantees when you have any references (even const ones!) to an object when someone else might have a non-const reference to it.
+                </div>
+
+                <div className={ns("content cozy")}>
+                  For example: if you have a list of Airports and a list of Planes, a Plane can't have a reference to its source and destination airports; if we did, Rust's "mutability xor aliasability" rule prevents us from ever modifying or removing any airports (and adding them, because Vec's resizing could move the airports). {this.noteAnchor("546b")}
                 </div>
                 <div className={ns("content cozy")}>
-                  But, the plane <i>has</i> to refer to those airports, somehow! There are some workarounds, but they aren't free:
+                  But, the plane <i>has</i> to refer to those airports, somehow! Rust offers some workarounds, but they aren't free:
                 </div>
 
                 <ul className={ns("content cozy")}>
@@ -711,7 +816,7 @@ public:
                     <li className={ns()}>Resizing cost (fortunately amortized).</li>
                     <li className={ns()}>An i64 generation per-object.</li>
                     <li className={ns()}>An i64 generation per-reference.</li>
-                    <li className={ns()}>The Vec's usual wasted space, which is 1-2x the <i>highest</i> number {this.noteAnchor("206")} of {incode("(i64, T)")} elements we've had in the past.</li>
+                    <li className={ns()}>The Vec's usual wasted space, which is 1-2x the <i>highest</i> number of {incode("(i64, T)")} elements we've had in the past. {this.noteAnchor("206")}</li>
                     <li className={ns()}>Prevents RAII, because it doesn't destroy the object immediately when the <b>owning index</b> disappears. For example, a binary tree here would be a {incode("Vec<(i64, Node)>")}, where each node is owned by the {incode("Vec")}, <b>not by the parent node</b>. Who knows when the Vec would disappear and call {incode("drop")} on the elements. {this.noteAnchor("406")}</li>
                     <li className={ns()}>Requires us to pass the Vec as a parameter to wherever we want to access the object.</li>
                   </ul>
@@ -726,7 +831,7 @@ public:
                 </div>
 
                 <div className={ns("content cozy")}>
-                  Let's compare Rust's strategies to the three constraint reference compilation modes: {this.noteAnchor("1046")}
+                  Let's compare the various strategies. Note that these are <b>only our initial estimations</b>; we'll be benchmarking once Vale has RC elision.
                 </div>
 
                 <table className={ns("comparison content cozy")}>
@@ -735,125 +840,86 @@ public:
                       <th className={ns()}></th>
                       <th width="15%" className={ns()}>Safe</th>
                       <th className={ns()}>Speed</th>
-                      <th className={ns()}>Memory</th>
+                      <th width="25%" className={ns()}>Memory</th>
                       <th width="10%" className={ns()}>RAII</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className={ns()}>
-                      <th className={ns()}>C Refs, Normal</th>
+                      <th className={ns()}>Rust w/ Rc</th>
                       <td className={ns("good")}>Yes</td>
-                      <td className={ns("bad")}>Optimized Rc<br/>Overhead {this.noteAnchor("elide")} {this.noteAnchor("548")}</td>
+                      <td className={ns("bad")}>Rc Overhead + Mispredictions {this.noteAnchor("1040")}</td>
+                      <td className={ns("bad")}>16b/obj + 8b/ref + Cycle leaks</td>
+                      <td className={ns("bad")}>No</td>
+                    </tr>
+                    <tr className={ns()}>
+                      <th className={ns()}>Rust w/ IDs</th>
+                      <td className={ns("good")}>Yes</td>
+                      <td className={ns("meh")}>Resizing (amortized) {this.noteAnchor("212")}</td>
+                      <td className={ns("bad")}>8b/obj + 8b/ref + 2*MaxSize</td>
+                      <td className={ns("meh")}>Some- times</td>
+                    </tr>
+                    <tr className={ns()}>
+                      <th className={ns()}>Rust&nbsp;w/&nbsp;Unsafe</th>
+                      <td className={ns("bad")}>No</td>
+                      <td className={ns("good")}>Fast</td>
+                      <td className={ns("good")}>Free</td>
+                      <td className={ns("good")}>Yes</td>
+                    </tr>
+                    <tr className={ns()}>
+                      <th className={ns()}>Vale, Fast Mode {this.noteAnchor("1046")}</th>
+                      <td className={ns("bad")}>No</td>
+                      <td className={ns("good")}>Fast</td>
+                      <td className={ns("good")}>Free</td>
+                      <td className={ns("good")}>Yes</td>
+                    </tr>
+                    <tr className={ns()}>
+                      <th className={ns()}>Vale, Normal / Resilient Mode</th>
+                      <td className={ns("good")}>Yes</td>
+                      <td className={ns("meh")}>Optimized Rc<br/>Overhead {this.noteAnchor("elide")}</td>
                       <td className={ns("bad")}>8b for all objs {this.noteAnchor("1041")}</td>
                       <td className={ns("good")}>Yes</td>
                     </tr>
                     <tr className={ns()}>
-                      <th className={ns()}>C Refs, Resilient</th>
+                      <th className={ns()}>Vale w/ Imm Region Borrowing</th>
                       <td className={ns("good")}>Yes</td>
-                      <td className={ns("bad")}>Optimized Rc<br/>Overhead</td>
+                      <td className={ns("good")}>Fast</td>
                       <td className={ns("bad")}>8b for all objs</td>
                       <td className={ns("good")}>Yes</td>
-                    </tr>
-                    <tr className={ns()}>
-                      <th className={ns()}>C Refs, Fast</th>
-                      <td className={ns("bad")}>No</td>
-                      <td className={ns("good")}>Fast</td>
-                      <td className={ns("good")}>Free</td>
-                      <td className={ns("good")}>Yes</td>
-                    </tr>
-                    <tr className={ns()}>
-                      <th className={ns()}>Borrow&nbsp;w/&nbsp;Unsafe</th>
-                      <td className={ns("bad")}>No</td>
-                      <td className={ns("good")}>Fast</td>
-                      <td className={ns("good")}>Free</td>
-                      <td className={ns("good")}>Yes</td>
-                    </tr>
-                    <tr className={ns()}>
-                      <th className={ns()}>Borrow w/ IDs</th>
-                      <td className={ns("good")}>Yes</td>
-                      <td className={ns("bad")}>Resizing + Lookup Overhead {this.noteAnchor("212")}</td>
-                      <td className={ns("bad")}>8b/obj + 8b/ref + 2*MaxSize</td>
-                      <td className={ns("bad")}>No</td>
-                    </tr>
-                    <tr className={ns()}>
-                      <th className={ns()}>Borrow w/ Rc</th>
-                      <td className={ns("good")}>Yes</td>
-                      <td className={ns("bad")}>Rc Overhead + Mispredictions {this.noteAnchor("1040")}</td>
-                      <td className={ns("bad")}>16b/obj + 8b/ref</td>
-                      <td className={ns("bad")}>No</td>
                     </tr>
                   </tbody>
                 </table>
 
-
-
-
                 <ul className={ns("content cozy")}>
-                  <li className={ns()}><b>C Refs, Normal</b>: Dangling reference halts the program.</li>
-                  <li className={ns()}><b>C Refs, Resilient</b>: Constraint refs keep objects alive, only panic on dereferencing.</li>
-                  <li className={ns()}><b>C Refs, Fast</b>: Fast mode, where constraint refs are compiled to raw pointers.</li>
-                  <li className={ns()}><b>Borrow w/ Unsafe</b>: Using the borrow checker, with unsafe as a fall-back.</li>
-                  <li className={ns()}><b>Borrow w/ IDs</b>: Using the borrow checker, generational IDs instead of aliasing.</li>
                   <li className={ns()}><b>Borrow w/ Rc</b>: Using the borrow checker, with {incode("Rc<T>")} as a fall-back. Assuming an Rc control block of 8b share count and 8b weak count.</li>
+                  <li className={ns()}><b>Borrow w/ IDs</b>: Using the borrow checker, generational IDs instead of aliasing.</li>
+                  <li className={ns()}><b>Borrow w/ Unsafe</b>: Using the borrow checker, with unsafe as a fall-back.</li>
+                  <li className={ns()}><b>C Refs, Fast</b>: Fast mode, where constraint refs are compiled to raw pointers.</li>
+                  <li className={ns()}><b>C Refs, Resilient</b>: Constraint refs keep objects alive, only panic on dereferencing.</li>
+                  <li className={ns()}><b>C Refs, Normal</b>: Dangling reference halts the program.</li>
+                  <li className={ns()}><b>Vale w/ Imm Region Borrowing</b>: Resilient/Normal mode, using immutable region borrowing. {this.noteAnchor("immrb")}</li>
                 </ul>
 
                 <div className={ns("content cozy")}>
-                  Rust and Vale both accomplish speed and safety, but in different ways and with different tradeoffs. {this.noteAnchor("436")} Comparing a Vale program to an average Rust program that has a mix of the above strategies:
+                  Rust and Vale both accomplish speed and safety, but in different ways and with different tradeoffs. {this.noteAnchor("436")} Comparing the average Vale program to the average Rust program, each with a mix of their strategies:
                 </div>
                 <ul className={ns("content cozy")}>
                   <li className={ns()}>Vale's Normal and Resilient modes are safer, because the Rust program has parts that are {incode("unsafe")}. They could be faster or slower, depending on how many IDs and {incode("Rc")} the Rust program used to get around the borrow checker.</li>
                   <li className={ns()}>Vale's Fast Mode uses less memory and is probably faster, because it doesn't suffer the {incode("Rc")} and {incode("Vec")}+ID overhead. Fast Mode could be less safe, depending on test coverage and how much {incode("unsafe")} there is in the Rust program.</li>
                   <li className={ns()}>Vale could be easier, because it allows aliasing freely, and one can opt-out of constraint refs to use weak refs for any particular case at any time.</li>
                 </ul>
+
+                <h4>Improved RAII in Rust</h4>
+
                 <div className={ns("content cozy")}>
-                  These are only our initial estimations; experimenting will enlighten which approach is better for which use cases.
+                  The borrow checker forces us out of RAII in some circumstances, such as in the binary tree example above. However, if that wasn't an issue, then Rust could support this kind of improved RAII!
                 </div>
-
-
-                <a name="singleownership"></a>
-                <h3 className={ns()}>RAII: Past, Present, Future</h3>
-
-
                 <div className={ns("content cozy")}>
-                  Using constraint references, we unleashed the power of single ownership and found the next steps for RAII:
-                </div>
-
-                <ul className={ns("content")}>
-                  <li className={ns()}>Constraint refs when we want to prevent dangling pointers!</li>
-                  <li className={ns()}>Weak refs for everyone else!</li>
-                  <li className={ns()}>Multiple destructors!</li>
-                  <li className={ns()}>Destructor parameters!</li>
-                  <li className={ns()}>Destructor return values!</li>
-                  <li className={ns()}>Non-destroying destructors!</li>
-                </ul>
-
-                <div className={ns("content cozy")}>
-                  Someday, we might be able to add these features to C++, but the bigger challenge will be in showing ourselves that <b>we don't need shared ownership as much as we thought</b>.
+                  It would need to add a {incode("!Drop")} trait, which would signal the compiler that the user <i>can't</i> automatically drop this object, that they instead have to manually call something to drop it.
                 </div>
                 <div className={ns("content")}>
-                  We need to show the world that it shouldn't use the shared ownership hammer, that we can also use owning references, constraint references, clasps, and weak references. Perhaps a language built on these things could help with that!
+                  By "something", we don't necessarily mean a destructor. Like Vale, Rust is able to move {incode("this")} into a method call, and that serves the same purpose as the improved destructors mentioned above.
                 </div>
-
-                <div className={ns("content")}>
-                  This isn't even the end of the single ownership saga! In the coming weeks, we'll explain how this consistent single ownership approach enabled other unique capabilities in Vale, such as cross-compilation and region bounding. 
-                </div>
-
-                <div className={ns("content cozy")}>                
-                  Until then, we want to hear from you! We'd love to hear your thoughts on single ownership, RAII, Vale, and any ideas you have! Come share your thoughts in the <a href="http://reddit.com/r/vale">r/Vale</a> subreddit or the <a href="https://discord.gg/SNB8yGH">Vale discord</a>!
-                </div>
-
-                <h3 className={ns("content cozy")} style={{marginTop: "32px"}}>
-                  Coming Soon
-                </h3>
-                <ul className={ns("content")}>
-                  <li className={ns()}>Single Ownership: The Key to LLVM/JVM/CLR/JS Cross Compilation</li>
-                  <li className={ns()}>Const Generics and Metaprogramming in Vale</li>
-                  <li className={ns()}>Single Ownership + Regions = Ref-Counting Speed</li>
-                  <li className={ns()}>Propagating Errors Past Destructors in Vale</li>
-                  <li className={ns()}>Unified Variants and Inline Sealed Interfaces</li>
-                  <li className={ns()}>Variant Indexing in Vale</li>
-                </ul>
-
               </div>
 
             </div>
@@ -863,49 +929,57 @@ public:
               <div className={ns("toc-container")}>
 
                 <div className={ns("c-toc root")}>
-                  <b>The Next Steps for RAII</b>
+                  <b>The Next Steps for Single Ownership and RAII</b>
 
                   <ul className={ns("c-toc")}>
                     <li>
-                      <Link to="#singleownership">Single Ownership</Link>
+                      <a href="/blog/raii-next-steps#singleownership">Single Ownership</a>
                     </li>
                     <li>
-                      <Link to="#singleownership">Safe Handling of Aliases</Link>
+                      <a href="/blog/raii-next-steps#safehandlingofaliases">Safe Handling of Aliases</a>
+                    </li>
+                    <ul>
+                      <li><a href="/blog/raii-next-steps#constraintreferences">Constraint Reference</a></li>
+                      <li><a href="/blog/raii-next-steps#constraintbehaviormodes">Constraint Behavior Modes</a></li>
+                    </ul>
+                    <li>
+                      <a href="/blog/raii-next-steps#emergingpatterns">Emerging Patterns</a>
+                    </li>
+                    <ul>
+                      <li><a href="/blog/raii-next-steps#clasp">Clasp</a></li>
+                      <li><a href="/blog/raii-next-steps#weakreferences">Weak Reference</a></li>
+                    </ul>
+                    <li>
+                      <a href="/blog/raii-next-steps#simplification">Simplification</a>
                     </li>
                     <li>
-                      <Link to="#singleownership">Emerging Patterns</Link>
+                      <a href="/blog/raii-next-steps#surprise">Surprise!</a>
                     </li>
                     <li>
-                      <Link to="#singleownership">Simplification</Link>
-                    </li>
-                    <li>
-                      <Link to="#singleownership">Surprise!</Link>
-                    </li>
-                    <li>
-                      <Link to="#singleownership">Destructor Implications</Link>
+                      <a href="/blog/raii-next-steps#destructorimplications">Destructor Implications</a>
                     </li>
                     <ul>
                       <li>
-                        <Link to="#singleownership">Parameters</Link>
+                        <a href="/blog/raii-next-steps#parameters">Parameters</a>
                       </li>
                       <li>
-                        <Link to="#singleownership">Overloads</Link>
+                        <a href="/blog/raii-next-steps#overloads">Overloads</a>
                       </li>
                       <li>
-                        <Link to="#singleownership">Returns</Link>
+                        <a href="/blog/raii-next-steps#returns">Returns</a>
                       </li>
                       <li>
-                        <Link to="#singleownership">Non-Destroying</Link>
+                        <a href="/blog/raii-next-steps#nondestroying">Non-Destroying</a>
                       </li>
                     </ul>
                     <li>
-                      <Link to="#singleownership">What even <i>is</i> a destructor?</Link>
+                      <a href="/blog/raii-next-steps#whatevenisadestructor">What even <i>is</i> a destructor?</a>
                     </li>
                     <li>
-                      <Link to="#singleownership">A Detour Through Rust</Link>
+                      <a href="/blog/raii-next-steps#raiipastpresentfuture">RAII: Past, Present, Future</a>
                     </li>
                     <li>
-                      <Link to="#singleownership">RAII: Past, Present, Future</Link>
+                      <a href="/blog/raii-next-steps#afterword">Afterword: Rust, RAII, Constraint Refs</a>
                     </li>
                   </ul>
                 </div>
@@ -925,7 +999,7 @@ public:
                   Constraint references have the safety of borrow references, and we can alias them as much as we want!
                 </div>
                 <div style={{marginTop: "8px"}}>
-                  And counter-intuitively, constraint references can sometimes be more efficient, when you consider the program as a whole. Keep reading to learn how!
+                  And counter-intuitively, constraint references can sometimes be more efficient when you consider the program as a whole, especially when combined with <Link to="/ref/regions">region borrow checking</Link>. Keep reading to learn how!
                 </div>
               </Note>
 
@@ -951,7 +1025,26 @@ public:
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="ownthis">
-                Notice how {incode("read")} takes a constraint reference ({incode("&this")}), but the two "destructors" take in an owning reference ({incode("this")}).
+                Notice how {incode("read")} takes a constraint reference ({incode("&!this")}), but the two "destructors" take in an owning reference ({incode("this")}).
+              </Note>
+
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="diagnose">
+                We have a VM (and soon, a compilation option!) which tells us which constraint references are still pointing at an object when we try to free it.
+              </Note>
+
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="help">
+                All contributions are welcome! Soon, we're going to:
+                <ul className={ns("content cozy")} style={{marginTop: "8px"}}>
+                  <li className={ns()}>Write a standard library! (sets, hash maps, lists, etc)</li>
+                  <li className={ns()}>Add weak pointers!</li>
+                  <li className={ns()}>Finish designing the region borrow checker!</li>
+                  <li className={ns()}>Replace the temporary combinator-based parser with a real one!</li>
+                  <li className={ns()}>Make syntax highlighters! (VSCode, Sublime, Vim, Emacs, etc)</li>
+                  <li className={ns()}>Enable support gdb/lldb for debugging!</li>
+                  <li className={ns()}>Add better error reporting!</li>
+                  <li className={ns()}>Add a "show all constraint refs" option in debug mode to our LLVM codegen stage!</li>
+                </ul>
+                If any of this interests you, come join us!
               </Note>
 
 
@@ -963,7 +1056,7 @@ public:
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="512">
                 We could refactor our codebase to make all our {incode("Thing", "s")} shared, so we could give {incode("Network")} a {incode("shared_ptr<Thing>", "...")} a bit invasive though.
                 <div style={{marginTop: "8px"}}>
-                  We could give {incode("Network")} a {incode("shared_ptr<ThingRespHandler>")}. In fact, that's what {incode("std::function")} is: a {incode("shared_ptr")} around a function pointer and some arguments.
+                  We could give {incode("Network")} a {incode("shared_ptr<ThingRespHandler>")}. In fact, that's what {incode("std::function")} is: a function pointer and a {incode("shared_ptr")} around some arguments.
                 </div>
                 <div style={{marginTop: "8px"}}>
                   In the end, we didn't need either.
@@ -981,7 +1074,7 @@ public:
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="532">
-                We didn't run into any, but there are some hypothetical cases where one might want shared ownership. Luckily, you can implement shared ownership with single ownership, as an escape hatch.
+                We didn't run into any, but there are some hypothetical cases where one might want shared ownership. Luckily, you can implement shared references with single ownership, as an escape hatch.
               </Note>
 
 
@@ -992,6 +1085,10 @@ public:
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="942">
                 This is common in all languages: we often have a "main" reference to an object.
+              </Note>
+
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="immrb">
+                Vale's <Link to="/ref/regions">region borrow checker</Link> often lets us make an entire region of memory temporarily immutable, which completely eliminates counting overhead for references into that region.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="sovsraii">
@@ -1011,19 +1108,27 @@ public:
                 We could also use a deleter, set up when we create the object, but thats often too early to know what parameters to pass into the destructor.
               </Note>
 
+
+              {/*<Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="comingsoon" customIcon="empty">
+                Coming Soon:
+                <ul className={ns("content")} style={{marginTop: "8px"}}>
+                  <li className={ns()}>Single Ownership: The Key to LLVM/JVM/CLR/JS Cross Compilation</li>
+                  <li className={ns()}>Const Generics and Metaprogramming in Vale</li>
+                  <li className={ns()}>Single Ownership + Regions = Ref-Counting Speed</li>
+                  <li className={ns()}>Propagating Errors Past Destructors in Vale</li>
+                  <li className={ns()}>Unified Variants and Inline Sealed Interfaces</li>
+                  <li className={ns()}>Variant Indexing in Vale</li>
+                </ul>
+              </Note>*/}
+
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="247">
                 Go-style defer blocks can make this even nicer.
               </Note>
 
-              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="mustuse">
-                This also lets us implement <a href="https://en.cppreference.com/w/cpp/language/attributes/nodiscard">[[nodiscard]]</a> easily: name your destructor something else (or make your {incode("drop")} private).
-              </Note>
-
-
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="777">
                 In Vale, if you use the {incode("%")} operator to propagate errors upwards, it will automatically call {incode(".drop()")} on any local in scope.
                 <div style={{marginTop: "8px"}}>
-                  However, if you have a local {incode("x")} which doesn't have a zero-arg {incode(".drop()")}, then you would normally hold onto the error, call the correct destructor for {incode("x")}, and then proceed to return the error upwards.
+                  However, if you have a local {incode("x")} which doesn't have a zero-arg {incode(".drop()")}, you have to hold onto the error, call the correct destructor for {incode("x")}, and then continue to return the error upwards.
                 </div>
               </Note>
 
@@ -1037,11 +1142,19 @@ public:
 
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="546b">
-                Rust also won't let us do the subcomponents pattern mentioned above, because the references between the components would effectively freeze them for all time.
+                The borrow checker also won't let us do the subcomponents pattern mentioned above, because if one component B has a reference to component A, it effectively freezes A for all time.
+              </Note>
+
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="nocycles">
+                Constraint references also solve the cycle problem for ref-counting, by enforcing that there are no other references to an object when we let go of its owning reference.
+              </Note>
+
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="rorc">
+                There are amazing recent advances in optimized ref-counting, such as in <a href="https://aardappel.github.io/lobster/memory_management.html">Lobster's algorithm</a> which optimizes away 95% of ref-counts. Vale also has <Link to="/ref/regions">read-only regions</Link> and <Link to="/ref/regions">bump regions</Link>, where ref-counting overhead is reduced to zero.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="409">
-                Keep in mind that Rust never promised 100% safety; Rust is about minimizing unsafety and isolating it into very well-marked areas which we can scrutinize more heavily. Some level of unsafety is expected, even in Rust programs.
+                Keep in mind that Rust never promised 100% safety; Rust is about minimizing unsafety and isolating it into very well-marked areas which we can scrutinize more heavily. Some level of unsafety is expected in Rust programs.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1217">
@@ -1052,6 +1165,10 @@ public:
                 We could instead have a {incode("Vec<(i32, Box<T>)>")}, but that would introduce an extra cache-miss.
               </Note>
 
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="exceptions">
+                Exceptions weren't a problem for us, but they prevent this improved RAII just as much as shared ownership does. C++ will need to introduce a no-exceptions mode before it can do improved RAII.
+              </Note>
+
 
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="406">
@@ -1059,19 +1176,15 @@ public:
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1046">
-                It's worth noting that, in Rust, we can choose which strategy to use per-situation, while in Vale, it's a global compilation option.
+                It's worth noting that, in Rust, we can choose which strategy to use per-situation, while in Vale, it's a per-module and per-region compilation option.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="alias">
-                To "alias" a pointer means to make another pointer, pointing to the same thing. Memory safety is challenging when aliasing gets involved, so here's a way to make aliasing safer.
+                To "alias" a pointer means to make another pointer, pointing to the same thing. Memory safety in the presence of aliasing has always been challenging, but constraint references solve it for us.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="elide">
-                When a language has reference counting built-in, it can optimize out the vast majority of increments and decrements.
-              </Note>
-
-              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="548">
-                Further, references into read-only regions have zero overhead.
+                When a language has reference counting built-in, it can elide out the vast majority of increments and decrements.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1041">
@@ -1079,10 +1192,7 @@ public:
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="212">
-                From branching when comparing the generations.
-                <div style={{marginTop: "8px"}}>
-                  Also, if using boxing like {incode("Vec<(i64, Box<T>)>")} to save memory, we have an additional indirection.
-                </div>
+                Note that if we use boxing like {incode("Vec<(i64, Box<T>)>")} to save memory, we have an additional indirection cost.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1040">
@@ -1101,12 +1211,35 @@ public:
                 In Vale, constructors are called just like any other function, no {incode("new")} or {incode("make_unique")} required.
               </Note>
 
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="dispose">
+                Search your Java code for {incode("removeObserver(this)")} and you'll find that most of them are in methods named "dispose", "destroy", "close", etc.
+                <div style={{marginTop: "8px"}}>
+                  Now imagine if the language could make sure you couldn't forget to call that method! That's RAII.
+                </div>
+              </Note>
+
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noget">
                 One can think of {incode("&a")} like C++'s {incode("unique_ptr::get")}.
               </Note>
 
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="bang">
+                {incode("&")} is a read-only reference, like C++'s {incode("const")}. We use {incode("&!")} to make a non-const reference.
+              </Note>
+
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="weakrefimpl">
+                C++ weak refs are a bit involved, but feel free to comment and we'll explain how to do it!
+              </Note>
+
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="caret">
+                The {incode("^.")} means we're moving into a method, equivalent to {incode("commit(transaction)")}.
+
+                <div style={{marginTop: "8px"}}>
+                  A regular {incode(".")} like in {incode("transaction.commit()")} gives a constraint reference to the method, equivalent to {incode("commit(&transaction)")}.
+                </div>
+              </Note>
+
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="alpha">
-                Vale is still in early alpha. Check out the <Link to="/roadmap">Roadmap</Link> for progress and plans!
+                Vale is still in early alpha, and rapidly approaching v0.1. Check out the <Link to="/roadmap">Roadmap</Link> for progress and plans!
                 <div style={{marginTop: "8px"}}>
                   All the features mentioned here are available in Vale, but Resilient Mode, regions, RC elision, and weak references are still on the way.
                 </div>

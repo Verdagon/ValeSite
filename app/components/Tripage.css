@@ -22,13 +22,16 @@
   background-color: #F0F0F0;
 }
 
+.m-tripage.afterword,
 .m-tripage.plans {
 	background-color: #F0F0FF;
 	padding: 16px 16px 1px 16px;
 	border-right: 2px solid #E8E8FF;
+  margin-top: 16px;
 }
 
-.m-tripage.plans .m-tripage.inline-code {
+.m-tripage.plans .m-tripage.inline-code,
+.m-tripage.afterword .m-tripage.inline-code {
   border: 1px solid #D0D0D0;
   background-color: white;
 }
@@ -227,6 +230,10 @@ li.m-tripage + li.m-tripage {
 }
 
 
+.m-tripage.afterword table {
+  background-color: white;
+}
+
 table.m-tripage.comparison {
   border-spacing: 0;
   border-collapse: collapse;
@@ -240,6 +247,9 @@ table.m-tripage.comparison th {
 }
 table.m-tripage.comparison .good {
   background-color: #D8F0D8;
+}
+table.m-tripage.comparison .meh {
+  background-color: #F0E8D8;
 }
 table.m-tripage.comparison .bad {
   background-color: #F0D8D8;

@@ -19,13 +19,11 @@ class BlogHeader extends React.Component {
     )
     let links = (
       <div className="header links">
-        <Link to="/ref">Vale</Link>
-        <a href="https://github.com/Verdagon/Vale">Github Repository</a>
+        <Link to="/">Home</Link>
+        <a href="https://reddit.com/r/Vale">r/Vale</a>
+        <a href="https://discord.gg/SNB8yGH">Discord</a>
       </div>
     )
-    if (!this.props.links) {
-      links = "";
-    }
     return (
         <div className={"header root" + (this.props.small ? " small" : "")}>
           <div className="header contents">

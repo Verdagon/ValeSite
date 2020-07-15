@@ -23,7 +23,7 @@ class Roadmap extends React.Component {
             <div className={ns("intro")}>
               <div>Vale is currently version 0.0: getting the basic language to work.</div>
               <div>(...plus generics and lambdas, because we couldn't help ourselves!)</div>
-              <div>We're currently <b>85%</b> of the way to version 0.1!</div>
+              <div>We're currently <b>94%</b> of the way to version 0.1!</div>
             </div>
             <div className={ns("legend")}>
               <div className={ns("done")}><span className={ns("icon")}></span> Done</div>
@@ -85,7 +85,7 @@ class Roadmap extends React.Component {
                 <li className={ns("done")}><span className={ns("icon")}></span> Mutability</li>
                 <li className={ns("done")}><span className={ns("icon")}></span> Known-size</li>
                 <li className={ns("done")}><span className={ns("icon")}></span> Unknown-size</li>
-                <li className={ns("v01")}><span className={ns("icon")}></span> Asterisk for Arrays</li>
+                <li className={ns("v02")}><span className={ns("icon")}></span> Asterisk for Arrays</li>
               </ul>
               <h3 className={ns()}>ADTs</h3>
               <ul className={ns()}>
@@ -146,16 +146,16 @@ class Roadmap extends React.Component {
                 <li className={ns("done")}><span className={ns("icon")}></span> Optional</li>
                 <li className={ns("done")}><span className={ns("icon")}></span> List</li>
                 <li className={ns("done")}><span className={ns("icon")}></span> HashMap</li>
-                <li className={ns("v01")}><span className={ns("icon")}></span> Set</li>
-                <li className={ns("v01")}><span className={ns("icon")}></span> HashSet</li>
+                <li className={ns("v02")}><span className={ns("icon")}></span> Set</li>
+                <li className={ns("v02")}><span className={ns("icon")}></span> HashSet</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Bunch</li>
               </ul>
             </div>
             <div className={ns("column4")}>
 
-              <h3 className={ns()}>Native Executables</h3>
+              <h3 className={ns()}>LLVM Codegen</h3>
               <ul className={ns()}>
-                <li className={ns("v01")}><span className={ns("icon")}></span> Midas</li>
+                <li className={ns("done")}><span className={ns("icon")}></span> Native Executables</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Continue on panic</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Constraint Modes</li>
                 <li className={ns("v02")}><span className={ns("icon")}></span> Threading</li>

@@ -63,7 +63,7 @@ a.header:hover {
 }
 .header .links > a {
 	color: white;
-	margin-left: 16px;
+	margin-left: 12px;
 	position: relative;
 	top: 3px;
 }
