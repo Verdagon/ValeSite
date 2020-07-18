@@ -1,12 +1,14 @@
+import '../components/Tripage.css';
+import '../common.css';
 import React from 'react';
-import Header from '../Header.jsx';
-import Footer from '../Footer.jsx';
-import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
-import {Link} from 'react-router-dom';
-import '../Tripage.css';
-import '../Tripage.css';
+import ReactDOM from 'react-dom';
+
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import {NoteManager, Note, NoteAnchor, NotesHeader} from '../components/Note.jsx';
+import Snippet from '../components/Snippet.jsx';
+
 import ReferenceTOC from './ReferenceTOC.jsx';
-import Snippet from '../Snippet.jsx';
 
 const ns = (classes) => "c-ref-intro m-tripage " + (classes || "");
 
@@ -18,7 +20,7 @@ function incode(code, suffix) {
   }
 }
 
-class RefIntro extends React.Component {
+class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -548,7 +550,7 @@ Fire
                   Rust's {incode("let x")} and {incode("let mut x")}.
                 </div>
                 {/*<div style={{marginTop: "8px"}}>
-                  See <Link to="/blog/bangsyntax">Syntax Design for Varying</Link> for why Vale chose {incode("!")} and {incode("mut")}.
+                  See <a to="/blog/bangsyntax">Syntax Design for Varying</a> for why Vale chose {incode("!")} and {incode("mut")}.
                 </div>*/}
               </Note>
 
@@ -576,7 +578,7 @@ Fire
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="genericlambda">
-                Taking out the parameter's type makes this a "generic" lambda. See <Link to="/ref/generics">generics</Link> for more.
+                Taking out the parameter's type makes this a "generic" lambda. See <a to="/ref/generics">generics</a> for more.
               </Note>
             </div>
           </div>
@@ -588,4 +590,7 @@ Fire
   }
 }
 
-export default RefIntro;
+ReactDOM.render(
+  <Page />,
+  document.getElementById('main')
+);

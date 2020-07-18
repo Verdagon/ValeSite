@@ -1,12 +1,14 @@
+import '../components/Tripage.css';
+import '../common.css';
 import React from 'react';
-import Header from '../Header.jsx';
-import Footer from '../Footer.jsx';
-import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
-import {Link} from 'react-router-dom';
-import '../Tripage.css';
-import '../Tripage.css';
+import ReactDOM from 'react-dom';
+
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import {NoteManager, Note, NoteAnchor, NotesHeader} from '../components/Note.jsx';
+import Snippet from '../components/Snippet.jsx';
+
 import ReferenceTOC from './ReferenceTOC.jsx';
-import Snippet from '../Snippet.jsx';
 
 const ns = (classes) => "c-ref-structs m-tripage " + (classes || "");
 
@@ -18,7 +20,7 @@ function incode(code, suffix) {
   }
 }
 
-class RefStructs extends React.Component {
+class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -381,16 +383,16 @@ fn main() {
                   C also has "conceptual" ownership, in that we must track ownership without the language's help, to know when to {incode("free")} an object.
                 </div>
                 <div style={{marginTop: "8px"}}>
-                  Vale's ownership has the flexibility of C++'s {incode("unique_ptr")} without the mutability and aliasing restrictions of Rust and Cyclone, see <Link to="/ref/references">References</Link> to learn how.
+                  Vale's ownership has the flexibility of C++'s {incode("unique_ptr")} without the mutability and aliasing restrictions of Rust and Cyclone, see <a to="/ref/references">References</a> to learn how.
                 </div>
               </Note>
 
               <Note name="otherrefs" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
-                There are other kinds of references (constraint, borrow, weak), <Link to="/ref/references">References</Link> explains more.
+                There are other kinds of references (constraint, borrow, weak), <a to="/ref/references">References</a> explains more.
               </Note>
               
               <Note name="destructure" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
-                When we "destructure", we deallocate the object and move all of its previous members into locals, at the same time. See <Link to="/ref/patterns">Pattern Matching</Link> for how destructuring ensures memory safety and fits into the rest of the language.
+                When we "destructure", we deallocate the object and move all of its previous members into locals, at the same time. See <a to="/ref/patterns">Pattern Matching</a> for how destructuring ensures memory safety and fits into the rest of the language.
               </Note>
 
               <Note name="construct" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
@@ -402,7 +404,7 @@ fn main() {
               </Note>
 
               <Note name="shareddestructor" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
-                See <Link to="/blog/shareddestructors">Shared Destructibles</Link> for the reasoning behind this.
+                See <a to="/blog/shareddestructors">Shared Destructibles</a> for the reasoning behind this.
               </Note>
 
               <Note name="valedestructorsarecooler" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
@@ -410,7 +412,7 @@ fn main() {
               </Note>
 
               <Note name="notyet" customIcon="notyet" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
-                Planned feature; see <Link to="/roadmap">Roadmap</Link>!
+                Planned feature; see <a to="/roadmap">Roadmap</a>!
               </Note>
 
             </div>
@@ -423,4 +425,7 @@ fn main() {
   }
 }
 
-export default RefStructs;
+ReactDOM.render(
+  <Page />,
+  document.getElementById('main')
+);

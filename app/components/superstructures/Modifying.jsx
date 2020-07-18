@@ -45,7 +45,7 @@ class SuperstructuresModifying extends React.Component {
                 <h1 className={ns("noline")}>Superstructures Guide: Modifying</h1>
 
                 <div className={ns("content")}>
-                  In the <Link to="/superstructures/intro">intro</Link>, we made a superstructure that contained some planets and some moons, shown below. This page will explain how to modify the superstructure.
+                  In the <a to="/superstructures/intro">intro</a>, we made a superstructure that contained some planets and some moons, shown below. This page will explain how to modify the superstructure.
                 </div>
 
                 <div className={ns("content splitter")}>
@@ -156,8 +156,8 @@ mut saturn.name! = "Flamscrankle";`}
                 <div className={ns("content")}>
                   Valence can take these simple modifications and do amazing things:
                   <ul className={ns()}>
-                    <li className={ns()}>Notify observers of these modifications (see <Link to="/superstructures/effects">Effects</Link>).</li>
-                    <li className={ns()}>Remember these modifications for later reverting (see <Link to="/superstructures/reverting">Reverting</Link>).</li>
+                    <li className={ns()}>Notify observers of these modifications (see <a to="/superstructures/effects">Effects</a>).</li>
+                    <li className={ns()}>Remember these modifications for later reverting (see <a to="/superstructures/reverting">Reverting</a>).</li>
                     <li className={ns()}>Send these modifications over the network (see below).</li>
                   </ul>
                 </div>
@@ -192,7 +192,7 @@ mut saturn.name! = "Flamscrankle";`}
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noteCollections">
-                We can also use other collections like {incode("Map")}, {incode("Set")}, etc. See <Link to="/reference/colelctions">Collections</Link> for more.
+                We can also use other collections like {incode("Map")}, {incode("Set")}, etc. See <a to="/reference/colelctions">Collections</a> for more.
               </Note>
 
             </div>

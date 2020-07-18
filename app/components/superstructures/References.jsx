@@ -47,7 +47,7 @@ class SuperstructuresReferences extends React.Component {
                 <h1 className={ns("noline")}>Superstructures Guide: References</h1>
 
                 <div className={ns("content")}>
-                  In the <Link to="/superstructures/intro">intro</Link>, we made a superstructure that contained some planets and some moons, shown below. It contained only <strong>owning</strong> references. This page will show how we can add <strong>strong</strong> and <strong>weak</strong> references.
+                  In the <a to="/superstructures/intro">intro</a>, we made a superstructure that contained some planets and some moons, shown below. It contained only <strong>owning</strong> references. This page will show how we can add <strong>strong</strong> and <strong>weak</strong> references.
                 </div>
 
                 <div className={ns("content splitter")}>
@@ -270,7 +270,7 @@ mySS.root.astronauts.add(
                 </div>
 
                 <div className={ns("content")}>
-                  See <Link to="/superstructures/constraints">Constraints</Link> for more.
+                  See <a to="/superstructures/constraints">Constraints</a> for more.
                 </div>
 
                 <div style={{clear: "both"}}/>
@@ -332,7 +332,7 @@ mySS.root.astronauts.add(
                 </div>
 
                 <div className={ns("content")}>
-                  Code inside superstructure functions look the same, thanks to <Link to="/blog/superlining">Superlining</Link>, which automatically interleaves instructions to do as many parallel fetches as possible for uncached data.
+                  Code inside superstructure functions look the same, thanks to <a to="/blog/superlining">Superlining</a>, which automatically interleaves instructions to do as many parallel fetches as possible for uncached data.
                 </div>
 
                 <div className={ns("content cozy")}>
@@ -352,7 +352,7 @@ mySS.root.astronauts.add(
                 </div>
 
                 <div className={ns("content cozy")}>
-                  See <Link to="/blog/superlining">Superlining</Link> and <Link to="/superstructures/functions">Functions</Link> for more.
+                  See <a to="/blog/superlining">Superlining</a> and <a to="/superstructures/functions">Functions</a> for more.
                 </div>
 
                 <div style={{clear: "both"}}></div>*/}
@@ -370,11 +370,11 @@ mySS.root.astronauts.add(
               </div>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noteMove">
-                This does not apply to code inside <Link to="/superstructures/functions">superstructure functions</Link>; data inside superstructure functions are still considered "part of the superstructure", just temporarily detached.
+                This does not apply to code inside <a to="/superstructures/functions">superstructure functions</a>; data inside superstructure functions are still considered "part of the superstructure", just temporarily detached.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noteMove2">
-                See <Link to="/superstructures/functions">Functions</Link> for how to much more easily move things around and in and out of superstructures.
+                See <a to="/superstructures/functions">Functions</a> for how to much more easily move things around and in and out of superstructures.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noteYouCanDoIt">
@@ -387,7 +387,7 @@ mySS.root.astronauts.add(
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noteStrong">
-                See <Link to="/basics">Basics</Link> for more on Owning, Strong, and Weak references.
+                See <a to="/basics">Basics</a> for more on Owning, Strong, and Weak references.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note3">

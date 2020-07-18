@@ -61,7 +61,7 @@ class SuperstructuresEffects extends React.Component {
                 <h3>Listening for Effects</h3>
 
                 <div className={ns("content")}>
-                  In the <Link to="/superstructures/intro">intro</Link>, we made a superstructure that contained some planets and moons. This page will show how to listen for effects, and what they look like.
+                  In the <a to="/superstructures/intro">intro</a>, we made a superstructure that contained some planets and moons. This page will show how to listen for effects, and what they look like.
                 </div>
 
                 <div className={ns("content splitter")}>
@@ -239,7 +239,7 @@ ListAppendEffect:Planet(2, 12)`}
                 <h3 className={ns("noline")}>Networking with Effects</h3>
 
                 <div className={ns("content")}>
-                  In the <Link to="/superstructures/intro">Intro</Link>, we introduced <strong>SimpleSuperstructureServer</strong> and <strong>SimpleSuperstructureClient</strong>, two classes in the standard library. They use {incode("Flat")} and {incode("Effect")} under the hood.
+                  In the <a to="/superstructures/intro">Intro</a>, we introduced <strong>SimpleSuperstructureServer</strong> and <strong>SimpleSuperstructureClient</strong>, two classes in the standard library. They use {incode("Flat")} and {incode("Effect")} under the hood.
                 </div>
 
                 <div className={ns("content")}>
@@ -275,7 +275,7 @@ ListAppendEffect:Planet(2, 12)`}
               </div>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="0">
-                See <Link to="/basics/lambdas">Lambdas</Link> for more.
+                See <a to="/basics/lambdas">Lambdas</a> for more.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="1">
@@ -283,7 +283,7 @@ ListAppendEffect:Planet(2, 12)`}
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="IEffect">
-                {incode("IEffect")} has another template argument, left out in this page for brevity. See the <Link to="/reference/IEffect">IEffect</Link> for more.
+                {incode("IEffect")} has another template argument, left out in this page for brevity. See the <a to="/reference/IEffect">IEffect</a> for more.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="Isa">
@@ -309,7 +309,7 @@ ListAppendEffect:Planet(2, 12)`}
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="3">
-                {incode("{ doutln _; }")} is the same as {incode("{(x) doutln x; }")} or even just {incode("doutln")} in this case, see <Link to="/basics/calling">Calling</Link> for more.
+                {incode("{ doutln _; }")} is the same as {incode("{(x) doutln x; }")} or even just {incode("doutln")} in this case, see <a to="/basics/calling">Calling</a> for more.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="4">

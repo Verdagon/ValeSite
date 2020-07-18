@@ -1,12 +1,14 @@
+import '../components/Tripage.css';
+import '../common.css';
 import React from 'react';
-import Header from '../Header.jsx';
-import Footer from '../Footer.jsx';
-import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
-import {Link} from 'react-router-dom';
-import '../Tripage.css';
-import '../Tripage.css';
+import ReactDOM from 'react-dom';
+
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import {NoteManager, Note, NoteAnchor, NotesHeader} from '../components/Note.jsx';
+import Snippet from '../components/Snippet.jsx';
+
 import ReferenceTOC from './ReferenceTOC.jsx';
-import Snippet from '../Snippet.jsx';
 
 const ns = (classes) => "c-ref-references m-tripage " + (classes || "");
 
@@ -18,7 +20,7 @@ function incode(code, suffix) {
   }
 }
 
-class RefInterfaces extends React.Component {
+class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -347,7 +349,7 @@ fn main() {
               </Note>
 
               <Note name="nosealedyet" customIcon="notyet" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
-                Planned feature; see <Link to="/roadmap">Roadmap</Link>!
+                Planned feature; see <a to="/roadmap">Roadmap</a>!
               </Note>
 
               {/*<Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="packing">
@@ -364,4 +366,7 @@ fn main() {
   }
 }
 
-export default RefInterfaces;
+ReactDOM.render(
+  <Page />,
+  document.getElementById('main')
+);

@@ -1,6 +1,5 @@
 import React from 'react'
-import '../Header.css'
-import {Link} from 'react-router-dom';
+import '../components/Header.css'
 //import sphereVG48 from '../images/SphereVG48.png';
 
 class BlogHeader extends React.Component {
@@ -19,7 +18,7 @@ class BlogHeader extends React.Component {
     )
     let links = (
       <div className="header links">
-        <Link to="/">Home</Link>
+        <a href="/">Home</a>
         <a href="https://reddit.com/r/Vale">r/Vale</a>
         <a href="https://discord.gg/SNB8yGH">Discord</a>
       </div>
@@ -27,9 +26,9 @@ class BlogHeader extends React.Component {
     return (
         <div className={"header root" + (this.props.small ? " small" : "")}>
           <div className="header contents">
-            <Link to="/">{vorb}</Link>
+            <a href="/">{vorb}</a>
             <div className="header text">
-              <Link to="/">{title}</Link>
+              <a href="/">{title}</a>
             </div>
 
             {links}

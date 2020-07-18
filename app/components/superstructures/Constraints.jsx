@@ -63,7 +63,7 @@ class SuperstructuresConstraints extends React.Component {
                 <h3>Adding a Constraint</h3>
 
                 <div className={ns("content")}>
-                  In the <Link to="/superstructures/intro">intro</Link>, we made a superstructure that contained some planets and some moons.
+                  In the <a to="/superstructures/intro">intro</a>, we made a superstructure that contained some planets and some moons.
                 </div>
                 <div className={ns("content")}>
                   We'll add a "mass" property to both, and a constraint that checks that planets are always heavier than their moons.
@@ -193,7 +193,7 @@ doutln succeeded;`}
                 <div className={ns("content cozy")}>
                   <ul className={ns()}>
                     <li className={ns()}>
-                      {this.noteAnchor("note3")}We can speed up reverting to <strong>constant time</strong> by changing the superstructure's history setting to <Link to="/superstructures/formats">chronotree</Link> or <Link to="/superstructures/formats">chronobase</Link>.
+                      {this.noteAnchor("note3")}We can speed up reverting to <strong>constant time</strong> by changing the superstructure's history setting to <a to="/superstructures/formats">chronotree</a> or <a to="/superstructures/formats">chronobase</a>.
                     </li>
                     <li className={ns()}>
                       {this.noteAnchor("note4")}The strong reference rules apply, just like anywhere in Valence. Anything pointed at by a strong reference cannot be deleted in a revert.
@@ -221,7 +221,7 @@ doutln succeeded;`}
                 </div>
 
                 <div className={ns("content")}>
-                  See <Link to="/blog/perfectmerging">Perfect Merging</Link> for more.
+                  See <a to="/blog/perfectmerging">Perfect Merging</a> for more.
                 </div>
 
               </div>

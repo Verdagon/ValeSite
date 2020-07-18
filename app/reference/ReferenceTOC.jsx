@@ -1,23 +1,22 @@
 import React from 'react';
 import './ReferenceTOC.css';
-import {Link} from 'react-router-dom';
 
 const ns = (classes) => "c-toc " + (classes || "");
 
-class toc extends React.Component {
+class ReferenceTOC extends React.Component {
   render() {
 
     let sectionsByPage = {
-      "intro": <Link to="/ref/intro">Introduction</Link>,
-      "structs": <Link to="/ref/structs">Structs</Link>,
-      "references": <Link to="/ref/references">References</Link>,
-      "interfaces": <Link to="/ref/interfaces">Interfaces</Link>,
-      "generics": <Link to="/ref/generics">Generics</Link>,
-      "patterns": <Link to="/ref/patterns">Patterns</Link>,
-      "operators": <Link to="/ref/operators">Operators</Link>,
-      "errors": <Link to="/ref/errors">Errors</Link>,
-      "regions": <Link to="/ref/regions">Regions</Link>,
-      "cross-compilation": <Link to="/ref/cross-compilation">Cross Compilation</Link>,
+      "intro": <a href="/ref/intro">Introduction</a>,
+      "structs": <a href="/ref/structs">Structs</a>,
+      "references": <a href="/ref/references">References</a>,
+      "interfaces": <a href="/ref/interfaces">Interfaces</a>,
+      "generics": <a href="/ref/generics">Generics</a>,
+      "patterns": <a href="/ref/patterns">Patterns</a>,
+      "operators": <a href="/ref/operators">Operators</a>,
+      "errors": <a href="/ref/errors">Errors</a>,
+      "regions": <a href="/ref/regions">Regions</a>,
+      "cross-compilation": <a href="/ref/cross-compilation">Cross Compilation</a>,
     };
 
     let page = this.props.page;
@@ -184,4 +183,4 @@ class toc extends React.Component {
   }
 }
 
-export default toc;
+export default ReferenceTOC;

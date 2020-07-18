@@ -8,16 +8,16 @@ class SuperstructuresTOC extends React.Component {
   render() {
 
     let sectionsByPage = {
-      "intro": <Link to="/superstructures/intro">Introduction</Link>,
-      "references": <Link to="/superstructures/references">References</Link>,
-      "reverting": <Link to="/superstructures/reverting">Reverting</Link>,
-      "snapshots": <Link to="/superstructures/snapshots">Snapshots</Link>,
-      "effects": <Link to="/superstructures/effects">Effects</Link>,
-      "comparing": <Link to="/superstructures/comparing">Comparing</Link>,
-      "forking": <Link to="/superstructures/forking">Forking</Link>,
-      "constraints": <Link to="/superstructures/constraints">Constraints</Link>,
-      "functions": <Link to="/superstructures/functions">Functions</Link>,
-      "synchronization": <Link to="/superstructures/synchronization">Synchronization</Link>,
+      "intro": <a to="/superstructures/intro">Introduction</a>,
+      "references": <a to="/superstructures/references">References</a>,
+      "reverting": <a to="/superstructures/reverting">Reverting</a>,
+      "snapshots": <a to="/superstructures/snapshots">Snapshots</a>,
+      "effects": <a to="/superstructures/effects">Effects</a>,
+      "comparing": <a to="/superstructures/comparing">Comparing</a>,
+      "forking": <a to="/superstructures/forking">Forking</a>,
+      "constraints": <a to="/superstructures/constraints">Constraints</a>,
+      "functions": <a to="/superstructures/functions">Functions</a>,
+      "synchronization": <a to="/superstructures/synchronization">Synchronization</a>,
     };
 
     let page = this.props.page;

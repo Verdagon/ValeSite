@@ -1,12 +1,14 @@
+import '../components/Tripage.css';
+import '../common.css';
 import React from 'react';
-import Header from '../Header.jsx';
-import Footer from '../Footer.jsx';
-import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
-import {Link} from 'react-router-dom';
-import '../Tripage.css';
-import '../Tripage.css';
+import ReactDOM from 'react-dom';
+
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import {NoteManager, Note, NoteAnchor, NotesHeader} from '../components/Note.jsx';
+import Snippet from '../components/Snippet.jsx';
+
 import ReferenceTOC from './ReferenceTOC.jsx';
-import Snippet from '../Snippet.jsx';
 
 const ns = (classes) => "c-ref-references m-tripage " + (classes || "");
 
@@ -18,7 +20,7 @@ function incode(code, suffix) {
   }
 }
 
-class RefReferences extends React.Component {
+class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -501,7 +503,7 @@ fn main() {
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="inlinterfaces">
-                Vale can even inline interfaces if they're {incode("sealed")}, resulting in something similar to tagged unions in C, or enums in Rust. See <Link to="/ref/interfaces">Interfaces</Link> for more.
+                Vale can even inline interfaces if they're {incode("sealed")}, resulting in something similar to tagged unions in C, or enums in Rust. See <a to="/ref/interfaces">Interfaces</a> for more.
               </Note>
 
               {/*<Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="constraintlike">
@@ -540,7 +542,7 @@ fn main() {
                   This line is checking if {incode("ship.origin")} is the one-member subclass {incode("Live")} and if so, assigns its member to {incode("o")}.
                 </div>
                 <div style={{marginTop: "8px"}}>
-                  This is a <b>conditional destructure</b>, see <Link to="/ref/patterns">Pattern Matching</Link> for more.
+                  This is a <b>conditional destructure</b>, see <a to="/ref/patterns">Pattern Matching</a> for more.
                 </div>
               </Note>
 
@@ -557,11 +559,11 @@ fn main() {
               </Note>
 
               <Note name="noweakyet" customIcon="notyet" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
-                Planned feature; see <Link to="/roadmap">Roadmap</Link>!
+                Planned feature; see <a to="/roadmap">Roadmap</a>!
               </Note>
 
               <Note name="noinlyet" customIcon="notyet" iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon}>
-                Planned feature; see <Link to="/roadmap">Roadmap</Link>!
+                Planned feature; see <a to="/roadmap">Roadmap</a>!
               </Note>
 
             </div>
@@ -574,4 +576,7 @@ fn main() {
   }
 }
 
-export default RefReferences;
+ReactDOM.render(
+  <Page />,
+  document.getElementById('main')
+);

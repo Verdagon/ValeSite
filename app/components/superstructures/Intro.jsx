@@ -55,7 +55,7 @@ class SuperstructuresIntro extends React.Component {
                   The Superstructures Guide will walk you through the various capabilities of superstructures (modifying, snapshots, constraints, etc) and, at the end of every page, show how it can be used with networking.
                 </div>
                 <div className={ns("content")}>
-                  If you haven't seen <Link to="/basics">Valence Basics</Link>, go take a look! Everything in this page builds on the basics.
+                  If you haven't seen <a to="/basics">Valence Basics</a>, go take a look! Everything in this page builds on the basics.
                 </div>
 
                 <a name="whatisasuperstructure"></a>
@@ -320,7 +320,7 @@ fn main() {
                 </div>
 
                 <div className={ns("content")}>
-                  The above code shows the server sending modifications to the client. The client can also send modification requests to the server, see <Link to="/superstructures/functions">Functions</Link>.
+                  The above code shows the server sending modifications to the client. The client can also send modification requests to the server, see <a to="/superstructures/functions">Functions</a>.
                 </div>
 
               </div>
@@ -352,11 +352,11 @@ fn main() {
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note2">
-                These are <strong>owning</strong> references. There can also be <strong>strong</strong> and <strong>weak</strong> references, see <Link to="/superstructures/references">References</Link>.
+                These are <strong>owning</strong> references. There can also be <strong>strong</strong> and <strong>weak</strong> references, see <a to="/superstructures/references">References</a>.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="noteID">
-                Superstructures also support UUIDs, see <Link to="/reference/superstructure">Superstructure Settings</Link>.
+                Superstructures also support UUIDs, see <a to="/reference/superstructure">Superstructure Settings</a>.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note4">

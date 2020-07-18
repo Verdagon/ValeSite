@@ -1,12 +1,10 @@
 import React from 'react'
+import ReactDOM from 'react-dom';
+import '../common.css'
 import './Home.css'
-import Header from './Header.jsx'
-import Valefire from './Valefire.jsx'
-import Playground from './Playground.jsx'
-import Footer from './Footer.jsx';
-import {Link} from 'react-router-dom';
-import domino from '../images/Domino.png';
-import Snippet from './Snippet.jsx';
+import Header from '../components/Header.jsx'
+import Footer from '../components/Footer.jsx';
+import Snippet from '../components/Snippet.jsx';
 
 const ns = (classes) => "c-home " + (classes || "");
 
@@ -40,84 +38,84 @@ class Home extends React.Component {
                 <div className={ns("featuring-title")}>Featuring:</div>
                 <ul>
                   <li>
-                    <Link to="/ref/intro" className={ns("feature-title")} onClick={e => scrollTo("statictyping")}>
+                    <a href="/ref/intro" className={ns("feature-title")} onClick={e => scrollTo("statictyping")}>
                       Statically Typed
-                    </Link> with type inference.
+                    </a> with type inference.
                   </li>
                   <li>
-                    <Link to="/ref/references" className={ns("feature-title")}>
+                    <a href="/ref/references" className={ns("feature-title")}>
                       Ownership
-                    </Link>, move semantics, and deterministic destruction.
+                    </a>, move semantics, and deterministic destruction.
                   </li>
                   <li>
-                    <Link to="/ref/references#nonowning" className={ns("feature-title")} onClick={e => scrollTo("nonowning")}>
+                    <a href="/ref/references#nonowning" className={ns("feature-title")} onClick={e => scrollTo("nonowning")}>
                       Memory Safe
-                    </Link>, using constraint and weak references.
+                    </a>, using constraint and weak references.
                   </li>
                   <li>
-                    <Link to="/ref/regions" className={ns("feature-title")}>
+                    <a href="/ref/regions" className={ns("feature-title")}>
                       Regions
-                    </Link> for zero-cost references.
+                    </a> for zero-cost references.
                   </li>
                   <li>
-                    <Link to="/ref/references#inline" className={ns("feature-title")} onClick={e => scrollTo("inline")}>
+                    <a href="/ref/references#inline" className={ns("feature-title")} onClick={e => scrollTo("inline")}>
                       Inline References
-                    </Link> for optimization.
+                    </a> for optimization.
                   </li>
                   <li>
-                    <Link to="/ref/generics" className={ns("feature-title")}>
+                    <a href="/ref/generics" className={ns("feature-title")}>
                       Generics
-                    </Link>, including virtual generics.
+                    </a>, including virtual generics.
                   </li>
                   <li>
-                    <Link to="/ref/interfaces#sealedconstructors" className={ns("feature-title")} onClick={e => scrollTo("sealedconstructors")}>
+                    <a href="/ref/interfaces#sealedconstructors" className={ns("feature-title")} onClick={e => scrollTo("sealedconstructors")}>
                       Interface Constructors
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link to="/ref/intro#functions" className={ns("feature-title")} onClick={e => scrollTo("functions")}>
+                    <a href="/ref/intro#functions" className={ns("feature-title")} onClick={e => scrollTo("functions")}>
                       Universal Function Call Syntax
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link to="/ref/intro#functions" className={ns("feature-title")} onClick={e => scrollTo("functions")}>
+                    <a href="/ref/intro#functions" className={ns("feature-title")} onClick={e => scrollTo("functions")}>
                       Polymorphic Lambdas
-                    </Link>
+                    </a>
                   </li>
                   {/*<li>
-                    <Link to="/ref/operators" className={ns("feature-title")}>Infix calling</Link></l
+                    <a href="/ref/operators" className={ns("feature-title")}>Infix calling</a></l
                 i>*/}
                   <li>
-                    <Link to="/ref/structs#mutability" className={ns("feature-title")} onClick={e => scrollTo("mutability")}>
+                    <a href="/ref/structs#mutability" className={ns("feature-title")} onClick={e => scrollTo("mutability")}>
                       Mutable and Immutable Objects
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link to="/ref/patterns" className={ns("feature-title")}>
+                    <a href="/ref/patterns" className={ns("feature-title")}>
                       Patterns
-                    </Link>: Destructuring, Parameters, Extractors
+                    </a>: Destructuring, Parameters, Extractors
                   </li>
                   <li>
-                    <Link to="/ref/structs#shortcalling" className={ns("feature-title")} onClick={e => scrollTo("shortcalling")}>
+                    <a href="/ref/structs#shortcalling" className={ns("feature-title")} onClick={e => scrollTo("shortcalling")}>
                       Shortcalling Syntax
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </div>
 
               <div className={ns("wip")}>
-                Vale is approaching version 0.1, see the <Link to="/roadmap">Roadmap</Link> for what's next!
+                Vale is approaching version 0.1, see the <a href="/roadmap">Roadmap</a> for what's next!
               </div>
 {/*
               <div className={ns("upcoming-title")}>Upcoming Features:</div>
               <ul>
-                <li><Link to="/ref/interfaces#structural" className={ns("feature-title")}>Structural Interfaces</Link>, using interface constructors.</li>
-                <li><Link to="/ref/cross-compilation" className={ns("feature-title")}>Cross Compilation</Link> to JVM and JS.</li>
-                <li><Link to="/ref/operators#map" className={ns("feature-title")}>Map & FlatMap Operators</Link></li>
-                <li><Link to="/ref/errors" className={ns("feature-title")}>Errors</Link></li>
-                <li><Link to="/ref/variants" className={ns("feature-title")}>Variants</Link></li>
-                <li><Link to="/ref/variants#anonymous" className={ns("feature-title")}>Anonymous Variants</Link></li>
-                <li><Link to="/ref/variantindexing" className={ns("feature-title")}>Unified Array/Tuple</Link></li>
+                <li><a href="/ref/interfaces#structural" className={ns("feature-title")}>Structural Interfaces</a>, using interface constructors.</li>
+                <li><a href="/ref/cross-compilation" className={ns("feature-title")}>Cross Compilation</a> to JVM and JS.</li>
+                <li><a href="/ref/operators#map" className={ns("feature-title")}>Map & FlatMap Operators</a></li>
+                <li><a href="/ref/errors" className={ns("feature-title")}>Errors</a></li>
+                <li><a href="/ref/variants" className={ns("feature-title")}>Variants</a></li>
+                <li><a href="/ref/variants#anonymous" className={ns("feature-title")}>Anonymous Variants</a></li>
+                <li><a href="/ref/variantindexing" className={ns("feature-title")}>Unified Array/Tuple</a></li>
               </ul>
 */}
             </div>
@@ -133,18 +131,18 @@ class Home extends React.Component {
             <div className={ns("recent-posts")}>
               <div className={ns("recent-posts-title")}>Recent posts:</div>
               <ul>
-                <li><Link to="/blog/raii-next-steps">The Next Steps for Single Ownership and RAII</Link></li>
+                <li><a href="/blog/next-steps-raii">The Next Steps for Single Ownership and RAII</a></li>
                 <li><a href="https://www.reddit.com/r/ProgrammingLanguages/comments/hplj2i/vale/">Announcing Vale!</a></li>
-                {/*<li><Link to="/blog/verdagon/2020-no-garbage-collection">Safety without Garbage Collection</Link></li>
-                <li><Link to="/blog/verdagon/2020-borrow-references">Constraint and Borrow References</Link></li>
-                <li><Link to="/blog/verdagon/2020-single-ownership-patterns">Patterns with Single Ownership</Link></li>
-                <li><Link to="/blog/verdagon/2020-binary-operators-generic-syntax">Binary Operators and Generic Syntax</Link></li>
-                <li><Link to="/blog/verdagon/2020-ufcs">Making UFCS Work</Link></li>
-                <li><Link to="/blog/verdagon/2020-shortcalling">Shortcalling Syntax</Link></li>
-                <li><Link to="/blog/verdagon/2020-improved-destructors">Destructors with Parameters and Returns</Link></li>
-                <li><Link to="/blog/verdagon/2020-error-handling">Better Error Handling</Link></li>
-                <li><Link to="/blog/verdagon/2020-auto-inlining">Auto-inlining</Link></li>
-                <li><Link to="/blog/verdagon/2020-cross-compilation-optimization">Cross Compilation and Optimization</Link></li>
+                {/*<li><a href="/blog/verdagon/2020-no-garbage-collection">Safety without Garbage Collection</a></li>
+                <li><a href="/blog/verdagon/2020-borrow-references">Constraint and Borrow References</a></li>
+                <li><a href="/blog/verdagon/2020-single-ownership-patterns">Patterns with Single Ownership</a></li>
+                <li><a href="/blog/verdagon/2020-binary-operators-generic-syntax">Binary Operators and Generic Syntax</a></li>
+                <li><a href="/blog/verdagon/2020-ufcs">Making UFCS Work</a></li>
+                <li><a href="/blog/verdagon/2020-shortcalling">Shortcalling Syntax</a></li>
+                <li><a href="/blog/verdagon/2020-improved-destructors">Destructors with Parameters and Returns</a></li>
+                <li><a href="/blog/verdagon/2020-error-handling">Better Error Handling</a></li>
+                <li><a href="/blog/verdagon/2020-auto-inlining">Auto-inlining</a></li>
+                <li><a href="/blog/verdagon/2020-cross-compilation-optimization">Cross Compilation and Optimization</a></li>
                 */}
               </ul>
             </div>
@@ -227,4 +225,7 @@ Hello Mars!`}
   }
 }
 
-export default Home;
+ReactDOM.render(
+  <Home />,
+  document.getElementById('main')
+);

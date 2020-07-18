@@ -124,7 +124,7 @@ addMoonWithRandomMass(
                 <h3>Constraints</h3>
 
                 <div className={ns("content cozy")}>
-                  In the <Link to="/superstructures/constraints">Constraints</Link> page, we made a superstructure that enforced that planets were heavier than their moons. The following code would violate the constraint:
+                  In the <a to="/superstructures/constraints">Constraints</a> page, we made a superstructure that enforced that planets were heavier than their moons. The following code would violate the constraint:
                 </div>
                 <div className={ns("content code cozy")}>
 {`let mySS =
@@ -167,7 +167,7 @@ mySS.root.planets.0.moons.0.mass = 50;`}
                 <h3>References in Functions</h3>
 
                 <div className={ns("content")}>
-                  In <Link to="/superstructures/references">References</Link>, we talked about how moving something out of a superstructure while there's still a strong reference to it will halt the program.
+                  In <a to="/superstructures/references">References</a>, we talked about how moving something out of a superstructure while there's still a strong reference to it will halt the program.
                 </div>
                 <div className={ns("content")}>
                   Functions solve that, just how they solve the above constraints problem. References in a function are still considered part of the superstructure, albeit temporarily detached.
@@ -498,7 +498,7 @@ fn main() {
                 </div>
 
                 <div className={ns("content")}>
-                  The server might choose to keep the entire superstructure in memory at all times, for speedy execution, or it might put the superstructure in storage. The code looks the same in both cases, thanks to <Link to="/networking/superlining">Superlining</Link>, which aggressively and transparently pre-fetches and caches data from underlying storage.
+                  The server might choose to keep the entire superstructure in memory at all times, for speedy execution, or it might put the superstructure in storage. The code looks the same in both cases, thanks to <a to="/networking/superlining">Superlining</a>, which aggressively and transparently pre-fetches and caches data from underlying storage.
                 </div>
               </div>
             </div>
@@ -532,7 +532,7 @@ fn main() {
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="values">
-                Values are primitives like Int or Str, plus any user-defined value structs. See <Link to="/superstructures/basics">Basics</Link> for more.
+                Values are primitives like Int or Str, plus any user-defined value structs. See <a to="/superstructures/basics">Basics</a> for more.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="disregard">

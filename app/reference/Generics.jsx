@@ -1,12 +1,14 @@
+import '../components/Tripage.css';
+import '../common.css';
 import React from 'react';
-import Header from '../Header.jsx';
-import Footer from '../Footer.jsx';
-import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
-import {Link} from 'react-router-dom';
-import '../Tripage.css';
-import '../Tripage.css';
+import ReactDOM from 'react-dom';
+
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import {NoteManager, Note, NoteAnchor, NotesHeader} from '../components/Note.jsx';
+import Snippet from '../components/Snippet.jsx';
+
 import ReferenceTOC from './ReferenceTOC.jsx';
-import Snippet from '../Snippet.jsx';
 
 const ns = (classes) => "c-ref-references m-tripage " + (classes || "");
 
@@ -18,7 +20,7 @@ function incode(code, suffix) {
   }
 }
 
-class RefGenerics extends React.Component {
+class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -56,7 +58,7 @@ class RefGenerics extends React.Component {
                 </div>
 
                 <div className={ns("content cozy")}>
-                  We can use <Link to="ref/interfaces">interfaces</Link> for this, but interfaces have some limitations.
+                  We can use <a to="ref/interfaces">interfaces</a> for this, but interfaces have some limitations.
                 </div>
 
                 <a name="limitations"></a>
@@ -65,7 +67,7 @@ class RefGenerics extends React.Component {
                 <div className={ns("content splitter cozy")}>
                   <div className={ns("half")}>
                     <div className={ns("content cozy")}>
-                      We often want to reuse a function for multiple types. On the <Link to="ref/interfaces">Interfaces</Link> page, we used an interface to allow the function to operate on any type that conformed to a certain contract.
+                      We often want to reuse a function for multiple types. On the <a to="ref/interfaces">Interfaces</a> page, we used an interface to allow the function to operate on any type that conformed to a certain contract.
                     </div>
                     <div className={ns("content cozy")}>
                       A function that takes an interface doesn't have to care about the original type of the substruct we pass in.
@@ -262,4 +264,7 @@ fn main() {
   }
 }
 
-export default RefGenerics;
+ReactDOM.render(
+  <Page />,
+  document.getElementById('main')
+);

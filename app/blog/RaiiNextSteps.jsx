@@ -1,11 +1,12 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import BlogHeader from './BlogHeader.jsx';
-import Footer from '../Footer.jsx';
-import {NoteManager, Note, NoteAnchor, NotesHeader} from '../Note.jsx';
-import {Link} from 'react-router-dom';
-import '../Tripage.css';
+import Footer from '../components/Footer.jsx';
+import {NoteManager, Note, NoteAnchor, NotesHeader} from '../components/Note.jsx';
+import '../components/Tripage.css';
+import '../common.css'
 import './Blog.css'
-import Snippet from '../Snippet.jsx';
+import Snippet from '../components/Snippet.jsx';
 import claspsvg from './clasp.svg';
 
 const ns = (classes) => "c-blog m-tripage " + (classes || "");
@@ -91,10 +92,10 @@ class BlogRaiiNextSteps extends React.Component {
                 <h3 className={ns()}>Single Ownership</h3>
 
                 <div className={ns("content cozy")}>
-                  Our journey started in 2011, when C++'s {incode("unique_ptr")} introduced single ownership and move semantics to the world, and changed our lives forever.
+                  Our journey started in 2011, when C++11's {incode("unique_ptr")} brought single ownership and move semantics to C++ programmers worldwide, and changed our lives forever. {this.noteAnchor("beforecpp")}
                 </div>
                 <div className={ns("content cozy")}>
-                  In one fell swoop, it basically single-handedly solved memory leaks. Single-ownership is one of those notions that, once it clicked, felt <i>right</i>. It was probably because this is how we already think: in C, we would implicitly track ownership, to know whose responsibility it was to free an object. Even in GC'd languages, we would implicitly track who's responsible for calling {incode(".dispose()")}.
+                  In one fell swoop, it basically single-handedly solved memory leaks. Single-ownership is one of those notions that, once it clicked, felt <i>right</i>. It was probably because this is how we already think: in C, we would mentally track ownership, to know whose responsibility it was to free an object. Even in GC'd languages, we would implicitly track who's responsible for calling {incode(".dispose()")}.
                 </div>
                 <div className={ns("content cozy")}>
                   We slowly discovered that we could use RAII for things other than freeing memory! We could:
@@ -148,7 +149,7 @@ class BlogRaiiNextSteps extends React.Component {
                       For example, we'd often have a BigClass, that owns a bunch of smaller classes ("subcomponents"), where each subcomponent has raw pointers to subcomponents made before it.
                     </div>
                     <div className={ns("content cozy")}>
-                     C++'s initializer list even enforces that we don't refer to a not-yet-initialized member.
+                      C++'s member initializer list even enforces that we don't refer to a not-yet-initialized member.
                     </div>
                     <div className={ns("content cozy")}>
                       The big class constructs these in the right order, and destructs them in the correct reverse order.
@@ -771,11 +772,11 @@ public:
                 </div>
 
                 <div className={ns("content")}>
-                  This isn't even the end of the single ownership saga! In the coming weeks, we'll explain how this consistent single ownership approach enables other unique capabilities in Vale, such as cross-compilation, the <Link to="/ref/regions">region borrow checker</Link>, and lightning fast memory management.
+                  This isn't even the end of the single ownership saga! In the coming weeks, we'll explain how this consistent single ownership approach enables other unique capabilities in Vale, such as cross-compilation, the <a href="/ref/regions">region borrow checker</a>, and lightning fast memory management.
                 </div>
 
                 <div className={ns("content cozy")}>                
-                  Until then, we want to hear from you! We'd love to hear your thoughts on single ownership, RAII, Vale, and any ideas you have! Come share your thoughts in the reddit post, the HN post, and come join the <a href="http://reddit.com/r/vale">r/Vale</a> subreddit and the <a href="https://discord.gg/SNB8yGH">Vale discord</a>!
+                  Until then, we want to hear from you! We'd love to hear your thoughts on single ownership, RAII, Vale, and any ideas you have! Come share your thoughts in the <a href="https://www.reddit.com/r/vale/comments/hry80p/the_next_steps_for_single_ownership_and_raii/">Reddit post</a>, the <a href="https://news.ycombinator.com/item?id=23865674">Hacker News post</a>, and come join the <a href="http://reddit.com/r/vale">r/Vale</a> subreddit and the <a href="https://discord.gg/SNB8yGH">Vale discord</a>!
                 </div>
 
               </div>
@@ -805,7 +806,7 @@ public:
                 </div>
 
                 <ul className={ns("content cozy")}>
-                  <li className={ns()}>{incode("unsafe")} keyword: discards our safety guarantees. {this.noteAnchor("409")}</li>
+                  <li className={ns()}>{incode("unsafe")} keyword: discards safety guarantees. {this.noteAnchor("409")}</li>
                   <li className={ns()}>{incode("Arc")}/{incode("Rc")}:</li>
                   <ul className={ns("content cozy")}>
                     <li className={ns()}>Ref-counting performance overhead.</li>
@@ -933,53 +934,53 @@ public:
 
                   <ul className={ns("c-toc")}>
                     <li>
-                      <a href="/blog/raii-next-steps#singleownership">Single Ownership</a>
+                      <a href="/blog/next-steps-raii#singleownership">Single Ownership</a>
                     </li>
                     <li>
-                      <a href="/blog/raii-next-steps#safehandlingofaliases">Safe Handling of Aliases</a>
-                    </li>
-                    <ul>
-                      <li><a href="/blog/raii-next-steps#constraintreferences">Constraint Reference</a></li>
-                      <li><a href="/blog/raii-next-steps#constraintbehaviormodes">Constraint Behavior Modes</a></li>
-                    </ul>
-                    <li>
-                      <a href="/blog/raii-next-steps#emergingpatterns">Emerging Patterns</a>
+                      <a href="/blog/next-steps-raii#safehandlingofaliases">Safe Handling of Aliases</a>
                     </li>
                     <ul>
-                      <li><a href="/blog/raii-next-steps#clasp">Clasp</a></li>
-                      <li><a href="/blog/raii-next-steps#weakreferences">Weak Reference</a></li>
+                      <li><a href="/blog/next-steps-raii#constraintreferences">Constraint Reference</a></li>
+                      <li><a href="/blog/next-steps-raii#constraintbehaviormodes">Constraint Behavior Modes</a></li>
                     </ul>
                     <li>
-                      <a href="/blog/raii-next-steps#simplification">Simplification</a>
+                      <a href="/blog/next-steps-raii#emergingpatterns">Emerging Patterns</a>
+                    </li>
+                    <ul>
+                      <li><a href="/blog/next-steps-raii#clasp">Clasp</a></li>
+                      <li><a href="/blog/next-steps-raii#weakreferences">Weak Reference</a></li>
+                    </ul>
+                    <li>
+                      <a href="/blog/next-steps-raii#simplification">Simplification</a>
                     </li>
                     <li>
-                      <a href="/blog/raii-next-steps#surprise">Surprise!</a>
+                      <a href="/blog/next-steps-raii#surprise">Surprise!</a>
                     </li>
                     <li>
-                      <a href="/blog/raii-next-steps#destructorimplications">Destructor Implications</a>
+                      <a href="/blog/next-steps-raii#destructorimplications">Destructor Implications</a>
                     </li>
                     <ul>
                       <li>
-                        <a href="/blog/raii-next-steps#parameters">Parameters</a>
+                        <a href="/blog/next-steps-raii#parameters">Parameters</a>
                       </li>
                       <li>
-                        <a href="/blog/raii-next-steps#overloads">Overloads</a>
+                        <a href="/blog/next-steps-raii#overloads">Overloads</a>
                       </li>
                       <li>
-                        <a href="/blog/raii-next-steps#returns">Returns</a>
+                        <a href="/blog/next-steps-raii#returns">Returns</a>
                       </li>
                       <li>
-                        <a href="/blog/raii-next-steps#nondestroying">Non-Destroying</a>
+                        <a href="/blog/next-steps-raii#nondestroying">Non-Destroying</a>
                       </li>
                     </ul>
                     <li>
-                      <a href="/blog/raii-next-steps#whatevenisadestructor">What even <i>is</i> a destructor?</a>
+                      <a href="/blog/next-steps-raii#whatevenisadestructor">What even <i>is</i> a destructor?</a>
                     </li>
                     <li>
-                      <a href="/blog/raii-next-steps#raiipastpresentfuture">RAII: Past, Present, Future</a>
+                      <a href="/blog/next-steps-raii#raiipastpresentfuture">RAII: Past, Present, Future</a>
                     </li>
                     <li>
-                      <a href="/blog/raii-next-steps#afterword">Afterword: Rust, RAII, Constraint Refs</a>
+                      <a href="/blog/next-steps-raii#afterword">Afterword: Rust, RAII, Constraint Refs</a>
                     </li>
                   </ul>
                 </div>
@@ -999,7 +1000,7 @@ public:
                   Constraint references have the safety of borrow references, and we can alias them as much as we want!
                 </div>
                 <div style={{marginTop: "8px"}}>
-                  And counter-intuitively, constraint references can sometimes be more efficient when you consider the program as a whole, especially when combined with <Link to="/ref/regions">region borrow checking</Link>. Keep reading to learn how!
+                  And counter-intuitively, constraint references can sometimes be more efficient when you consider the program as a whole, especially when combined with <a href="/ref/regions">region borrow checking</a>. Keep reading to learn how!
                 </div>
               </Note>
 
@@ -1088,7 +1089,7 @@ public:
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="immrb">
-                Vale's <Link to="/ref/regions">region borrow checker</Link> often lets us make an entire region of memory temporarily immutable, which completely eliminates counting overhead for references into that region.
+                Vale's <a href="/ref/regions">region borrow checker</a> often lets us make an entire region of memory temporarily immutable, which completely eliminates counting overhead for references into that region.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="sovsraii">
@@ -1150,7 +1151,7 @@ public:
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="rorc">
-                There are amazing recent advances in optimized ref-counting, such as in <a href="https://aardappel.github.io/lobster/memory_management.html">Lobster's algorithm</a> which optimizes away 95% of ref-counts. Vale also has <Link to="/ref/regions">read-only regions</Link> and <Link to="/ref/regions">bump regions</Link>, where ref-counting overhead is reduced to zero.
+                There are amazing recent advances in optimized ref-counting, such as in <a href="https://aardappel.github.io/lobster/memory_management.html">Lobster's algorithm</a> which optimizes away 95% of ref-counts. Vale also has <a href="/ref/regions">read-only regions</a> and <a href="/ref/regions">bump regions</a>, where ref-counting overhead is reduced to zero.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="409">
@@ -1229,6 +1230,10 @@ public:
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="weakrefimpl">
                 C++ weak refs are a bit involved, but feel free to comment and we'll explain how to do it!
               </Note>
+              
+              <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="beforecpp">
+                Single ownership and move semantics existed even before C++, in Ada, Common Lisp (via the with-... macros), Mesa/Cedar at Xerox PARC, and Object Pascal (for object/class types). <a href="https://www.reddit.com/r/cpp/comments/hryer9/the_next_steps_for_single_ownership_and_raii/fy8600b/">[pjmlp]</a>
+              </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="caret">
                 The {incode("^.")} means we're moving into a method, equivalent to {incode("commit(transaction)")}.
@@ -1239,7 +1244,7 @@ public:
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="alpha">
-                Vale is still in early alpha, and rapidly approaching v0.1. Check out the <Link to="/roadmap">Roadmap</Link> for progress and plans!
+                Vale is still in early alpha, and rapidly approaching v0.1. Check out the <a href="/roadmap">Roadmap</a> for progress and plans!
                 <div style={{marginTop: "8px"}}>
                   All the features mentioned here are available in Vale, but Resilient Mode, regions, RC elision, and weak references are still on the way.
                 </div>
@@ -1258,4 +1263,7 @@ public:
   }
 }
 
-export default BlogRaiiNextSteps;
+ReactDOM.render(
+  <BlogRaiiNextSteps />,
+  document.getElementById('main')
+);

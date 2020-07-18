@@ -1,6 +1,5 @@
 import React from 'react'
 import './Header.css'
-import {Link} from 'react-router-dom';
 //import sphereVG48 from '../images/SphereVG48.png';
 
 class Header extends React.Component {
@@ -40,8 +39,8 @@ class Header extends React.Component {
 		)
 		let title = this.props.blog ? blogTitle : langTitle;
 		if (!this.props.easterEgg) {
-			vorb = <Link to="/" className="header">{vorb}</Link>;
-			title = <Link to="/" className="header">{title}</Link>;
+			vorb = <a href="/" className="header">{vorb}</a>;
+			title = <a href="/" className="header">{title}</a>;
 		}
 		return (
 				<div className={"header root" + (this.props.small ? " small" : "")}>
@@ -51,7 +50,7 @@ class Header extends React.Component {
 							{title}
 						</div>
 						<div className="header links">
-							<Link to="/ref">Reference</Link>
+							<a href="/ref">Reference</a>
 							<a href="https://github.com/Verdagon/Vale">Github</a>
 							<a href="https://reddit.com/r/Vale">r/Vale</a>
 							<a href="https://discord.gg/SNB8yGH">Discord</a>

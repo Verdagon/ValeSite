@@ -44,7 +44,7 @@ class SuperstructuresReverting extends React.Component {
 
                 <h1 className={ns("noline")}>Superstructures Guide: Reverting</h1>
                 <div className={ns("content")}>
-                  In the <Link to="/superstructures/intro">References</Link> page, we made a superstructure that contained some planets, some moons, and an astronaut, shown below. This page will show how to revert to past versions of this data.
+                  In the <a to="/superstructures/intro">References</a> page, we made a superstructure that contained some planets, some moons, and an astronaut, shown below. This page will show how to revert to past versions of this data.
                 </div>
 
                 <div className={ns("content splitter")}>
@@ -120,7 +120,7 @@ mySS.root.astronauts.add(
                   </div>
                 </div>
 
-                <div className={ns("content")}>Revertibility requires history, so the {incode("@History(Linear);")} instructs the compiler to keep track of changes. See <Link to="/superstructures/annotations">Superstructure Settings</Link> for other history options.</div>
+                <div className={ns("content")}>Revertibility requires history, so the {incode("@History(Linear);")} instructs the compiler to keep track of changes. See <a to="/superstructures/annotations">Superstructure Settings</a> for other history options.</div>
 
                 <h3 className={ns()}>Using It</h3>
 
@@ -178,7 +178,7 @@ mySS.root.astronauts.0.planet =
                 </div>
 
                 <div className={ns("content")}>
-                  See <Link to="/playground">the full code here</Link>.
+                  See <a to="/playground">the full code here</a>.
                 </div>
 
                 <h3 className={ns("cozy")}>What can we use reverting for?</h3>
@@ -190,7 +190,7 @@ mySS.root.astronauts.0.planet =
                     <li className={ns()}>Restoring to the last good state after errors.</li>
                   </ul>
 
-                  Reverting can also enable <Link to="/superstructures/clientsideprediction">Client-Side Prediction</Link>, which applies changes locally before sending them to a server.
+                  Reverting can also enable <a to="/superstructures/clientsideprediction">Client-Side Prediction</a>, which applies changes locally before sending them to a server.
                 </div>
 
                 <h3 className={ns("cozy")}>Keep in mind...</h3>
@@ -198,7 +198,7 @@ mySS.root.astronauts.0.planet =
                 <div className={ns("content cozy")}>
                   <ul className={ns()}>
                     <li className={ns()}>
-                      We can speed up reverting to <strong>constant time</strong> by changing the superstructure's history setting to <Link to="/superstructures/formats">chronotree</Link> or <Link to="/superstructures/formats">chronobase</Link>. {this.noteAnchor("note3")}
+                      We can speed up reverting to <strong>constant time</strong> by changing the superstructure's history setting to <a to="/superstructures/formats">chronotree</a> or <a to="/superstructures/formats">chronobase</a>. {this.noteAnchor("note3")}
                     </li>
                     <li className={ns()}>
                       The strong reference rules apply, just like anywhere in Valence. Anything pointed at by a strong reference cannot be deleted in a revert. {this.noteAnchor("note4")}
@@ -239,7 +239,7 @@ mySS.root.astronauts.0.planet =
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note3">
-                See <Link to="/superstructures/formats">history settings</Link> for more.
+                See <a to="/superstructures/formats">history settings</a> for more.
               </Note>
 
               <Note iconsAndPositions={this.state.noteIconsAndPositions} update={this.updateNoteSizeAndCustomIcon} name="note4">

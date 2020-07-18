@@ -44,7 +44,7 @@ class SuperstructuresComparing extends React.Component {
 
                 <h1 className={ns("noline")}>Superstructures Guide: Comparing</h1>
                 <div className={ns("content")}>
-                  As we saw in <Link to="/superstructures/snapshots">Snapshots</Link>, we can keep superstructures' old versions' data around in memory.
+                  As we saw in <a to="/superstructures/snapshots">Snapshots</a>, we can keep superstructures' old versions' data around in memory.
                 </div>
                 <div className={ns("content")}>
                   Valence gives us a way to easily compare two versions, to get the difference.
@@ -60,7 +60,7 @@ class SuperstructuresComparing extends React.Component {
                 <h3>Comparing in Action</h3>
 
                 <div className={ns("content")}>
-                  In the <Link to="/superstructures/intro">intro</Link>, we made a superstructure that contained some planets, some moons, and an astronaut, shown below. Here, we'll take a snapshot, do some modifications, and print the difference.
+                  In the <a to="/superstructures/intro">intro</a>, we made a superstructure that contained some planets, some moons, and an astronaut, shown below. Here, we'll take a snapshot, do some modifications, and print the difference.
                 </div>
 
                 <div className={ns("content splitter")}>
